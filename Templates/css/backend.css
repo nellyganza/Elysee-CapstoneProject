@@ -70,6 +70,7 @@ button:hover {
 
   #contact {
     text-align: center;
+    display: block;
   }
   #contact .message-item {
     display: grid;
@@ -129,4 +130,41 @@ button:hover {
 .art-item {
   background-color: #022655;
   margin: 10px;
+}
+
+#contact .message-item {
+  display: grid;
+  grid-template-columns: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 5px;
+  background-color: #022655;
+  border-radius: 10px;
+  color: rgb(241, 238, 238);
+  margin: 10px;
+}
+#contact .message-item > label {
+  padding: 5px;
+}
+
+.number-tabs {
+  display: grid;
+  grid-template-columns: repeat(6,50px);
+  justify-content: center;
+  grid-gap: 5px;
+  margin: 10px;
+}
+.number-tabs>label {
+  background-color: #022655;
+  padding: 10px;
+}
+.number-tabs>label:hover {
+  background-color: #1356e6;
+}
+
+@media screen and (max-width:400px){
+  .content{
+    display: flex !important;
+    flex-direction: column !important;
+
+  }
 }
