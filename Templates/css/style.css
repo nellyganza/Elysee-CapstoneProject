@@ -365,3 +365,21 @@ input[type=password] {
     font-size: 20px;
     cursor: pointer;
 }
+
+
+
+/* Sign up Page */
+.choose::-webkit-file-upload-button {
+    color: #ddd;
+    display: inline-block;
+    background: #1356e6;
+    border: none;
+    outline: none !important;
+    padding: 7px 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 10pt;
+  }
+  .choose::-webkit-file-upload-button:hover {
+      background-color: #7801ff;
+  }
