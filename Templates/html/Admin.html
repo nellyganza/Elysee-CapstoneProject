@@ -53,6 +53,39 @@
   
   <div id="blog" class="tabcontent" hidden>
     <p>Blogs</p>
+    <div class="content">
+        <div class="port-update">
+            <div class="image">
+                <img id="imageid" width="400px" height="200px">
+                <input type="file" id="inpimg" onchange="onFileSelected(event)">
+            </div>
+            <div class="bid">
+                <input id="blogid" type="text" placeholder="Type Blog ID">
+            </div>
+            <div class="title">
+                <input id="titleid" type="text" placeholder="Type Blog Title">
+            </div>
+            <div class="desc">
+                <input id="descid" type="text" placeholder="Type Blog Description">
+            </div>
+            <div class="date">
+                <input id="dateid" type="date" onload="getDateT()"  placeholder="Type Blog Date">
+            </div>
+            <div class="intro">
+                <textarea id="introid" type="text" placeholder="Type Blog Introduction"></textarea>
+            </div>
+            <div class="cont">
+                <textarea id="contid" type="text" placeholder="Type Blog Content"></textarea>
+            </div>
+            <div>
+                <button type="submit" id="submit">Save</button><button onclick="clearBlog()" type="reset">Reset</button>
+            </div>
+        </div>
+        <div class="port-list">
+
+        </div>
+      
+      </div>
   </div>
   
   <div id="profile" class="tabcontent">
@@ -65,6 +98,34 @@
   
   <div id="portfolio" class="tabcontent" hidden>
     <p>Portfolio</p>
+    <div class="content">
+        <div class="port-update">
+            <div class="image">
+                <img id="pimageid" width="400px" height="200px">
+                <input type="file" id="pinpimg" onchange="onpFileSelected(event)">
+            </div>
+            <div class="pid">
+                <input id="ppotid" type="text" placeholder="Type Portfolio ID">
+            </div>
+            <div class="title">
+                <input id="ptitle" type="text" placeholder="Type Project Title ">
+            </div>
+            <div class="exp">
+                <input id="pexp" type="text" placeholder="Type More Explanation of your Portfolio">
+            </div>
+            <div class="link">
+                <input id="plink" type="text" placeholder="Type Link of Your Portfolio">
+            </div>
+            <div>
+                <button type="submit" id="psubmit">Save</button><button onclick="pclear()" type="reset">Reset</button>
+            </div>
+        </div>
+        <div class="port-list">
+            <!-- <ul>
+                <li><div><img width="100%" height="100px"><p1>Portfolio Title</p1></div></li>
+            </ul> -->
+        </div>
+    </div>
   </div>
 
   <div id="other" class="tabcontent" hidden>
