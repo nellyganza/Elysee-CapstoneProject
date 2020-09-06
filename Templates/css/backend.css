@@ -5,6 +5,7 @@ body{
 .content {
   display: grid;
   grid-template-columns: 50% 50%;
+  grid-column-gap: 20px;
 }
 
 .port-update {
@@ -117,4 +118,15 @@ button:hover {
         text-align: left;
         width: 100%;
     }
+}
+
+.port-list .art-item {
+  display: flex;
+  flex-direction: column;
+  padding: 5%;
+  
+}
+.art-item {
+  background-color: #022655;
+  margin: 10px;
 }
