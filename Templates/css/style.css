@@ -8,7 +8,7 @@ body {
 p,
 h1,
 h2,
-h3,span {
+h3,span,i,li {
     color: rgb(212, 209, 209);
     overflow-wrap: break-word;
 }
@@ -624,4 +624,109 @@ code {
 .portfolio-title h1 {
     background-color: #002D68;
     padding: 20px;
+}
+
+/*About Me Page*/
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.content .a-title {
+    align-self: center;
+    background-color: #002D68;
+    padding: 10px;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(212, 209, 209);
+}
+
+.a-items {
+    display: grid;
+    grid-template-areas: 'header header header main main main' 'menu menu  menu right right right' 'none none  none left left left' 'none none  none footer footer footer' 'none none none footer footer footer';
+    grid-gap: 20px;
+    padding: 30px;
+}
+
+@media screen and (max-width: 900px) {
+    .content .a-items {
+        display: flex;
+        flex-direction: column;
+        width: 100% !important;
+    }
+    .a-item {
+        width: 100% !important;
+    }
+    .a-item.a-item-2 {
+        width: 100% !important;
+        grid-area: main;
+    }
+    .a-item.a-item-3 {
+        width: 100% !important;
+        grid-area: right;
+    }
+    .a-item.a-item-4 {
+        width: 100% !important;
+        grid-area: left;
+    }
+    .a-item.a-item-5 {
+        width: 100% !important;
+        grid-area: footer;
+    }
+    .a-item.a-item-6 {
+        width: 100% !important;
+        grid-area: menu;
+    }
+}
+
+.a-item.a-item-1 {
+    grid-area: header;
+}
+
+.a-item.a-item-2 {
+    grid-area: main;
+}
+
+.a-item.a-item-3 {
+    grid-area: right;
+}
+
+.a-item.a-item-4 {
+    grid-area: left;
+}
+
+.a-item.a-item-5 {
+    grid-area: footer;
+}
+
+.a-item.a-item-6 {
+    grid-area: menu;
+}
+
+.a-item.a-item-2>p,
+.a-item.a-item-3>p,
+.a-item.a-item-4>p,
+.a-item.a-item-6>div {
+    background-color: #002D68;
+    border: solid #022655;
+    border-radius: 5px;
+    padding: 30px;
+}
+
+.a-item.a-item-2>p,
+.a-item.a-item-3>p,
+.a-item.a-item-4>p {
+    align-self: center;
+}
+
+.a-item .a-item-5-img {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 1em;
+}
+
+.content .a-items .a-item {
+    background-color: #022655;
+    width: 100%;
 }
