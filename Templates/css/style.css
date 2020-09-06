@@ -219,3 +219,149 @@ footer {
 .content>h1 {
     font-size: 64px;
 }
+
+
+/*Contact CSS*/
+
+.cont-myform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-frm {
+    position: relative;
+    align-self: center;
+    border: solid;
+    margin: 0px 30px 30px 30px;
+    padding: 8px;
+    width: 60%
+}
+
+.cont-myform .contactme-lbl {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-self: center;
+    background-color: #022655;
+    text-align: center;
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-top: 30px;
+    padding: 5px 10px;
+}
+
+.cont-myform .contactme-lbl h2 {
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(212, 209, 209);
+}
+
+/* LOGIN PAGE STYLE */
+
+#login {
+    text-align: center;
+}
+
+.content_info {
+    display: flex;
+    flex-direction: column;
+}
+
+.sub_btn {
+    margin-top: 40px;
+}
+
+.sub_btn>button {
+    width: 80px;
+    height: 35px;
+    background: #1356e6;
+    border-radius: 10px;
+    color: rgb(212, 209, 209);
+    outline: none !important;
+}
+
+.login-frm {
+    position: relative;
+    align-self: center;
+    margin: 30px;
+    padding: 20px;
+}
+
+.login-frm h1 {
+    font-family: News Cycle;
+    color: rgb(212, 209, 209);
+    text-decoration: underline #022655;
+}
+
+.wrap-input100 >input[type=text],
+input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    border: none;
+    text-align: center;
+    outline: none;
+}
+
+.sub_btn {
+    color: rgb(212, 209, 209);
+}
+
+.content_info button {
+    align-self: center;
+}
+
+.myform {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrap-input100 {
+    height: 45px;
+    width: 100%;
+    position: relative;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.24);
+    margin-bottom: 15px;
+    display: flex;
+}
+
+.wrap-input1000 {
+    width: 100%;
+    position: relative;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.24);
+    margin-bottom: 15px;
+    display: flex;
+}
+
+.input100 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 30px;
+    background: transparent;
+    padding: 0 5px 0 20px;
+}
+
+.input1000 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 70px;
+    background: transparent;
+    padding: 0 5px 0 20px;
+}
+
+#label-click {
+    color: #1356e6;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+    cursor: pointer;
+}
