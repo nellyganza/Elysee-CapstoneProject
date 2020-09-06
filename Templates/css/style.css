@@ -542,3 +542,86 @@ code {
     display: block;
     word-wrap: break-word;
 }
+
+/*Portifolio Page CSS */
+
+.portfolio-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.p-content {
+    display: grid;
+    grid-template-columns: 400px 400px;
+    grid-template-rows: 400px 400px;
+    grid-gap: 20px;
+    padding: 10px;
+}
+
+.p-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.p-item h3 {
+    margin-top: 25%;
+    font-size: 17px;
+    color: rgb(212, 209, 209);
+    background-color: #002D68;
+    padding: 10px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.p-item p {
+    font-size: 14px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #002D68;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.p-item1 {
+    background-image: url(../assets/l1.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.p-item2 {
+    background-image: url(../assets/l2.jfif);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.p-item3 {
+    background-image: url(../assets/Component\ 14.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.p-item4 {
+    background-image: url(../assets/s1.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+@media screen and (max-width: 900px) {
+    .p-content {
+        display: grid;
+        grid-template-columns: 400px;
+        grid-template-rows: 400px;
+        grid-gap: 20px;
+        padding: 10px;
+    }
+}
+
+.portfolio-title h1 {
+    background-color: #002D68;
+    padding: 20px;
+}
