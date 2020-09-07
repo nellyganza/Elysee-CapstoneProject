@@ -730,3 +730,85 @@ code {
     background-color: #022655;
     width: 100%;
 }
+
+
+/* Popup  form */
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+    background-color: #555;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+   
+  }
+  
+  .form-popup{
+      display: none;
+      position: absolute;
+      justify-content: right;
+      top: 15%;
+      right: 10%;
+      animation: popup 4s;
+  }
+  
+  /* Add styles to the form container */
+  .form-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    background-color: #022655;
+    top: 10%;
+    padding: 5%;
+  }
+  
+  .form-container >div {
+      display: flex;
+      flex-direction: column;
+  }
+  
+  /* Full-width input fields */
+  .form-container input[type=text], .form-container input[type=password],.form-container input[type=email],.form-container input[type=tel] {
+    width: 170px;
+    padding: 15px;
+    border: none;
+    background-color: inherit;
+    color: #f9f9f9;
+    border-bottom: 2px solid #1356e6;
+    text-align: center;
+  }
+  
+  /* When the inputs get focus, do something */
+  .form-container input[type=text]:focus, .form-container input[type=password]:focus,.form-container input[type=email]:focus,.form-container input[type=tel]:focus {
+    outline: none;
+  }
+  .form-container >label {
+    margin-top: 10px;
+}
+  /* Add some hover effects to buttons */
+  .form-container .btn:hover {
+      margin-top: 10px;
+    opacity: 1;
+  }
+  .form-container .close-btn {
+      margin-left: 5px;
+  }
+  
+  .overlay:target .form-popup{
+      animation: popup 0.7s;
+    }
+  
+  @keyframes popup {
+      0%{
+        transform: scale(0.5);
+      }
+      100%{
+        transform: scale(1);
+      }
+    }
+  
+    .attachFileSpan{
+        cursor: pointer;
+    }
+  
