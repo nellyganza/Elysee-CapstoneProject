@@ -11,3 +11,14 @@ function openrem(){
         ropend = false;
     }
 }
+function opennum() {
+    if(!nopend){
+        document.querySelector('.other-rem >input').style.display="inline";
+        nopend = true;
+    }
+    else
+    {
+        document.querySelector('.other-rem >input').style.display="none";
+        nopend = false;
+    }
+}
