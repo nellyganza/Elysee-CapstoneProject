@@ -1,0 +1,94 @@
+#reminder form {
+    display: none;
+    /* display: flex; */
+    flex-direction: column;
+    width: 400px;
+    border:1px solid #ecf0f1;
+    background-color: #2c3e50;
+    padding: 5%;
+    color: white;
+
+}
+#rem h1 {
+    text-align: center;
+}
+
+
+#rem >select::-ms-expand {
+  display: none;
+}
+#rem >select {
+ width: 100%;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0.5em 2em 0.5em 0.5em;
+  border:1px solid #ecf0f1;
+    background:#ecf0f1;
+  font: inherit;
+  line-height: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: right 15px top 1em, right 10px top 1em;
+  background-size: 5px 5px, 5px 5px;
+}
+/* Removes the clear button from date inputs */
+#rem >input[type="date"]::-webkit-clear-button {
+    display: none;
+}
+
+/* Removes the spin button */
+#rem >input[type="date"]::-webkit-inner-spin-button { 
+    display: none;
+}
+
+/* Always display the drop down caret */
+#rem >input[type="date"]::-webkit-calendar-picker-indicator {
+    color: #2c3e50;
+}
+
+/* A few custom styles for date inputs */
+#rem >input[type="date"] {
+    width: 97%;
+    appearance: none;
+    -webkit-appearance: none;
+    color: #95a5a6;
+    font-family: "Helvetica", arial, sans-serif;
+    font-size: 18px;
+    border:1px solid #ecf0f1;
+    background:#ecf0f1;
+    padding:5px;
+    display: inline-block !important;
+    visibility: visible !important;
+}
+
+#rem >input[type="date"], focus {
+    color: #95a5a6;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+
+button {
+    background-color: rgba(57, 57, 221, 0.986); 
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+  }
+
+  .other-rem {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+  }
+  .other-rem >input {
+      display: none;
+  }

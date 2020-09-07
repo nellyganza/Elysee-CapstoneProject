@@ -9,7 +9,7 @@ body{
 }
 
 .port-update {
-    padding: 5% 10%;
+    padding: 5% 8%;
     justify-content: center;
     display: grid;
     grid-template-columns: 80%;
@@ -92,7 +92,6 @@ button:hover {
   }
 
   #profile {
-    
     display: grid;
     grid-template-columns: 100%;
     justify-items: center;
