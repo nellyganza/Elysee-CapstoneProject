@@ -8,7 +8,7 @@ body {
 p,
 h1,
 h2,
-h3,span,i,li {
+h3,span,i,li,label {
     color: rgb(212, 209, 209);
     overflow-wrap: break-word;
 }
