@@ -379,3 +379,154 @@ function onFileSelected(event) {
             }
     
         }
+
+
+// Create a new Blog article
+
+
+// getimge in view
+var selectedFile={};
+function onFileSelected(event) {
+ selectedFile = event.target.files[0];
+  var reader = new FileReader();
+
+  var imgtag = document.getElementById("imageid");
+  imgtag.title = selectedFile.name;
+
+  reader.onload = function(event) {
+      imgtag.src = event.target.result;
+  };
+
+  reader.readAsDataURL(selectedFile);
+  }
+
+
+var image,id,title,desc,date,intro,cont,subbtn;
+
+function ready(){
+  id =  document.getElementById('blogid').value;
+  image =  document.getElementById('inpimg').value;
+  title  =  document.getElementById('titleid').value;
+  desc  =  document.getElementById('descid').value;
+  date  =  document.getElementById('dateid').value;
+  intro  =  document.getElementById('introid').value;
+  cont  =  document.getElementById('contid').value;
+
+}
+
+function clearBlog(){
+  document.getElementById('blogid').valu="";
+  document.getElementById('inpimg').value="";
+  document.getElementById('titleid').value="";
+  document.getElementById('descid').value="";
+  document.getElementById('dateid').value="";
+  document.getElementById('introid').value="";
+  document.getElementById('contid').value="";
+
+}
+
+function saveBlob() {
+    ready();
+    console.log(id,image,title,desc,date,intro,cont);
+    firebase.database().ref('Blog/' + id).set({
+      Id: id,
+      Image: image,
+      Title: title,
+      Descripttion: desc,
+      Date:date,
+      Introduction:intro,
+      Content: cont
+    }).catch(e=>{
+        if(e){
+          message("worning",e.message);
+        }
+        else{
+            message("success","Blog Saved successfully!!");
+          location.reload();
+        }
+      });
+    saveImageBlog();
+    clearBlog();
+};
+
+
+function saveImageBlog(){
+    firebase.storage().ref('BlogImage/'+ id+'/blog.jpg').put(selectedFile).then(function(){
+      console.log('Successfully uploaded');
+    }).catch(e=> {
+      console.log(e.message)
+    });
+}
+
+
+
+// Portfolio
+
+var pselectedFile={};
+function onpFileSelected(event) {
+ pselectedFile = event.target.files[0];
+  var reader = new FileReader();
+
+  var imgtag = document.getElementById("pimageid");
+  imgtag.title = pselectedFile.name;
+
+  reader.onload = function(event) {
+      imgtag.src = event.target.result;
+  };
+
+  reader.readAsDataURL(pselectedFile);
+  }
+
+
+
+var pimage,pid,ptitle,pexp,plink,psubbtn;
+
+function pready(){
+  pid =  document.getElementById('ppotid').value;
+  pimage =  document.getElementById('pinpimg').value;
+  ptitle  =  document.getElementById('ptitle').value;
+  plink  =  document.getElementById('plink').value;
+  pexp  =  document.getElementById('pexp').value;
+}
+
+function pclear(){
+  document.getElementById('ppotid').value="";
+  document.getElementById('pinpimg').value="";
+  document.getElementById('ptitle').value="";
+  document.getElementById('plink').value="";
+  document.getElementById('pexp').value="";
+  document.getElementById("pimageid").src = "";
+
+}
+
+document.getElementById('psubmit').onclick= e=>{
+    pready();
+    firebase.database().ref('Portfolio/' + pid).set({
+      Id: pid,
+      Image: pimage,
+      Title: ptitle,
+      Explanation:pexp,
+      Link : plink
+
+    }).catch(e=>{
+      if(e)
+        console.log(e.message);
+      else
+        {
+          console.log("Portfolio Created !!");
+          location.reload();
+        }
+      }
+    );
+    saveImagePortfolio();
+    pclear();
+};
+
+
+function saveImagePortfolio(){
+    firebase.storage().ref('Portfolio/'+ pid+'/port.jpg').put(pselectedFile).then(function(){
+      console.log('Successfully uploaded');
+    }).catch(e=> {
+      console.log(e.message)
+    });
+}
