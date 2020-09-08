@@ -15,8 +15,6 @@
      https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
-    <script src="../js/script.js"></script>
 </head>
 
 <body>
@@ -60,7 +58,7 @@
                         <i class="fa fa-lock icon-btn"></i>
                         <input id="pwd" class="input100 password cred_into" type="password" placeholder="Password" required>
                     </div>
-                    <button id="signinid" class="sub_btn" type="submit">Login</button>
+                    <button id="signinid" class="sub_btn" type="submit" onclick="signin()">Login</button>
                 </div>
 
                 <p>If you don't have an account ? <b><a href="signup.html" id="label-click">Sign Up</a></b></p>
@@ -134,6 +132,8 @@
             <p>All Right Reserved © Nishimwe ELysee, 2020</p>
         </div>
     </footer>
+    <script src="../js/script.js"></script>
+
 </body>
 
 </html>

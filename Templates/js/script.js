@@ -128,35 +128,47 @@ function checkpass(){
     }
 }
 
-document.getElementById('insert').onclick = function signupWithEmailAndPass(){
+function signUp(){
     ready();
     if(checkpass()){
-        if(nameV.checkValidity() && passV.checkValidity() && emailV.checkValidity()){
-            firebase.auth().createUserWithEmailAndPassword(emailV.value,passV.value).then(auth=>{
-                firebase.database().ref('Users/' + auth.user.uid).set({
-                    Username: nameV.value,
-                    Password: passV.value,
-                    Email: emailV.value,
-                }).catch(e=>{
- 
-                    }
-                );
-                message("success","Account created successfully !!!");
-                clear();
-            }).catch(e=> {
-                if(e){
-                    message("danger",e.message);
+        if(nameV.checkValidity()){
+            if(passV.checkValidity()){
+                if(emailV.checkValidity()){
+                    firebase.auth().createUserWithEmailAndPassword(emailV.value,passV.value).then(auth=>{
+                        firebase.database().ref('Users/' + auth.user.uid).set({
+                            Username: nameV.value,
+                            Password: passV.value,
+                            Email: emailV.value,
+                        }).catch(e=>{
+         
+                            }
+                        );
+                        message("success","Account created successfully !!!");
+                        clear();
+                    }).catch(e=> {
+                        if(e){
+                            message("danger",e.message);
+                        }
+                    });
                 }
-            });
+                else{
+                    message("danger",emailV.validationMessage);
+                }
+
+            }
+            else{
+                message("danger",passV.validationMessage);
+            }
+          
         }
         else{
-            message("worning","Invalid Input !!! (Email or Name)");
+            message("danger",nameV.validationMessage);
         }
     }
     else{
         message("worning","Passord Not Match!!");
     }
-}
+};
 
 
 // Stage stanged
@@ -179,3 +191,23 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 
     }
 });
+
+// Sign in Codes
+
+function signin(){
+	var email = document.getElementById('uname').value;
+    var password = document.getElementById('pwd').value;
+if(document.getElementById('uname').checkValidity()){
+	firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        message("worning",errorMessage);
+      });
+    }
+    else
+    {
+        message("danger",document.getElementById('uname').validationMessage);
+    }
+};
