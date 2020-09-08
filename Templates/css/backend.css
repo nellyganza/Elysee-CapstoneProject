@@ -145,6 +145,9 @@ button:hover {
   padding: 5px;
 }
 
+#contact >div>textarea {
+  width: 100px;
+}
 .number-tabs {
   display: grid;
   grid-template-columns: repeat(6,50px);

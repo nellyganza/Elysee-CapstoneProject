@@ -1,3 +1,18 @@
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBAFsqSLha1IbmidhjYdYZ8I82snlVauzY",
+    authDomain: "elysee-capstone-project.firebaseapp.com",
+    databaseURL: "https://elysee-capstone-project.firebaseio.com",
+    projectId: "elysee-capstone-project",
+    storageBucket: "elysee-capstone-project.appspot.com",
+    messagingSenderId: "117960480433",
+    appId: "1:117960480433:web:d34ba18728dcd2ff593490",
+    measurementId: "G-8W7S92G424"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
 function myFunction() {
     var x = document.getElementById("topnav");
     console.log(x)
@@ -45,4 +60,11 @@ function openForm() {
 
 function closeForm() {
     document.getElementById("myForm").style.display = "none";
+}
+
+
+// Sign Up Functions
+
+function signUp() {
+    
 }
