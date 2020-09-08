@@ -199,3 +199,15 @@ button:hover {
     background-repeat: no-repeat;  
     color: white;
 }
+
+/* Map and User Locations */
+#mapholder {
+  display: none;
+  height: 600px; 
+  width: 100%; 
+}
+
+.map {
+  display: flex;
+  flex-direction: column;
+}
