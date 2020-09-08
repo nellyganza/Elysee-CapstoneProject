@@ -21,12 +21,16 @@ header{
     display: grid;
     grid-template-columns: 80% 20%;
     background-color: #022655;
+    height: 80px;
 }
 nav>ul {
     list-style-type: none;
     overflow: hidden;
     margin: 0;
     padding: 0;
+}
+.nav-right >div >ul {
+    background-color: #002D68;
 }
 header #left-side-nav {
     display: flex;
@@ -845,4 +849,9 @@ code {
     
     #wclosebtn:hover,#sclosebtn:hover,#iclosebtn:hover,#dclosebtn:hover {
       color: black;
+    }
+
+    /* Admin */
+    .adminid {
+        display: none;
     }

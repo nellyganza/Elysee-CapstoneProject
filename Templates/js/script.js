@@ -186,9 +186,20 @@ function putImage(imgUrl,st1,st2){
 firebase.auth().onAuthStateChanged(firebaseUser => {
 	if(firebaseUser){
         console.log(firebaseUser);  
+        firebase.storage().ref('Users/' +firebaseUser.uid+'/profile.jpg').getDownloadURL().then(imgUrl =>{
+            putImage(imgUrl,"none","inline");
+        }).catch(error=>{
+            console.log(error.message);
+            putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg","none","inline");
+
+        })
+        firebase.database().ref('Users/' + firebaseUser.uid).on('value', function(snapshot) {
+            putUsername(snapshot.val().Username,snapshot.val().Email);
+        });  
 	}
 	else{
-
+        putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg","inline","none");
+        putUsername("","","","");
     }
 });
 
@@ -211,3 +222,52 @@ if(document.getElementById('uname').checkValidity()){
         message("danger",document.getElementById('uname').validationMessage);
     }
 };
+
+
+function putImage(imgUrl,st1,st2){
+    var img = document.getElementById('user-img');
+    var fimg = document.getElementById('edit-img');
+    var signbtn = document.getElementById('signin-top');
+    var photobtn = document.getElementById('user-option');
+    img.src = imgUrl;
+    fimg.src = imgUrl;
+    signbtn.style.display = st1;
+    photobtn.style.display = st2;
+}
+function putUsername(username,email){
+    if(email=="nishimwelys@gmail.com"){
+        document.getElementsByClassName('adminid')[0].style.display = "inline";
+    }
+    console.log(username,email);
+    document.getElementById('top-username').textContent = username;
+    document.getElementById('updname').value = username;
+    document.getElementById('updemail').value = email;
+}
+
+// Slection a file 
+var selectedFile;
+function onFileSelected(event) {
+    selectedFile = event.target.files[0];
+    var reader = new FileReader();
+
+    var imgtag = document.getElementById("edit-img");
+    imgtag.title = selectedFile.name;
+
+    reader.onload = function(event) {
+        imgtag.src = event.target.result;
+    };
+
+    reader.readAsDataURL(selectedFile);
+    }
+
+    // Logout
+
+    function logout(){
+        firebase.auth().signOut().then(function() {
+            // Sign-out successful.
+           message("info",'Looged Out');
+          }).catch(function(error) {
+            // An error happened.
+           message("worning",error.message);
+          });
+    };
