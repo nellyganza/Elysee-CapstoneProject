@@ -457,6 +457,34 @@ function saveImageBlog(){
     });
 }
 
+// Select The Blog
+document.getElementById('bselect').onclick = function() {
+    id =  document.getElementById('blogid').value;
+    clearBlog();
+    firebase.database().ref('Blog/' + id).on('value', function(snapshot) {
+          document.getElementById('titleid').value=snapshot.val().Title;
+          document.getElementById('descid').value=snapshot.val().Descripttion;
+          document.getElementById('dateid').value=snapshot.val().Date;
+          document.getElementById('introid').value=snapshot.val().Introduction;
+          document.getElementById('contid').value=snapshot.val().Content;
+          firebase.storage().ref('BlogImage/' +id+'/blog.jpg').getDownloadURL().then(imgUrl =>{
+            document.getElementById("imageid").src = imgUrl;
+          }).catch(e=>{
+    
+          })
+    },function(error){
+        if(error){
+          message("danger",error.message);
+        }
+        else{
+          message("info","Data Found !!");
+        }
+    });
+    
+}
+
+
+
 // Portfolio
 
 var pselectedFile={};
@@ -528,5 +556,33 @@ function saveImagePortfolio(){
     });
 }
 
+
+// Select The PortFolio
+document.getElementById('pselect').onclick = function() {
+    pid =  document.getElementById('ppotid').value;
+    clearBlog();
+    firebase.database().ref('Portfolio/' + pid).on('value', function(snapshot) {
+  
+          document.getElementById('ptitle').value=snapshot.val().Title;
+          document.getElementById('plink').value=snapshot.val().Link;;
+          document.getElementById('pexp').value=snapshot.val().Explanation;;
+          firebase.storage().ref('Portfolio/'+ pid+'/port.jpg').getDownloadURL().then(imgUrl =>{
+            document.getElementById("pimageid").src = imgUrl;
+          }).catch(e=>{
+    
+          })
+    },function(error){
+      if(error){
+        message("danger",error.message);
+      }
+      else
+      {
+        message("info","Data Found !!");
+      }
+        
+    });
+    
+  }
+  
  
  
