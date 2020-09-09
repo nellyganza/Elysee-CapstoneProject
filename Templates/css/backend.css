@@ -10,7 +10,9 @@ body{
 .content {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-column-gap: 20px;
+  grid-template-rows: 900px auto;
+  max-width: 100%;
+  left: 0;
 }
 
 .port-update {

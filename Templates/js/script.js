@@ -127,7 +127,7 @@ function checkpass(){
         return false;
     }
 }
-
+var logger = true;
 function signUp(){
     ready();
     if(checkpass()){
@@ -172,19 +172,10 @@ function signUp(){
 
 
 // Stage stanged
-function putImage(imgUrl,st1,st2){
-    var img = document.getElementById('user-img');
-    var fimg = document.getElementById('edit-img');
-    var signbtn = document.getElementById('signin-top');
-    var photobtn = document.getElementById('user-option');
-    img.src = imgUrl;
-    fimg.src = imgUrl;
-    signbtn.style.display = st1;
-    photobtn.style.display = st2;
-}
 
 firebase.auth().onAuthStateChanged(firebaseUser => {
 	if(firebaseUser){
+        if(logger){
         console.log(firebaseUser);  
         firebase.storage().ref('Users/' +firebaseUser.uid+'/profile.jpg').getDownloadURL().then(imgUrl =>{
             putImage(imgUrl,"none","inline");
@@ -198,8 +189,11 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         firebase.database().ref('Users/' + firebaseUser.uid).on('value', function(snapshot) {
             putUsername(snapshot.val().Username,snapshot.val().Email);
         });  
+        message("success","Logged in Successfully!!");
+    }
 	}
 	else{
+        message("info","Logged out Successfully!!");
         putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg","inline","none");
         putUsername("","","","");
     }
@@ -268,7 +262,9 @@ function onFileSelected(event) {
     function logout(){
         firebase.auth().signOut().then(function() {
             // Sign-out successful.
-           message("info",'Looged Out');
+           
+           document.getElementsByClassName('adminid')[0].style.display = "none";
+           message("info",'Logged Out');
           }).catch(function(error) {
             // An error happened.
            message("worning",error.message);
@@ -335,7 +331,7 @@ function onFileSelected(event) {
          }
       
         
-         window.onload = function loadScript() {
+        function loadScript() {
             var script = document.createElement('script');
             script.type = 'text/javascript';
             script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyADX_HVhXMO8IXWJRHzPpiEpNROmZhTBVw&callback=initialize&libraries=&v=weekly';
@@ -344,6 +340,7 @@ function onFileSelected(event) {
         }
         function showmap(){
           document.getElementById('mapholder').style.display = 'inline';
+          loadScript();
         }
         function closemap(){
           document.getElementById('mapholder').style.display = 'none';
@@ -427,7 +424,7 @@ function clearBlog(){
 
 }
 
-function saveBlob() {
+document.getElementById('submit').onclick= e=>{
     ready();
     console.log(id,image,title,desc,date,intro,cont);
     firebase.database().ref('Blog/' + id).set({
@@ -440,10 +437,10 @@ function saveBlob() {
       Content: cont
     }).catch(e=>{
         if(e){
-          message("worning",e.message);
+          alert("Data Not Saved !!");
         }
         else{
-            message("success","Blog Saved successfully!!");
+          alert("Data Saved !!");
           location.reload();
         }
       });
@@ -459,8 +456,6 @@ function saveImageBlog(){
       console.log(e.message)
     });
 }
-
-
 
 // Portfolio
 
@@ -516,12 +511,12 @@ function savePortfolio() {
       else
         {
           console.log("Portfolio Created !!");
-          location.reload();
-        }
+          }
       }
     );
     saveImagePortfolio();
     pclear();
+    // location.reload();
 };
 
 

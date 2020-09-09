@@ -21,7 +21,7 @@ header{
     display: grid;
     grid-template-columns: 80% 20%;
     background-color: #022655;
-    height: 80px;
+    min-height: 80px;
     position: relative !important;
 }
 nav>ul {
@@ -195,6 +195,9 @@ footer {
     }
     footer{
         font-size: 12px !important;
+    }
+    h1{
+        font-size: 48px !important;
     }
 }
 
@@ -961,3 +964,4 @@ button {
   .other-rem >input {
       display: none;
   }
+
