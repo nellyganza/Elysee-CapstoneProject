@@ -189,7 +189,9 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         firebase.storage().ref('Users/' +firebaseUser.uid+'/profile.jpg').getDownloadURL().then(imgUrl =>{
             putImage(imgUrl,"none","inline");
         }).catch(error=>{
-            console.log(error.message);
+            if(error){
+                console.log(error.message);
+            }
             putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg","none","inline");
 
         })
@@ -236,7 +238,7 @@ function putImage(imgUrl,st1,st2){
 }
 function putUsername(username,email){
     if(email=="nishimwelys@gmail.com"){
-        document.getElementsByClassName('adminid')[0].style.display = "inline";
+        document.getElementsByClassName('adminid')[0].style.display = "block";
     }
     console.log(username,email);
     document.getElementById('top-username').textContent = username;
@@ -499,7 +501,7 @@ function pclear(){
 
 }
 
-document.getElementById('psubmit').onclick= e=>{
+function savePortfolio() {
     pready();
     firebase.database().ref('Portfolio/' + pid).set({
       Id: pid,
@@ -530,3 +532,6 @@ function saveImagePortfolio(){
       console.log(e.message)
     });
 }
+
+ 
+ 
