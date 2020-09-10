@@ -711,3 +711,4 @@ function sendComment() {
     }
     clear();
 }
+

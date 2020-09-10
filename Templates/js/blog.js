@@ -6,6 +6,7 @@
 window.onload = function getBlogl(){
     var ref =  firebase.database().ref('Blog');
     ref.on('value',getData,errorData);
+
  }
  
  function getData(data) {
@@ -94,3 +95,6 @@ window.onload = function getBlogl(){
     document.getElementById(tannum).style.display = "block";
     event.currentTarget.className += " active";
  }
+
+
+ 
