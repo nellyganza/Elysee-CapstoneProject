@@ -7,6 +7,9 @@ window.onload = function getBlogl(){
     var ref =  firebase.database().ref('Blog');
     ref.on('value',getData,errorData);
 
+
+    var ref2 =  firebase.database().ref('Contact');
+    ref2.on('value',getcData,errorcData);
  }
  
  function getData(data) {
@@ -98,3 +101,61 @@ window.onload = function getBlogl(){
 
 
  
+// Contact from to read Messages
+
+
+  function getcData(data) {
+  
+         var conacts = data.val();
+         var keys = Object.keys(conacts);
+         console.log(keys);
+         for(var i=0; i < keys.length;i++){
+             var k = keys[i];
+             var Name = conacts[k].Name;
+             var email = conacts[k].Email;
+             var Phone = conacts[k].PhoneNumber;
+             var address = conacts[k].Address;
+             var comment = conacts[k].Comment;
+             
+             addComment(Name,email,Phone,address,comment);
+     
+         }
+     
+    
+  }
+  function errorcData(error){
+     console.log(error.message);
+  }
+  
+  function addComment(Name,email,Phone,address,comment){
+    console.log(Name,email,Phone,address,comment);
+     var ccontainer = document.getElementById('contact-list');
+      var innerMessage = document.createElement('div');
+      innerMessage.classList.add('message-item');
+  
+      ccontainer.appendChild(innerMessage);
+  
+     var namelbl = document.createElement('label');
+     namelbl.innerText = "Full Name : "+Name;
+     innerMessage.appendChild(namelbl);
+  
+     var emaillbl = document.createElement('label');
+      emaillbl.setAttribute('id','button1');
+      emaillbl.setAttribute('value',`${email}`);
+      emaillbl.setAttribute('role','button');
+      emaillbl.setAttribute('onclick',`parent.location="mailto:${email}"`);
+     emaillbl.innerText = "Email Address : "+email;
+     innerMessage.appendChild(emaillbl);
+     var phonelbl = document.createElement('label');
+     phonelbl.innerText = "Phone Number : "+Phone;
+     innerMessage.appendChild(phonelbl);
+     var addresslbl = document.createElement('label');
+     addresslbl.innerText = "Physical Address : "+address;
+     innerMessage.appendChild(addresslbl);
+     var commentlbl = document.createElement('textarea');
+     commentlbl.style.maxWidth = "400px";
+     commentlbl.innerText = comment;
+     innerMessage.appendChild(commentlbl);
+  
+  }
+  
