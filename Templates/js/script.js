@@ -482,6 +482,36 @@ document.getElementById('bselect').onclick = function() {
     });
     
 }
+// This is the Update Operation
+document.getElementById('bupdate').onclick = function() {
+    ready();
+    firebase.database().ref('Blog/' + id).update({
+      Image: image,
+      Title: title,
+      Descripttion: desc,
+      Date:date,
+      Introduction:intro,
+      Content: cont
+    },error=>{
+      if(error){
+        alert("Data Not Updated!!");
+      }
+      else{
+        alert("Data Updated !!");
+        location.reload();
+      }
+    });
+    firebase.storage().ref('BlogImage/'+ id+'/blog.jpg').put(selectedFile).then(function(){
+      
+    }).catch(e=> {
+      console.log(e.message)
+    });
+    clearBlog();
+}
+
+
+
+
 
 
 
@@ -583,6 +613,33 @@ document.getElementById('pselect').onclick = function() {
     });
     
   }
+
+  // This is the Update Operation
+document.getElementById('pupdate').onclick = function() {
+    pready();
+    firebase.database().ref('Portfolio/' + pid).update({
+        Image: pimage,
+        Title: ptitle,
+        Explanation:pexp,
+        Link : plink
+    },e=>{
+      if(e){
+        console.log("Portfolio not updated!!");
+      }
+      else
+      {
+        console.log("PortFolio Updated !!");
+        location.reload();
+      }
+    });
+    firebase.storage().ref('Portfolio/'+ pid+'/port.jpg').put(pselectedFile).then(function(){
+      
+    }).catch(e=> {
+      console.log(e.message)
+    });
+    pclear();
+  }
+  
   
  
  
