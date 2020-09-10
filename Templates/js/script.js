@@ -510,6 +510,20 @@ document.getElementById('bupdate').onclick = function() {
 }
 
 
+ // This is the Delete Operation
+ document.getElementById('bdelete').onclick = function() {
+    id =  document.getElementById('blogid').value;
+    firebase.database().ref('Blog/' + id).remove();
+
+    firebase.storage().ref('BlogImage/' +id+'/blog.jpg').delete().then(function() {
+        console.log("Image Deleted !!")
+    }).catch(function(error) {
+        message("danger",error.message);
+    });
+    location.reload();
+    clearBlog();
+  }
+
 
 
 
@@ -640,6 +654,17 @@ document.getElementById('pupdate').onclick = function() {
     pclear();
   }
   
+  // This is the Delete Operation
+document.getElementById('pdelete').onclick = function() {
+    pid =  document.getElementById('ppotid').value;
+    firebase.database().ref('Portfolio/' + pid).remove();
   
+    firebase.storage().ref('Portfolio/'+ pid+'/port.jpg').delete().then(function() {
+      console.log("Image Deleted !!")
+  }).catch(function(error) {
+      message("danger",error.message);   
+  });
+  pclear();
+  }
  
  
