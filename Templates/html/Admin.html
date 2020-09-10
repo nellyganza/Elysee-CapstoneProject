@@ -164,8 +164,8 @@
                 <textarea id="contid" type="text" placeholder="Type Blog Content"></textarea>
             </div>
             <div>
-                <button type="submit" id="submit" onclick="saveBlob()">Save</button><button onclick="clearBlog()" type="reset">Reset</button>
-                <button type="button" id="bselect">Search</button><button id="bupdate"  type="button">Update</button><button id="bdelete"  type="button">Delete</button>
+                <button type="submit" id="submit" onclick="saveBlog()">Save</button><button onclick="clearBlog()" type="reset">Reset</button>
+                <button type="button" id="bselect" onclick="searchBlog()">Search</button><button id="bupdate"  type="button" onclick="updateBlog()">Update</button><button id="bdelete"  type="button" onclick="deleteBlog()">Delete</button>
             </div>
         </div>
         <div id="blog-list" class="port-list">
@@ -291,7 +291,7 @@
             </div>
             <div>
                 <button type="submit" id="psubmit" onclick="savePortfolio()">Save</button><button onclick="pclear()" type="reset">Reset</button>
-                <button type="button" id="pselect">Search</button><button id="pupdate"  type="button">Update</button><button id="pdelete"  type="button">Delete</button>
+                <button type="button" id="pselect" onclick="searchPortfolio()">Search</button><button id="pupdate"  type="button" onclick="updatePortfolio()">Update</button><button id="pdelete"  type="button" onclick="deletePortfolio()">Delete</button>
             </div>
         </div>
         <div class="port-list">

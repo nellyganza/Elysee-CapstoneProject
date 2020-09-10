@@ -424,7 +424,7 @@ function clearBlog(){
 
 }
 
-document.getElementById('submit').onclick= e=>{
+function saveBlog(){
     ready();
     console.log(id,image,title,desc,date,intro,cont);
     firebase.database().ref('Blog/' + id).set({
@@ -458,7 +458,7 @@ function saveImageBlog(){
 }
 
 // Select The Blog
-document.getElementById('bselect').onclick = function() {
+function searchBlog() {
     id =  document.getElementById('blogid').value;
     clearBlog();
     firebase.database().ref('Blog/' + id).on('value', function(snapshot) {
@@ -483,7 +483,7 @@ document.getElementById('bselect').onclick = function() {
     
 }
 // This is the Update Operation
-document.getElementById('bupdate').onclick = function() {
+function updateBlog() {
     ready();
     firebase.database().ref('Blog/' + id).update({
       Image: image,
@@ -511,7 +511,7 @@ document.getElementById('bupdate').onclick = function() {
 
 
  // This is the Delete Operation
- document.getElementById('bdelete').onclick = function() {
+function deleteBlog() {
     id =  document.getElementById('blogid').value;
     firebase.database().ref('Blog/' + id).remove();
 
@@ -602,7 +602,7 @@ function saveImagePortfolio(){
 
 
 // Select The PortFolio
-document.getElementById('pselect').onclick = function() {
+function searchPortfolio() {
     pid =  document.getElementById('ppotid').value;
     clearBlog();
     firebase.database().ref('Portfolio/' + pid).on('value', function(snapshot) {
@@ -629,7 +629,7 @@ document.getElementById('pselect').onclick = function() {
   }
 
   // This is the Update Operation
-document.getElementById('pupdate').onclick = function() {
+function updatePortfolio() {
     pready();
     firebase.database().ref('Portfolio/' + pid).update({
         Image: pimage,
@@ -655,7 +655,7 @@ document.getElementById('pupdate').onclick = function() {
   }
   
   // This is the Delete Operation
-document.getElementById('pdelete').onclick = function() {
+function deletePortfolio() {
     pid =  document.getElementById('ppotid').value;
     firebase.database().ref('Portfolio/' + pid).remove();
   
@@ -668,3 +668,46 @@ document.getElementById('pdelete').onclick = function() {
   }
  
  
+
+
+//   Comment or contact storing
+
+
+var cnameV, cemailV, cphoneV, caddressV,commentV;
+
+function ready() {
+    cnameV = document.getElementById('name');
+    cemailV = document.getElementById('email');
+    phoneVar = document.getElementById('phoneid');
+    caddressV = document.getElementById('address');
+    commentV = document.getElementById('comment');
+}
+
+function clear() {
+    document.getElementById('name').value="";
+    document.getElementById('email').value="";
+    document.getElementById('phoneid').value="";
+    document.getElementById('address').value="";
+    document.getElementById('comment').value="";
+}
+
+// This is the Insert Operation
+function sendComment() {
+    ready();
+    if(cnameV.checkValidity() && cemailV.checkValidity() && phoneVar.checkValidity() && caddressV.checkValidity() && commentV.checkValidity()){
+    console.log(cnameV.value,cemailV.value,phoneVar.value,caddressV.value,commentV.value);
+        firebase.database().ref('Contact/' + cnameV.value).set({
+            Name: cnameV.value,
+            Email: cemailV.value,
+            PhoneNumber: phoneVar.value,
+            Address: caddressV.value,
+            Comment: commentV.value
+        });
+        clear();
+    }
+    else
+    {
+        alert("Invalid Input");
+    }
+    clear();
+}
