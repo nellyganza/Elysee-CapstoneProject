@@ -41,13 +41,8 @@ function getsblog() {
 function singleBlog(event){
   
     var cont = event.currentTarget;
-    console.log(cont);
-    alert(cont);
-    
-
-    
-
-    //window.location.href = "sblog.html";
+    console.log(cont);  
+    window.location.href = "sblog.html";
 }
 
 
