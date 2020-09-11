@@ -10,6 +10,12 @@ window.onload = function getBlogl(){
 
     var ref2 =  firebase.database().ref('Contact');
     ref2.on('value',getcData,errorcData);
+
+
+    var ref3 =  firebase.database().ref('Portfolio');
+    ref3.on('value',getfData,errorfData);
+
+    
  }
  
  function getData(data) {
@@ -37,7 +43,7 @@ window.onload = function getBlogl(){
      var blo = document.getElementById('blog-list');
      console.log(blo);
      console.log(k+title+id);
-        var dtab;
+    let dtab;
     if(id%5==0){
         j++;
         console.log('1');
@@ -159,3 +165,90 @@ window.onload = function getBlogl(){
   
   }
   
+
+
+  function getfData(data) {
+ 
+    var ports = data.val();
+    var keys = Object.keys(ports);
+    console.log(keys);
+    for(var i=0; i < keys.length;i++){
+        var k = keys[i];
+        var title = ports[k].Title;
+
+        
+        addPort(k,title,i);  
+    }
+
+
+}
+function errorfData(error){
+    console.log(error.message);
+}
+var t=0;
+function addPort(k,title,id){
+    firebase.storage().ref('Portfolio/' +k+'/port.jpg').getDownloadURL().then(imgUrl =>{ 
+        var blo = document.getElementById('port-listid');
+        console.log(blo);
+        console.log(k+title+id);
+    let dtab;
+    if(id%5==0){
+        t++;
+        console.log('1');
+        dtab = document.createElement('div');
+        dtab.setAttribute('id',`ftab${t}`);
+        dtab.setAttribute('class','ftab-list');
+        blo.appendChild(dtab);
+    }
+    else
+    {
+        dtab = document.getElementById(`ftab${t}`);
+        console.log(dtab);
+    }
+
+
+    var ldiv = document.createElement('div');
+    ldiv.classList.add('art-item');
+    dtab.appendChild(ldiv);
+
+    var limg = document.createElement('img');
+    limg.setAttribute("src", imgUrl);
+    limg.setAttribute("width", "80px");
+    limg.setAttribute("height", "60");
+    limg.setAttribute("alt", "Portfolio  Image");
+    ldiv.appendChild(limg);
+    var lh = document.createElement('h1');
+    lh.style.fontSize = "16px";
+    lh.innerHTML = `<strong style="margin-right:5px,">ID :${k}</strong> <br>Title  :${title}`;
+    ldiv.appendChild(lh);
+
+
+
+    if(id%5==0){
+        var butab = document.getElementById('fnumber-tabs');
+        var label  = document.createElement('label');
+        label.setAttribute("onclick",`fnextTab(event, 'ftab${t}')`);
+        label.setAttribute('class','fnextlinks');
+        label.innerHTML =  `${t}`;
+        butab.appendChild(label);
+    }
+
+
+}).catch(error=>{
+    console.log(error);
+});
+}
+
+function fnextTab(event,tannum){
+    var i, tablist, nextlinks;
+    tablist = document.getElementsByClassName("ftab-list");
+    for (i = 0; i < tablist.length; i++) {
+        tablist[i].style.display = "none";
+    }
+    nextlinks = document.getElementsByClassName("fnextlinks");
+    for (i = 0; i < nextlinks.length; i++) {
+        nextlinks[i].className = nextlinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tannum).style.display = "block";
+    event.currentTarget.className += " active";
+}

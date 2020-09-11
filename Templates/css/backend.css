@@ -137,7 +137,6 @@ button:hover {
   background-color: #022655;
   margin: 10px;
 }
-
 #contact .message-item {
   display: grid;
   grid-template-columns: 100%;
@@ -158,7 +157,7 @@ button:hover {
 .number-tabs {
   display: grid;
   grid-template-columns: repeat(6,50px);
-  justify-content: center;
+  justify-items: center;
   grid-gap: 5px;
   margin: 10px;
 }
@@ -174,11 +173,20 @@ button:hover {
   margin: 1%;
 }
 
-@media screen and (max-width:600px){
+@media screen and (max-width:800px){
   .content{
     display: flex !important;
     flex-direction: column !important;
 
+  }
+  .art-item >h1 {
+    font-size: 15px;
+  }
+  
+}
+@media screen and (max-width:600px){
+  .art-item >h1 {
+    font-size: 15px !important;
   }
 }
 .update-profile{

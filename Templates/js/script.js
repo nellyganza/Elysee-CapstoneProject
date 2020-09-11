@@ -33,10 +33,21 @@ function showoption(){
         ulElement.style.display = "none";
 }
 
+function getsblog() {
+  var sb = document.getElementById('single-blog');
+  console.log(sb);
+}
+
 function singleBlog(event){
-    var cont = event.target;
+  
+    var cont = event.currentTarget;
     console.log(cont);
-    window.location.href = "sblog.html";
+    alert(cont);
+    
+
+    
+
+    //window.location.href = "sblog.html";
 }
 
 
@@ -104,7 +115,7 @@ function message(type,message){
 
 var nameV, passV, cpassV, emailV;
 
-function ready() {
+function sready() {
 
     nameV = document.getElementById('userid');
     passV = document.getElementById('userpass');
@@ -129,7 +140,7 @@ function checkpass(){
 }
 var logger = true;
 function signUp(){
-    ready();
+    sready();
     if(checkpass()){
         if(nameV.checkValidity()){
             if(passV.checkValidity()){
@@ -402,7 +413,7 @@ function onFileSelected(event) {
 
 var image,id,title,desc,date,intro,cont,subbtn;
 
-function ready(){
+function bready(){
   id =  document.getElementById('blogid').value;
   image =  document.getElementById('inpimg').value;
   title  =  document.getElementById('titleid').value;
@@ -410,7 +421,7 @@ function ready(){
   date  =  document.getElementById('dateid').value;
   intro  =  document.getElementById('introid').value;
   cont  =  document.getElementById('contid').value;
-
+  console.log(id,image,title,desc,date,intro,cont);
 }
 
 function clearBlog(){
@@ -425,7 +436,7 @@ function clearBlog(){
 }
 
 function saveBlog(){
-    ready();
+    bready();
     console.log(id,image,title,desc,date,intro,cont);
     firebase.database().ref('Blog/' + id).set({
       Id: id,
@@ -484,7 +495,7 @@ function searchBlog() {
 }
 // This is the Update Operation
 function updateBlog() {
-    ready();
+    bready();
     firebase.database().ref('Blog/' + id).update({
       Image: image,
       Title: title,
@@ -675,7 +686,7 @@ function deletePortfolio() {
 
 var cnameV, cemailV, cphoneV, caddressV,commentV;
 
-function ready() {
+function cready() {
     cnameV = document.getElementById('name');
     cemailV = document.getElementById('email');
     phoneVar = document.getElementById('phoneid');
@@ -693,7 +704,7 @@ function clear() {
 
 // This is the Insert Operation
 function sendComment() {
-    ready();
+    cready();
     if(cnameV.checkValidity() && cemailV.checkValidity() && phoneVar.checkValidity() && caddressV.checkValidity() && commentV.checkValidity()){
     console.log(cnameV.value,cemailV.value,phoneVar.value,caddressV.value,commentV.value);
         firebase.database().ref('Contact/' + cnameV.value).set({
