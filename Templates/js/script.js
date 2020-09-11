@@ -240,6 +240,10 @@ function putUsername(username,email){
     if(email=="nishimwelys@gmail.com"){
         document.getElementsByClassName('adminid')[0].style.display = "block";
     }
+    else
+    {
+      document.getElementsByClassName('adminid')[0].style.display = "none";
+    }
     console.log(username,email);
     document.getElementById('top-username').textContent = username;
     document.getElementById('updname').value = username;
@@ -718,3 +722,44 @@ function sendComment() {
     clear();
 }
 
+// Slection a file 
+var updatefile;
+function onFileSelected(event) {
+  updatefile = event.target.files[0];
+    var reader = new FileReader();
+
+    var imgtag = document.getElementById("edit-img");
+    imgtag.title = updatefile.name;
+
+    reader.onload = function(event) {
+        imgtag.src = event.target.result;
+    };
+
+    reader.readAsDataURL(updatefile);
+  }
+
+
+function updatefrm(){
+  var id =firebase.auth().currentUser.uid;
+  if(updatefile!=undefined){
+      firebase.storage().ref('Users/'+ id+'/profile.jpg').put(updatefile).then(function(){
+      }).catch(e=> {
+          console.log(e.message)
+      });
+  }
+  var nname = document.getElementById('updname').value;
+  var nmai = document.getElementById('updemail').value;
+  console.log(nname,nmai);
+  firebase.database().ref('Users/' + id).update({
+          Username: nname,
+          Email: nmai
+    },(error)=>{
+          if(error){
+              console.log(error.message);
+          }
+          else{
+              console.log("Data Updated");
+              location.reload();
+          }
+    });
+}

@@ -411,6 +411,9 @@ input[type=password] {
     grid-template-columns: 100%;
     justify-content: center;
 }
+#b-content > div {
+    width: 100%;
+}
 #other-blog {
     display: grid;
     grid-template-columns: repeat(4,25%);
@@ -426,12 +429,12 @@ input[type=password] {
 }
 #main-blog {
     padding: 5%;
-    margin-top: 2px; 
+    margin: 2px 0 0 0; 
     background-color: #022655;
 }
 #other-blog .single-blog{
     width: 90%;
-    margin: 10px;
+    margin: 5px 0 0 0;
     padding: 8px;
     background-color: #022655;
 }
@@ -964,3 +967,6 @@ button {
   .other-rem >input {
       display: none;
   }
+#user-img {
+    border-radius: 50%;
+}
