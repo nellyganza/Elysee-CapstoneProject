@@ -47,8 +47,9 @@ function singleBlog(event){
     var desc = info.querySelector('h3').innerText;
     var intro =info.querySelectorAll('p')[0].innerText;
     var cont =info.querySelectorAll('p')[1].innerText;
+    var id = info.querySelector('h5').innerText;
     console.log(img);
-    window.location.href = "sblog.html?img="+encodeURIComponent(img)+"&title="+title+"&desc="+desc+"&intro="+intro+"&cont="+cont;
+    window.location.href = "sblog.html?img="+encodeURIComponent(img)+"&title="+title+"&desc="+desc+"&intro="+intro+"&cont="+cont+"&id="+id;
 }
 
 
@@ -245,12 +246,16 @@ function putImage(imgUrl,st1,st2){
 function putUsername(username,email){
     if(email=="nishimwelys@gmail.com"){
         document.getElementsByClassName('adminid')[0].style.display = "block";
-        document.getElementById('tabform').style.display = "block";
+        var tf =document.getElementById('tabform');
+        if(tf!=null)
+          tb.style.display = "block";
     }
     else
     {
       document.getElementsByClassName('adminid')[0].style.display = "none";
-      document.getElementById('tabform').style.display = "none";
+      var tf =document.getElementById('tabform');
+      if(tf!=null)
+        tb.style.display = "none";
       window.location.href= "../index.html";
     }
     console.log(username,email);

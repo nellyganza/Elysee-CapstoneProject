@@ -70,12 +70,12 @@
         </section>
         <section class="search sb-data">
                 <p>Search</p>
-                <form class="example">
+                <div class="example">
                     <div>
                         <input type="text" placeholder="Search.." name="search" required>
                         <button type="submit"><i class="fa fa-search"></i></button>
                     </div>
-                </form>
+                </div>
         </section>
         <section class="recent sb-data">
             <h2>Recent Blog Post</h2>
@@ -87,21 +87,24 @@
             </ul>
         </section>
         <section class="Subscribe sb-data">
-            <form action="" method="POST" class="example">
+            <div role="form" action="" method="POST" class="example">
                 <div class="form-data">
                 <input type="email" placeholder="email" required>
                 <button type="submit" >Subscribe</button>
                 </div>
-            </form>
+            </div>
         </section>
         <section class="comment sb-data">
-            <form action="" method="POST" class="example">
+            <div role="form" action="" method="POST" class="example">
+                <section id="comments">
+
+                </section>
                 <h3>Comment</h3>
-                <textarea placeholder="Type Your Comment Here" class="textarea" required></textarea>
+                <textarea id="textareacomment" placeholder="Type Your Comment Here" class="textarea" required></textarea>
                 <div>
-                    <button type="submit">Save</button> <button type="submit">Cancel</button>
+                    <button type="submit" onclick="commentBlog()">Save</button> <button type="submit">Cancel</button>
                 </div>
-            </form>
+            </div>
         </section>
     </section>
     <section>
@@ -164,35 +167,7 @@
             <p>All Right Reserved © Nishimwe ELysee, 2020</p>
         </div>
     </footer>
-    <script>
-        var getParams = function (url) {
-                    var params = {};
-                    var parser = document.createElement('a');
-                    parser.href = url;
-                    var query = parser.search.substring(1);
-                    var vars = query.split('&');
-                    for (var i = 0; i < vars.length; i++) {
-                        var pair = vars[i].split('=');
-                        params[pair[0]] = decodeURIComponent(pair[1]);
-                    }
-                    return params;
-                };
-            var params =getParams(document.URL);
-            var singleblog = document.getElementById('single-blog');
-            var img = params["img"];
-            singleblog.querySelector('img').src = img;
-            var title = params["title"];
-            singleblog.querySelector('h1').innerText = title;
-            var desc = params["desc"];
-            singleblog.querySelectorAll('p')[0].innerText = desc;
-            var intro = params["intro"];
-            singleblog.querySelectorAll('p')[1].innerText = intro;
-            var cont = params["cont"];
-            singleblog.querySelectorAll('p')[2].innerText = cont;
-            console.log(img+"\n\n\n"+title+"\n\n\n"+desc+"\n\n\n"+intro+"\n\n\n"+cont);
-
-        
-    </script>
+    <script src="../js/singleblog.js"></script>
     <script src="../js/script.js"></script>
 </body>
 

@@ -499,7 +499,7 @@ form {
 
 
 /* search */
-form.example input[type=text],form.example input[type=email] {
+div.example input[type=text],form.example input[type=email] {
     padding: 10px;
     font-size: 17px;
     border: 1px solid grey;
@@ -507,29 +507,29 @@ form.example input[type=text],form.example input[type=email] {
     background: #f1f1f1;
   }
   
-  form.example button {
+  div.example button {
     border-radius: 0% !important;
     padding: 15px !important;
     height: 100%;
     margin: 0;
   }
   
-  form.example button:hover {
+  div.example button:hover {
     background: #7801ff;
   }
-  section>form>div {
+  section>div>div {
       display: flex;
       flex-direction: row;
   }
-  section>form>textarea.textarea {
+  section>div>textarea.textarea {
       width: 70%;
       min-height: 60px;
       outline: none;
   }
-  .comment form>div>button {
+  .comment div>div>button {
       margin: 10px;
   }
-  .comment form {
+  .comment div {
       padding: 20px;
   }
 .sb-data {
@@ -971,4 +971,20 @@ button {
   }
 #user-img {
     border-radius: 50%;
+}
+
+
+/* Singl BLog */
+#comments {
+    display: block !important;
+padding: 0;
+}
+#comment-field{
+    margin-top: 3px;
+    border: white solid;
+}
+#comment-field>legend {
+    width: 100%;
+    background-color: white;
+    margin: 0;
 }

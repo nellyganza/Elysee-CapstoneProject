@@ -69,6 +69,11 @@ window.onload = function getBlog(){
      pp.setAttribute('hidden',true);
      pp.innerText = cont;
      figcap.appendChild(pp);
+
+     var h5= document.createElement('h5');
+     h5.setAttribute('hidden',true);
+     h5.innerText = k;
+     figcap.appendChild(h5);
      }).catch(error=>{
          console.log(error);
      });
