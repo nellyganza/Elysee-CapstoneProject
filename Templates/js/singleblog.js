@@ -92,3 +92,23 @@ window.onload = function getComments(){
     fs.appendChild(p);
 
  }
+ var lastPlayerRef = firebase.database().ref('Blog/').orderByValue().limitToLast(5);
+
+ lastPlayerRef.on("value", function(data) {
+     var blos =data.val();
+     var keys= Object.keys(blos);
+     console.log(keys);
+   console.log(data.val());
+
+   for(var i=keys.length-1;i<keys.length;i--){
+       var k = keys[i];
+       var title = blos[k].Title;
+       var ul = document.querySelector('.recent >ul');
+       var li = document.createElement('li');
+       li.innerText = title;
+       ul.appendChild(li);
+       console.log(title);
+   }
+ }, function (error) {
+   console.log("Error: " + error.code);
+ });

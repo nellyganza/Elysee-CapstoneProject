@@ -248,14 +248,14 @@ function putUsername(username,email){
         document.getElementsByClassName('adminid')[0].style.display = "block";
         var tf =document.getElementById('tabform');
         if(tf!=null)
-          tb.style.display = "block";
+          tf.style.display = "block";
     }
     else
     {
       document.getElementsByClassName('adminid')[0].style.display = "none";
       var tf =document.getElementById('tabform');
       if(tf!=null)
-        tb.style.display = "none";
+        tf.style.display = "none";
       window.location.href= "../index.html";
     }
     console.log(username,email);
@@ -458,7 +458,8 @@ function saveBlog(){
       Descripttion: bdesc,
       Date:bdate,
       Introduction:bintro,
-      Content: bcont
+      Content: bcont,
+      timestamp:new Date().getTime()
     }).catch(e=>{
         if(e){
           alert("Data Not Saved !!");
@@ -793,3 +794,6 @@ function updatefrm(){
           }
     });
 }
+
+
+
