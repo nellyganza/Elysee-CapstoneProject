@@ -27,8 +27,6 @@ window.onload = function getBlogl(){
          for(var i=0; i < keys.length;i++){
              var k = keys[i];
              var title = blogs[k].Title;
-
-             
              addblog(k,title,i);
          }
      
@@ -159,7 +157,6 @@ window.onload = function getBlogl(){
      addresslbl.innerText = "Physical Address : "+address;
      innerMessage.appendChild(addresslbl);
      var commentlbl = document.createElement('textarea');
-     commentlbl.style.maxWidth = "400px";
      commentlbl.innerText = comment;
      innerMessage.appendChild(commentlbl);
   

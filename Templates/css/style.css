@@ -240,7 +240,7 @@ footer {
 .contact-frm {
     position: relative;
     align-self: center;
-    border: solid;
+    border: solid white;
     margin: 0px 30px 30px 30px;
     padding: 8px;
     width: 60%
@@ -862,12 +862,14 @@ code {
 
 #reminder {
     background-color: #022655;
+    max-width: 100%;
+    margin-left: 20px;
 }
 #reminder form {
     display: none;
     /* display: flex; */
     flex-direction: column;
-    width: 400px;
+    max-width: 100%;
     border:1px solid #ecf0f1;
     background-color: darkblue;
     padding: 5%;

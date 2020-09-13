@@ -40,9 +40,15 @@ function getsblog() {
 
 function singleBlog(event){
   
-    var cont = event.currentTarget;
-    console.log(cont);  
-    window.location.href = "sblog.html";
+    var info = event.currentTarget;
+    console.log(info);  
+    var img= info.querySelector('img').src;
+    var title=info.querySelector(".title").innerText;
+    var desc = info.querySelector('h3').innerText;
+    var intro =info.querySelectorAll('p')[0].innerText;
+    var cont =info.querySelectorAll('p')[1].innerText;
+    console.log(img);
+    window.location.href = "sblog.html?img="+encodeURIComponent(img)+"&title="+title+"&desc="+desc+"&intro="+intro+"&cont="+cont;
 }
 
 
@@ -187,7 +193,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
             putImage(imgUrl,"none","inline");
         }).catch(error=>{
             if(error){
-                console.log(error.message);
+                message("danger",error.message);
             }
             putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg","none","inline");
 
@@ -239,10 +245,13 @@ function putImage(imgUrl,st1,st2){
 function putUsername(username,email){
     if(email=="nishimwelys@gmail.com"){
         document.getElementsByClassName('adminid')[0].style.display = "block";
+        document.getElementById('tabform').style.display = "block";
     }
     else
     {
       document.getElementsByClassName('adminid')[0].style.display = "none";
+      document.getElementById('tabform').style.display = "none";
+      window.location.href= "../index.html";
     }
     console.log(username,email);
     document.getElementById('top-username').textContent = username;
@@ -337,7 +346,7 @@ function onFileSelected(event) {
             
          }
          function locaErrorData(error){
-             console.log(error.message);
+          message("danger",error.message);
          }
       
         
@@ -394,33 +403,33 @@ function onFileSelected(event) {
 
 
 // getimge in view
-var selectedFile={};
-function onFileSelected(event) {
- selectedFile = event.target.files[0];
+var selectedBlog={};
+function uploadBlogImg(event) {
+  selectedBlog = event.target.files[0];
   var reader = new FileReader();
 
   var imgtag = document.getElementById("imageid");
-  imgtag.title = selectedFile.name;
+  imgtag.title = selectedBlog.name;
 
   reader.onload = function(event) {
       imgtag.src = event.target.result;
   };
 
-  reader.readAsDataURL(selectedFile);
+  reader.readAsDataURL(selectedBlog);
   }
 
 
-var image,id,title,desc,date,intro,cont,subbtn;
+var bimage,bid,btitle,bdesc,bdate,bintro,bcont,bsubbtn;
 
 function bready(){
-  id =  document.getElementById('blogid').value;
-  image =  document.getElementById('inpimg').value;
-  title  =  document.getElementById('titleid').value;
-  desc  =  document.getElementById('descid').value;
-  date  =  document.getElementById('dateid').value;
-  intro  =  document.getElementById('introid').value;
-  cont  =  document.getElementById('contid').value;
-  console.log(id,image,title,desc,date,intro,cont);
+  bid =  document.getElementById('blogid').value;
+  bimage =  document.getElementById('inpimg').value;
+  btitle  =  document.getElementById('titleid').value;
+  bdesc  =  document.getElementById('descid').value;
+  bdate  =  document.getElementById('dateid').value;
+  bintro  =  document.getElementById('introid').value;
+  bcont  =  document.getElementById('contid').value;
+  console.log(bid,bimage,btitle,bdesc,bdate,bintro,bcont);
 }
 
 function clearBlog(){
@@ -436,15 +445,15 @@ function clearBlog(){
 
 function saveBlog(){
     bready();
-    console.log(id,image,title,desc,date,intro,cont);
-    firebase.database().ref('Blog/' + id).set({
-      Id: id,
-      Image: image,
-      Title: title,
-      Descripttion: desc,
-      Date:date,
-      Introduction:intro,
-      Content: cont
+    console.log(bid,bimage,btitle,bdesc,bdate,bintro,bcont);
+    firebase.database().ref('Blog/' + bid).set({
+      Id: bid,
+      Image: bimage,
+      Title: btitle,
+      Descripttion: bdesc,
+      Date:bdate,
+      Introduction:bintro,
+      Content: bcont
     }).catch(e=>{
         if(e){
           alert("Data Not Saved !!");
@@ -460,7 +469,7 @@ function saveBlog(){
 
 
 function saveImageBlog(){
-    firebase.storage().ref('BlogImage/'+ id+'/blog.jpg').put(selectedFile).then(function(){
+    firebase.storage().ref('BlogImage/'+ bid+'/blog.jpg').put(selectedBlog).then(function(){
       console.log('Successfully uploaded');
     }).catch(e=> {
       console.log(e.message)
@@ -469,18 +478,23 @@ function saveImageBlog(){
 
 // Select The Blog
 function searchBlog() {
-    id =  document.getElementById('blogid').value;
+    bid =  document.getElementById('blogid').value;
     clearBlog();
-    firebase.database().ref('Blog/' + id).on('value', function(snapshot) {
+    firebase.database().ref('Blog/' + bid).on('value', function(snapshot) {
           document.getElementById('titleid').value=snapshot.val().Title;
           document.getElementById('descid').value=snapshot.val().Descripttion;
           document.getElementById('dateid').value=snapshot.val().Date;
           document.getElementById('introid').value=snapshot.val().Introduction;
           document.getElementById('contid').value=snapshot.val().Content;
-          firebase.storage().ref('BlogImage/' +id+'/blog.jpg').getDownloadURL().then(imgUrl =>{
+          firebase.storage().ref('BlogImage/' +bid+'/blog.jpg').getDownloadURL().then(imgUrl =>{
             document.getElementById("imageid").src = imgUrl;
           }).catch(e=>{
-    
+            if(e){
+              message("danger",e.message);
+            }
+            else{
+              message("info","Data Found !!");
+            }
           })
     },function(error){
         if(error){
@@ -495,23 +509,23 @@ function searchBlog() {
 // This is the Update Operation
 function updateBlog() {
     bready();
-    firebase.database().ref('Blog/' + id).update({
-      Image: image,
-      Title: title,
-      Descripttion: desc,
-      Date:date,
-      Introduction:intro,
-      Content: cont
+    firebase.database().ref('Blog/' + bid).update({
+      Image: bimage,
+      Title: btitle,
+      Descripttion: bdesc,
+      Date:bdate,
+      Introduction:bintro,
+      Content: bcont
     },error=>{
       if(error){
-        alert("Data Not Updated!!");
+        message("danger","Data Not Updated!!");
       }
       else{
-        alert("Data Updated !!");
+        message("success","Data Updated !!");
         location.reload();
       }
     });
-    firebase.storage().ref('BlogImage/'+ id+'/blog.jpg').put(selectedFile).then(function(){
+    firebase.storage().ref('BlogImage/'+ bid+'/blog.jpg').put(selectedBlog).then(function(){
       
     }).catch(e=> {
       console.log(e.message)
@@ -522,14 +536,15 @@ function updateBlog() {
 
  // This is the Delete Operation
 function deleteBlog() {
-    id =  document.getElementById('blogid').value;
-    firebase.database().ref('Blog/' + id).remove();
+    bid =  document.getElementById('blogid').value;
+    firebase.database().ref('Blog/' + bid).remove();
 
-    firebase.storage().ref('BlogImage/' +id+'/blog.jpg').delete().then(function() {
+    firebase.storage().ref('BlogImage/' +bid+'/blog.jpg').delete().then(function() {
         console.log("Image Deleted !!")
     }).catch(function(error) {
         message("danger",error.message);
     });
+      message("success","Blog Deleted!!");
     location.reload();
     clearBlog();
   }
@@ -615,26 +630,35 @@ function saveImagePortfolio(){
 function searchPortfolio() {
     pid =  document.getElementById('ppotid').value;
     clearBlog();
-    firebase.database().ref('Portfolio/' + pid).on('value', function(snapshot) {
+    try{
+      firebase.database().ref('Portfolio/' + pid).on('value', function(snapshot) {
   
-          document.getElementById('ptitle').value=snapshot.val().Title;
-          document.getElementById('plink').value=snapshot.val().Link;;
-          document.getElementById('pexp').value=snapshot.val().Explanation;;
-          firebase.storage().ref('Portfolio/'+ pid+'/port.jpg').getDownloadURL().then(imgUrl =>{
-            document.getElementById("pimageid").src = imgUrl;
-          }).catch(e=>{
+        document.getElementById('ptitle').value=snapshot.val().Title;
+        document.getElementById('plink').value=snapshot.val().Link;;
+        document.getElementById('pexp').value=snapshot.val().Explanation;;
+        firebase.storage().ref('Portfolio/'+ pid+'/port.jpg').getDownloadURL().then(imgUrl =>{
+          document.getElementById("pimageid").src = imgUrl;
+        }).catch(e=>{
+          if(e)
+             message("danger",error.message);
+          else
+             message("info","Data Found !!");
+        })
+  },function(error){
+    if(error){
+      message("danger",error.message);
+    }
+    else
+    {
+      message("info","Data Found !!");
+    }
+      
+  });
+    }
+    catch(e){
+      message("danger",e.message);
+    }
     
-          })
-    },function(error){
-      if(error){
-        message("danger",error.message);
-      }
-      else
-      {
-        message("info","Data Found !!");
-      }
-        
-    });
     
   }
 
@@ -648,18 +672,18 @@ function updatePortfolio() {
         Link : plink
     },e=>{
       if(e){
-        console.log("Portfolio not updated!!");
+        message("info","Portfolio not updated!!");
       }
       else
       {
-        console.log("PortFolio Updated !!");
+        message("success","PortFolio Updated !!");
         location.reload();
       }
     });
     firebase.storage().ref('Portfolio/'+ pid+'/port.jpg').put(pselectedFile).then(function(){
       
     }).catch(e=> {
-      console.log(e.message)
+      message("danger",e.message)
     });
     pclear();
   }
@@ -693,7 +717,7 @@ function cready() {
     commentV = document.getElementById('comment');
 }
 
-function clear() {
+function cclear() {
     document.getElementById('name').value="";
     document.getElementById('email').value="";
     document.getElementById('phoneid').value="";
@@ -713,13 +737,14 @@ function sendComment() {
             Address: caddressV.value,
             Comment: commentV.value
         });
-        clear();
+        message("success","Message Sent Successfully!!");
+        cclear();
     }
     else
     {
-        alert("Invalid Input");
+        message("danger","Invalid Input");
     }
-    clear();
+    cclear();
 }
 
 // Slection a file 
@@ -744,7 +769,7 @@ function updatefrm(){
   if(updatefile!=undefined){
       firebase.storage().ref('Users/'+ id+'/profile.jpg').put(updatefile).then(function(){
       }).catch(e=> {
-          console.log(e.message)
+        message("danger",e.message);
       });
   }
   var nname = document.getElementById('updname').value;
@@ -755,10 +780,10 @@ function updatefrm(){
           Email: nmai
     },(error)=>{
           if(error){
-              console.log(error.message);
+              message("danger",error.message);
           }
           else{
-              console.log("Data Updated");
+              message("success","Data Updated");
               location.reload();
           }
     });

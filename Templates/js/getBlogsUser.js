@@ -66,8 +66,8 @@ window.onload = function getBlog(){
      figcap.appendChild(p);
      p.innerText = intro;
      var pp = document.createElement('p');
-     pp.style.display = "none";
-     pp.value = cont;
+     pp.setAttribute('hidden',true);
+     pp.innerText = cont;
      figcap.appendChild(pp);
      }).catch(error=>{
          console.log(error);
