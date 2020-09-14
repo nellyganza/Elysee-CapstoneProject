@@ -255,8 +255,11 @@ function putUsername(username,email){
       document.getElementsByClassName('adminid')[0].style.display = "none";
       var tf =document.getElementById('tabform');
       if(tf!=null)
+      {
         tf.style.display = "none";
-      window.location.href= "../index.html";
+        window.location.href= "signin.html";
+      }
+      
     }
     console.log(username,email);
     document.getElementById('top-username').textContent = username;

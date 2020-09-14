@@ -517,7 +517,7 @@ div.example input[type=text],form.example input[type=email] {
   div.example button:hover {
     background: #7801ff;
   }
-  section>div>div {
+  .Subscribe div>div {
       display: flex;
       flex-direction: row;
   }
