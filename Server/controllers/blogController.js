@@ -1,12 +1,13 @@
 import Blog from "../models/Blog";
-import { pick , remove } from 'lodash';
+import { pick } from 'lodash';
+import e from "express";
 
 export default new class BlogController {
     async save(req, res){
-        const data = pick(req.body, ['Title','Description','Introduction','Content','photo']);
-        data.photo = req.photo;
+        const data = pick(req.body, ['Title','Description','Introduction','Content','photo'])
+        console.log(data);
         const blog = new Blog(data)
-        blog.save()
+        await blog.save()
             .then(item => {
             res.send("item saved to database");
             })
@@ -43,51 +44,84 @@ export default new class BlogController {
             })
         }
     }
-    // getById(req, res) {
-    //     const blogId = req.params.id;
-    //     const blog = Blog.findBlogById(blogId);
-    //     return res.status(200).send({
-    //         message: "The blog was found",
-    //         data: {
-    //             blog
-    //         }
-    //     })
-    // }
-    // delete(req, res){
-    //     const blogTitle = req.params.title
-    //     if(!Blog.findBlogByTitle(blogTitle)){
-    //         return res.status(404).send({
-    //             message: "Blog with provided id does not exist"
-    //         })
-    //     }
-    //     Blog.deleteBlog(blogTitle);
-    //     return res.status(200).send({
-    //         status: 200,
-    //         message: "The blog was deleted",
-    //     })
-    // }
-    // update(req, res){
-    //     const blogTitle = req.params.title
+    async update(req, res){
+        const blog = await Blog.findById({_id:req.params.id})
+        console.log(blog)
+        const AllowedUpdates = ['Title','Description','Introduction','Content','photo']
+        const updates = Object.keys(req.body)
+        console.log(updates)
+        const isValidOperation = updates.every((update) => AllowedUpdates.includes(update))
+        console.log(isValidOperation)
+        if(!isValidOperation){
+            return res.status(404).send({
+                message: 'Invalid Data Fields Present'
+            })
+        }
+        try {
+            updates.forEach((update) => {
+                blog[update] = req.body[update]
+            })
+            await blog.save()
+            if(!blog){
+                return res.status(404).send({message:'An error occured'})
+            }
+            return res.status(200).send({
+                message: 'The blog was modified',
+                data: {
+                    blog
+                }})
+        } catch (error) {
+            return res.status(400).send({
+                message: error.message
+            })
+        }
+        // const data = pick(req.body, ['Title','Description','Introduction','Content','photo']);
+        // data.photo = req.photo;
+        // console.log(data);
+        // await Blog.findByIdAndUpdate(req.params.id,data)
+        //     .then(item => {
+        //     res.send("item update to database");
+        //     })
+        //     .catch(err => {
+        //     res.status(400).send({
+        //         message:err.message,
+        //         code:err.code,
+        //         newmessage:"unable to save to database"
+        //     });
+        //     });
 
+    }
 
-    //     if(!Blog.findBlogByTitle(blogTitle)){
-    //         return res.status(404).send({
-    //             message: "Blog with provided id does not exist"
-    //         })
-    //     }
-    //     const blog = pick(req.body, ['title','desc','intro','content']);
-    //     try{
-    //         Blog.updateBlog(blogTitle,blog);
-    //         return res.status(204).send({
-    //             status: 204,
-    //             message: "The blog was Updated!!",
-    //         })
-    //     }catch (e) {
-    //         return res.status(400).send({
-    //             message: e.message
-    //         })
-    //     }
-    // 
-    // }
+    async delete(req, res){
+      try {
+        const blog = await  Blog.findOne({_id: req.params.id})
+        await blog.remove();
+        return res.status(200).send({
+            message: 'The blog was removed'
+        })
+      } catch (error) {
+          return res.status(400).send({
+              message: error.message
+          })
+      }
+    }
 
+    async getById(req, res) {
+        try {
+            const blog = await Blog.findById({_id: req.params.id}, {photo: 0})
+            return res.status(200).send({
+                message: 'Blog was found',
+                data: {
+                    blog
+                }
+            })
+        } catch (error) {
+            return res.status(400).send({
+                message: error.message
+            })
+        }
+       
+        
+    }
+  
 }
