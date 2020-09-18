@@ -1,13 +1,14 @@
-import Blog from "../models/Blog";
+import Portfolio from "../models/Portfolio";
 import { pick } from 'lodash';
 
-export default new class BlogController {
+export default new class PortfolioController {
     async save(req, res){
-        const data = pick(req.body, ['Title','Description','Introduction','Content','photo'])
-        const blog = new Blog({...data, owner: req.user.id})
-        await blog.save()
+        const data = pick(req.body, ['Title','Description','link','photo'])
+        console.log(data);
+        const portfolio = new Portfolio(data)
+        await portfolio.save()
             .then(item => {
-            res.send("item saved to database");
+            res.send("Portfolio save to database");
             })
             .catch(err => {
             res.status(400).send({
@@ -19,22 +20,22 @@ export default new class BlogController {
 
     }
     async getAll(req, res) {
-        const blogs = await Blog.find({}, {photo: 0})
+        const portfolios = await Portfolio.find({}, {photo: 0})
         return res.status(200).send({
             message: "Operation Succesfull",
             data : {
-                blogs
+                portfolios
             }
         })
     }
-    async getBlogImage(req, res){
+    async getPortfolioImage(req, res){
         try{
-            const blog = await Blog.findOne({_id: req.params.id})
-            if(!blog || !blog.photo){
+            const portfolio = await Portfolio.findOne({_id: req.params.id})
+            if(!portfolio || !portfolio.photo){
                 throw new Error()
             }
             res.set('Content-Type', 'image/jpeg');
-            res.status(200).send(blog.photo)
+            res.status(200).send(portfolio.photo)
         }catch(e){
             return res.status(500).send({
                 message: 'An error occured',
@@ -43,8 +44,8 @@ export default new class BlogController {
         }
     }
     async update(req, res){
-        const blog = await Blog.findById({_id:req.params.id})
-        const AllowedUpdates = ['Title','Description','Introduction','Content','photo']
+        const portfolio = await Portfolio.findById({_id:req.params.id})
+        const AllowedUpdates = ['Title','Description','link','photo']
         const updates = Object.keys(req.body)
         const isValidOperation = updates.every((update) => AllowedUpdates.includes(update))
         if(!isValidOperation){
@@ -54,45 +55,30 @@ export default new class BlogController {
         }
         try {
             updates.forEach((update) => {
-                blog[update] = req.body[update]
+                portfolio[update] = req.body[update]
             })
-            await blog.save()
-            if(!blog){
+            await portfolio.save()
+            if(!portfolio){
                 return res.status(404).send({message:'An error occured'})
             }
             return res.status(200).send({
-                message: 'The blog was modified',
+                message: 'The portfolio was modified',
                 data: {
-                    blog
+                    portfolio
                 }})
         } catch (error) {
             return res.status(400).send({
                 message: error.message
             })
         }
-        // const data = pick(req.body, ['Title','Description','Introduction','Content','photo']);
-        // data.photo = req.photo;
-        // console.log(data);
-        // await Blog.findByIdAndUpdate(req.params.id,data)
-        //     .then(item => {
-        //     res.send("item update to database");
-        //     })
-        //     .catch(err => {
-        //     res.status(400).send({
-        //         message:err.message,
-        //         code:err.code,
-        //         newmessage:"unable to save to database"
-        //     });
-        //     });
-
     }
 
     async delete(req, res){
       try {
-        const blog = await  Blog.findOne({_id: req.params.id})
-        await blog.remove();
+        const portfolio = await  Portfolio.findOne({_id: req.params.id})
+        await portfolio.remove();
         return res.status(200).send({
-            message: 'The blog was removed'
+            message: 'The portfolio was removed'
         })
       } catch (error) {
           return res.status(400).send({
@@ -103,20 +89,17 @@ export default new class BlogController {
 
     async getById(req, res) {
         try {
-            const blog = await Blog.findById({_id: req.params.id}, {photo: 0})
+            const portfolio = await Portfolio.findById({_id: req.params.id}, {photo: 0})
             return res.status(200).send({
-                message: 'Blog was found',
+                message: 'Portfolio was found',
                 data: {
-                    blog
+                    portfolio
                 }
             })
         } catch (error) {
             return res.status(400).send({
                 message: error.message
             })
-        }
-       
-        
-    }
-  
+        }  
+    } 
 }

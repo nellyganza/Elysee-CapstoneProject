@@ -1,6 +1,6 @@
 import mongoose, {Schema} from 'mongoose';
 
-const blogSchema = new Schema({
+const PortfolioSchema = new Schema({
     Title:{
         type:String,
         required:true,
@@ -9,19 +9,11 @@ const blogSchema = new Schema({
     Description:{
         type:String,
         min:3,
-        max:60,
+        max:120,
         required:true
     },
-    Introduction:{
+    link :{
         type:String,
-        min:3,
-        max:60,
-        required:true
-    },
-    Content: {
-        type:String,
-        min:20,
-        max:255,
         required:true
     },
     photo:{
@@ -34,5 +26,5 @@ const blogSchema = new Schema({
     }
 },{timestamps:true})
 
-const Blog = mongoose.model('Blog',blogSchema);
-export default Blog;
+const Portfolio = mongoose.model('Portfolio',PortfolioSchema);
+export default Portfolio;
