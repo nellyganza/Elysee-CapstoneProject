@@ -1,5 +1,6 @@
 import jwt, { decode } from 'jsonwebtoken'
 import User from '../models/User'
+import Blog from '../models/Blog'
 import 'dotenv/config'
 
 const verifyToken = async (req, res, next) => {
@@ -7,6 +8,7 @@ const verifyToken = async (req, res, next) => {
         const token = req.header('Authorization').replace('Bearer ', '')
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
         const user = await User.findOne({_id: decoded._id, email: decoded.email})
+        // const userBlog = await Blog.find({owner: user._id})
         if(!user){
             throw new Error()
         }

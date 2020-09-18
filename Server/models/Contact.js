@@ -32,11 +32,11 @@ const contactSchema = new Schema({
         type: String,
         required: true
     }, 
-    onwer: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'User'
-    }
+    // onwer: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     required: true,
+    //     ref: 'User'
+    // }
 },{timestamps:true})
 
 const Contact = mongoose.model('Contact', contactSchema);
