@@ -90,4 +90,19 @@ export default new class BlogController {
             })
         }
     }
+    async getById(req, res) {
+        try {
+            const blog = await Blog.findById({_id: req.params.id}, {photo: 0})
+            return res.status(200).send({
+                message: 'Blog was found',
+                data: {
+                    blog
+                }
+            })
+        } catch (error) {
+            return res.status(400).send({
+                message: error.message
+            })
+        }
+    }
 }

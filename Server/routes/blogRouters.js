@@ -13,6 +13,7 @@ blogRouter.put('/blogs/:id',upload.single('photo'), ImageProcessor, BlogControll
 blogRouter.delete('/blogs/:id', BlogController.delete)
 blogRouter.get('/blogs', BlogController.getAll);
 blogRouter.get('/blogs/:id/image', BlogController.getBlogImage)
+blogRouter.get('/blogs/:id', BlogController.getById)
 
 
 export default blogRouter
