@@ -66,4 +66,13 @@ export default new class BlogController {
             })
         }
       }
+      async getAll(req, res) {
+        const blogs = await Blog.find({}, {photo: 0})
+        return res.status(200).send({
+            message: "Operation Succesfull",
+            data : {
+                blogs
+            }
+        })
+    }
 }
