@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Nishimwe Elysee">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nishimwe Elysee Website Landing page </title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/fontawesome-free-5.13.0-web/css/all.css">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul id="topnav" class="topnavclass">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="mblog.html">Blog</a></li>
+                <li><a href="aboutme.html">About Me</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li class="adminid"><a href="Admin.html">Admin</a></li>
+                <a href="javascript:void(0);" id="id-icon" class="icon"><button onclick="myFunction()" class="icon-btn"><i class="fa fa-bars"></i></button></i></a>
+            </ul>
+        </nav>
+        <div class="nav-right">
+            <a href="signin.html" id="signin-top"><button>Sign in</button></a>
+            <div id="user-option" role="button" onclick="showoption()" hidden>
+                <img src="https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg" width="40px" height="40px"  id="user-img">
+                <ul>
+                    <li><a id="top-username">Username</a></li>
+                    <li><a href="#" role="button" onclick="openForm()">Update Profile</a></li>
+                    <li><a href="../index.html" id="btnlogout" role="button" onclick="logout()">Sign out</a></li>
+                </ul>
+                
+            </div>
+        </div>
+    </header>
+    <section id="b-content">
+
+        <div >
+            <figure id="main-blog">
+                <img src="../assets/Blogs/linked list.png" width="100%" height="400px" alt="THis the main blogs">
+                <figcaption>
+                    <h1>Blog Post Title</h1>
+                    <p>This Blog Have more Information , some of them are here you can read them</p>
+                </figcaption>
+            </figure>
+        </div>
+        <div id="other-blog">
+           
+        </div>
+
+    </section>
+    <section>
+        <div class="form-popup" id="myForm">
+            <form  class="form-container" >
+                <img id="edit-img" src="https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg" width="170px" height="200px">
+                <input id="myInput" type="file" style="visibility:hidden" onchange="onFileSelected(event)"/>
+                <span title="attach file" class="attachFileSpan" onclick="document.getElementById('myInput').click()">
+                  Change Image
+                </span>
+                <div>
+                    <input type="text"  id="updname" required>
+                    <input type="email" value="" id="updemail" required>
+                </div>
+                <label>
+                    <button class="btn" onclick="updatefrm()">Save Changes</button><button class="close-btn" onclick="closeForm()">Cancel</button>
+                 </label>    
+            </form>
+            </div>
+      </section>
+      <div class="Messages">
+        <div id='dan' class="alert" hidden>
+        <strong>Error!</strong> <p></p><span id="dclosebtn">&times;</span>  
+      </div>
+    
+      <div id='succ' class="alert success" hidden> 
+        <strong>Success!</strong> <p></p><span id="sclosebtn">&times;</span> 
+      </div>
+    
+      <div id='inf' class="alert info" hidden>
+        <strong>Info!</strong> <p></p><span id="iclosebtn">&times;</span>  
+      </div>
+    
+      <div id='worn' class="alert warning" hidden>
+        <strong>Warning!</strong> <p></p><span id="wclosebtn">&times;</span>  
+      </div>
+    </div>
+    <footer>
+        <div class="top-footer">
+            <div class="address data">
+                <div>
+                    <h3>Address</h3>
+                </div>
+                <div class="item-footer"><button class="icon-btn"><i class="fas fa-map-marker-alt"></i></button><span> KIGALI-RWANDA</span></div>
+                <div class="item-footer"><button class="icon-btn"><i class="fas fa-street-view"></i></button><span> KG 368 st 33</span></div>
+            </div>
+            <div class="call data">
+                <h3>Call on </h3>
+                <div class="item-footer"><button class="icon-btn"><i class="far fa-envelope"></i></button><span>+250780781546</span></div>
+                <div class="item-footer"><button class="icon-btn"><i class="fas fa-phone"></i></button><span>nishimwelys@gmail.com</span></div>
+            </div>
+            <div class="available data">
+                <h3>Available</h3>
+                <div class="item-footer"><button class="icon-btn"><i class="fab fa-twitter"></i></button><span>+250780781546</span></div>
+                <div class="item-footer"><button class="icon-btn"><i class="fab fa-facebook"></i></button><span>nishimwelys@gmail.com</span></div>
+                <div class="item-footer"><button class="icon-btn"><i class="fab fa-whatsapp"></i></button><span>+250780781546</span></div>
+            </div>
+        </div>
+        <div class="down-footer">
+            <p>All Right Reserved © Nishimwe ELysee, 2020</p>
+        </div>
+    </footer>
+    <script src="../js/script.js"></script>
+    <script src="../js/blog.js"></script>
+</body>
+
+</html>
