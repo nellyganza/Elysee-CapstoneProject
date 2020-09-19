@@ -9,6 +9,7 @@ const blogRouter = express.Router();
 
 
 blogRouter.post('/blogs', verifyToken, upload.single('photo'), ImageProcessor, BlogController.save)
+blogRouter.put('/blogs/:id',upload.single('photo'), ImageProcessor, BlogController.update)
 
 
 export default blogRouter
