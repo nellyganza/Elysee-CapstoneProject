@@ -61,4 +61,19 @@ export default new class userController {
             }
         })
     }
+    async getProfilePicture(req, res){
+        try{
+            const user = await User.findOne({_id: req.params.id})
+            if(!user || !user.avatar){
+                throw new Error()
+            }
+            res.set('Content-Type', 'image/jpeg');
+            res.status(200).send(user.avatar)
+        }catch(e){
+            return res.status(500).send({
+                message: 'An error occured',
+                error: e.message
+            })
+        }
+    }
 }
