@@ -68,4 +68,13 @@ export default new class PortfolioController {
             })
         }
       }
+      async getAll(req, res) {
+        const portfolios = await Portfolio.find({}, {photo: 0})
+        return res.status(200).send({
+            message: "Operation Succesfull",
+            data : {
+                portfolios
+            }
+        })
+    }
 }

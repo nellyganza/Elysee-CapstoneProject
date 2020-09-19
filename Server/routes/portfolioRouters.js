@@ -9,6 +9,7 @@ const portfolioRouter = express.Router();
 portfolioRouter.post('/portfolios', upload.single('photo'), ImageProcessor, portfolioController.save)
 portfolioRouter.put('/portfolios/:id',upload.single('photo'), ImageProcessor, portfolioController.update)
 portfolioRouter.delete('/portfolios/:id', portfolioController.delete)
+portfolioRouter.get('/portfolios', portfolioController.getAll);
 
 
 
