@@ -48,4 +48,24 @@ export default new class PortfolioController {
             })
         }
     }
+
+    async delete(req, res){
+        try {
+          const portfolio = await  Portfolio.findOne({_id: req.params.id})
+          if(!portfolio){
+              return res.status(404).send({
+                  message: 'portfolio not Found'
+              })
+          }
+  
+          await portfolio.remove();
+          return res.status(200).send({
+              message: 'The portfolio was removed'
+          })
+        } catch (error) {
+            return res.status(400).send({
+                error: error.message
+            })
+        }
+      }
 }
