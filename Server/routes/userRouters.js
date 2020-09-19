@@ -9,6 +9,7 @@ userRouter.post('/users/signup', upload.single('avatar'), ImageProcessor, userCo
 userRouter.put('/users/:id',upload.single('photo'), ImageProcessor, userController.update)
 userRouter.get('/users', userController.getAll)
 userRouter.get('/users/:id/image', userController.getProfilePicture)
+userRouter.post('/users/login',userController.login)
 
 
 export default userRouter;

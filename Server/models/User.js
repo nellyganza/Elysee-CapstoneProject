@@ -42,6 +42,14 @@ const userSchema = new Schema({
     }
 }, {timestamps: true})
 
+userSchema.methods.generateAuthToken = async function () {
+    const user = this
+    const accessToken = await jwt.sign(
+        { _id: user._id, email: user.email }, process.env.JWT_SECRET_KEY);
+        console.log(accessToken)
+    return accessToken;
+}
+
 
 userSchema.pre('save', async function (next) {
         const user = this

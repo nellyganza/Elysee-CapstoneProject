@@ -76,4 +76,25 @@ export default new class userController {
             })
         }
     }
+    async login (req, res){
+        try {
+            const data = pick(req.body, ['email', 'password'])
+            const user = await  User.findByCredentials(data.email, data.password)
+            const authToken = await user.generateAuthToken()
+            return res.status(200).send({
+                message: 'User was logged in ',
+                data: {
+                    user: {
+                        email: user.email,
+                        username: user.username
+                    },
+                    authToken
+                }
+            })
+        } catch (error) {
+            return res.status(400).send({
+                message: error.message
+            })
+        }
+    }
 }
