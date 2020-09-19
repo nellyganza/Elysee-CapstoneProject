@@ -92,4 +92,19 @@ export default new class PortfolioController {
             })
         }
     }
+    async getById(req, res) {
+        try {
+            const portfolio = await Portfolio.findById({_id: req.params.id}, {photo: 0})
+            return res.status(200).send({
+                message: 'Portfolio was found',
+                data: {
+                    portfolio
+                }
+            })
+        } catch (error) {
+            return res.status(400).send({
+                message: error.message
+            })
+        }  
+    } 
 }
