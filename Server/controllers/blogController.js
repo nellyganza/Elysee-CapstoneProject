@@ -75,4 +75,19 @@ export default new class BlogController {
             }
         })
     }
+    async getBlogImage(req, res){
+        try{
+            const blog = await Blog.findOne({_id: req.params.id})
+            if(!blog || !blog.photo){
+                throw new Error()
+            }
+            res.set('Content-Type', 'image/jpeg');
+            res.status(200).send(blog.photo)
+        }catch(e){
+            return res.status(500).send({
+                message: 'An error occured',
+                error: e.message
+            })
+        }
+    }
 }
