@@ -52,5 +52,13 @@ export default new class userController {
             })
         }
     }
-
+    async getAll(req, res) {
+        const users = await User.find({}, {avatar: 0})
+        return res.status(200).send({
+            message: "Operation Succesfull",
+            data : {
+                users
+            }
+        })
+    }
 }

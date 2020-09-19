@@ -7,6 +7,7 @@ const userRouter = express.Router();
 
 userRouter.post('/users/signup', upload.single('avatar'), ImageProcessor, userController.save)
 userRouter.put('/users/:id',upload.single('photo'), ImageProcessor, userController.update)
+userRouter.get('/users', userController.getAll)
 
 
 export default userRouter;
