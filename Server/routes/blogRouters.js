@@ -10,6 +10,7 @@ const blogRouter = express.Router();
 
 blogRouter.post('/blogs', verifyToken, upload.single('photo'), ImageProcessor, BlogController.save)
 blogRouter.put('/blogs/:id',upload.single('photo'), ImageProcessor, BlogController.update)
+blogRouter.delete('/blogs/:id', BlogController.delete)
 
 
 export default blogRouter
