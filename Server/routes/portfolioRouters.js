@@ -10,6 +10,7 @@ portfolioRouter.post('/portfolios', upload.single('photo'), ImageProcessor, port
 portfolioRouter.put('/portfolios/:id',upload.single('photo'), ImageProcessor, portfolioController.update)
 portfolioRouter.delete('/portfolios/:id', portfolioController.delete)
 portfolioRouter.get('/portfolios', portfolioController.getAll);
+portfolioRouter.get('/portfolios/:id/image', portfolioController.getPortfolioImage)
 
 
 

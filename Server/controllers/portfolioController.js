@@ -77,4 +77,19 @@ export default new class PortfolioController {
             }
         })
     }
+    async getPortfolioImage(req, res){
+        try{
+            const portfolio = await Portfolio.findOne({_id: req.params.id})
+            if(!portfolio || !portfolio.photo){
+                throw new Error()
+            }
+            res.set('Content-Type', 'image/jpeg');
+            res.status(200).send(portfolio.photo)
+        }catch(e){
+            return res.status(500).send({
+                message: 'An error occured',
+                error: e.message
+            })
+        }
+    }
 }
