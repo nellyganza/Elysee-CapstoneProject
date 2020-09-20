@@ -61,8 +61,6 @@ function openForm() {
 function closeForm() {
     document.getElementById("myForm").style.display = "none";
 }
-
-
 // Messages 
 function message(type,message){
 	if(type=='success'){
