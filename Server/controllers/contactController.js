@@ -19,4 +19,13 @@ export default new class contactController{
             });
 
     }
+    async getAll(req, res) {
+        const contacts = await Contact.find({});
+        return res.status(200).send({
+            message: "Operation Succesfull",
+            data : {
+                contacts
+            }
+        })
+    }
 } 
