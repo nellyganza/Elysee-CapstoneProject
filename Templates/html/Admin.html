@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Nishimwe Elysee">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nishimwe Elysee Website Landing page </title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/backend.css">
+    <link rel="stylesheet" href="../css/fontawesome-free-5.13.0-web/css/all.css">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
+    <script src="../js/rem.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul id="topnav" class="topnavclass">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="mblog.html">Blog</a></li>
+                <li><a href="aboutme.html">About Me</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li class="adminid"><a href="Admin.html">Admin</a></li>
+                <a href="javascript:void(0);" id="id-icon" class="icon"><button onclick="myFunction()" class="icon-btn"><i class="fa fa-bars"></i></button></i></a>
+            </ul>
+        </nav>
+        <div class="nav-right">
+            <a href="signin.html" id="signin-top"><button>Sign in</button></a>
+            <div id="user-option" role="button" onclick="showoption()" hidden>
+                <img src="https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg" width="40px" height="40px"  id="user-img">
+                <ul>
+                    <li><a id="top-username">Username</a></li>
+                    <li><a href="#" role="button" onclick="openForm()">Update Profile</a></li>
+                    <li><a href="../index.html" id="btnlogout" role="button" onclick="logout()">Sign out</a></li>
+                </ul>
+                
+            </div>
+        </div>
+    </header>
+    <h2>Admin </h2>
+<div id="tabform">
+    <div class="tab" id="tabclass">
+        <button class="tablinks" onclick="openTab(event, 'blog')">Blogs</button>
+        <button class="tablinks" onclick="openTab(event, 'profile')">Profile</button>
+        <button class="tablinks" onclick="openTab(event, 'contact')">Contacts</button>
+        <button class="tablinks" onclick="openTab(event, 'portfolio')">Portfolio</button>
+        <button class="tablinks" onclick="openTab(event, 'other')">Others</button>
+      </div>
+      <div id="tabs">
+
+        <div id="profile" class="tabcontent" style="display: none;">
+            <div class="content">
+            <div class="update-profile">
+                <div class="image">
+                    <img id="profileimg" width="400px" height="200px"><br>
+                    <input type="file" id="proinpimg" onchange="onproFileSelected(event)">
+                    <button id="saveimg">Save</button><button id="clearimg">Clear</button>
+                  </div>
+                  <div class="name">
+                    <input type="text" id="proname" name="name" placeholder="Type Your Name">
+                    <button id="savename">Save</button><button id="clearname">Clear</button>
+                  </div>
+                  <div class="expre">
+                    <textarea id="proexpre" type="text" placeholder="Type Your Expression"></textarea>
+                    <button id="saveexpre">Save</button><button id="clearexpre">Clear</button>
+                  </div>
+                  <div class="skill">
+                    <input id="proskill" type="text" placeholder="Type Your Skill">
+                    <button id="saveexp">Save</button><button id="clearexp">Clear</button>
+                  </div>
+                  <div class="exp">
+                    <input id="proexp" type="text" placeholder="Type Your Experience">
+                    <button id="saveexp">Save</button><button id="clearexp">Clear</button>
+                  </div>
+                  <div class="lang">
+                    <label for="d-lang">Development Language Picture</label>
+                    <input id="prolang" type="file" name="d-lang" placeholder="Type Your Development Language">
+                    <button id="savelang">Save</button><button id="clearlang">Clear</button>
+                  </div>
+            </div>
+            <div id="reminder">
+                <div class="other-rem">
+                    <button onclick="openrem()">set reminder</button>
+                    <button onclick="opennum()">get number of entries</button>
+                    <input type="number" value="50">
+                </div>
+                    
+                <form id="rem">
+                    <h1>Create a reminder</h1>
+                    <p>When</p>
+                    <input type="date">
+                    <p>Time</p>
+                    <select name="time" id="times">
+                        <option value="00:00">Midnight</option>
+                        <option value="1:00">1:00 A:M</option>
+                        <option value="2:00">2:00 A:M</option> 
+                        <option value="3:00">3:00 A:M</option> 
+                        <option value="4:00">4:00 A:M</option> 
+                        <option value="5:00">5:00 A:M</option> 
+                        <option value="6:00">6:00 A:M</option> 
+                        <option value="7:00">7:00 A:M</option> 
+                        <option value="8:00">8:00 A:M</option> 
+                        <option value="9:00">9:00 A:M</option> 
+                        <option value="10:00">10:00 A:M</option> 
+                        <option value="11:00">11:00 A:M</option> 
+                        <option value="12:00">12:00 A:M</option>
+                        <option value="13:00">13:00 P:M</option>
+                        <option value="14:00">14:00 P:M</option>
+                        <option value="15:00">15:00 P:M</option>
+                        <option value="16:00">16:00 P:M</option>
+                        <option value="17:00">17:00 P:M</option>
+                        <option value="18:00">18:00 P:M</option>
+                        <option value="19:00">19:00 P:M</option>
+                        <option value="20:00">20:00 P:M</option>
+                        <option value="21:00">21:00 P:M</option>
+                        <option value="22:00">22:00 P:M</option>
+                        <option value="23:00">23:00 P:M</option>
+                    </select>
+                    <p>Description</p>
+                    <textarea></textarea>
+                    <div class="button">
+                        <button>Cancel</button><button>Create</button>
+                    </div>
+                
+                </form>
+                </div>
+            </div>
+          </div>
+      
+      <div id="blog" class="tabcontent">
+        <div class="content">
+            <div class="port-update">
+                <div class="image">
+                    <img id="imageid" width="100%" height="200px">
+                    <input type="file" id="inpimg" onchange="uploadBlogImg(event)">
+                </div>
+                <div class="bid">
+                    <input id="blogid" type="text" placeholder="Type Blog ID">
+                </div>
+                <div class="title">
+                    <input id="titleid" type="text" placeholder="Type Blog Title">
+                </div>
+                <div class="desc">
+                    <input id="descid" type="text" placeholder="Type Blog Description">
+                </div>
+                <div class="date">
+                    <input id="dateid" type="date" onload="getDateT()"  placeholder="Type Blog Date">
+                </div>
+                <div class="intro">
+                    <textarea id="introid" type="text" placeholder="Type Blog Introduction"></textarea>
+                </div>
+                <div class="cont">
+                    <textarea id="contid" type="text" placeholder="Type Blog Content"></textarea>
+                </div>
+                <div>
+                    <button type="submit" id="submit" onclick="saveBlog()">Save</button><button onclick="clearBlog()" type="reset">Reset</button>
+                    <button type="button" id="bselect" onclick="searchBlog()">Search</button><button id="bupdate"  type="button" onclick="updateBlog()">Update</button><button id="bdelete"  type="button" onclick="deleteBlog()">Delete</button>
+                </div>
+            </div>
+            <div id="blog-list" class="port-list">
+    
+                <!-- <div class="art-item">
+                    <img width="100%" height="100px" alt="Blog  Image">
+                    <h1> Article Title</h1>
+                </div>
+                <div class="art-item">
+                    <img width="100%" height="100px" alt="Blog  Image">
+                    <h1> Article Title</h1>
+                </div>
+                <div class="art-item">
+                    <img width="100%" height="100px" alt="Blog  Image">
+                    <h1> Article Title</h1>
+                </div>
+                <div class="art-item">
+                    <img width="100%" height="100px" alt="Blog  Image">
+                    <h1> Article Title</h1>
+                </div> -->
+            </div>
+          
+          </div>
+          <div class="number-tabs">
+            <!-- <label>1</label>
+            <label>2</label>
+            <label>3</label>
+            <label>4</label>
+            <label>5</label>
+            <label>6</label> -->
+        </div>
+      </div>
+      
+      
+      
+      <div id="contact" class="tabcontent" style="display: none;">
+            <id id="contact-list">
+    
+                
+            </id>
+       
+            <div class="number-tabs">
+                <label>1</label>
+                <label>2</label>
+                <label>3</label>
+                <label>4</label>
+                <label>5</label>
+                <label>6</label>
+            </div>
+      </div>
+      
+      <div id="portfolio" class="tabcontent" hidden>
+        <div class="content">
+            <div class="port-update">
+                <div class="image">
+                    <img id="pimageid" width="100%" height="200px">
+                    <input type="file" id="pinpimg" onchange="onpFileSelected(event)">
+                </div>
+                <div class="pid">
+                    <input id="ppotid" type="text" placeholder="Type Portfolio ID">
+                </div>
+                <div class="title">
+                    <input id="ptitle" type="text" placeholder="Type Project Title ">
+                </div>
+                <div class="exp">
+                    <input id="pexp" type="text" placeholder="Type More Explanation of your Portfolio">
+                </div>
+                <div class="link">
+                    <input id="plink" type="text" placeholder="Type Link of Your Portfolio">
+                </div>
+                <div>
+                    <button type="submit" id="psubmit" onclick="savePortfolio()">Save</button><button onclick="pclear()" type="reset">Reset</button>
+                    <button type="button" id="pselect" onclick="searchPortfolio()">Search</button><button id="pupdate"  type="button" onclick="updatePortfolio()">Update</button><button id="pdelete"  type="button" onclick="deletePortfolio()">Delete</button>
+                </div>
+            </div>
+            <div id="port-listid" class="port-list">
+                <!-- <div class="art-item">
+                    <img width="100%" height="100px" alt="portfolio  Image">
+                    <h1> Article Title</h1>
+                </div>
+                <div class="art-item">
+                    <img width="100%" height="100px" alt="Portfolio  Image">
+                    <h1> Article Title</h1>
+                </div>
+                <div class="art-item">
+                    <img width="100%" height="100px" alt="portfolio  Image">
+                    <h1> Article Title</h1>
+                </div>
+                <div class="art-item">
+                    <img width="100%" height="100px" alt="portfolio  Image">
+                    <h1> Article Title</h1>
+                </div> -->
+            </div>
+        </div>
+        <div id="fnumber-tabs" class="number-tabs" >
+            <!-- <label>1</label>
+            <label>2</label>
+            <label>3</label>
+            <label>4</label>
+            <label>5</label>
+            <label>6</label> -->
+        </div>
+      </div>
+    
+      <div id="other" class="tabcontent" hidden>
+        <ul>
+            <li>Map and Users Locations<br><div class="map">
+            <button type="button" id="test" onclick="showmap()">Click here to View Location of All users</button>
+        
+            <div id="mapholder">
+        
+            </div>
+            <button type="button" id="test" onclick="closemap()">Close Map</button>
+            </div>
+        </li>
+        </ul>
+      </div>
+      </div>
+
+</div>
+
+    
+
+    
+  <section>
+    <div class="form-popup" id="myForm">
+        <form  class="form-container" >
+            <img id="edit-img" src="https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg" width="170px" height="200px">
+            <input id="myInput" type="file" style="visibility:hidden" onchange="onFileSelected(event)"/>
+            <span title="attach file" class="attachFileSpan" onclick="document.getElementById('myInput').click()">
+              Change Image
+            </span>
+            <div>
+                <input type="text"  id="updname" required>
+                <input type="email" value="" id="updemail" required>
+            </div>
+            <label>
+                <button class="btn" onclick="updatefrm()">Save Changes</button><button class="close-btn" onclick="closeForm()">Cancel</button>
+             </label>    
+        </form>
+        </div>
+  </section>
+
+  <div class="Messages">
+    <div id='dan' class="alert" hidden>
+    <strong>Error!</strong> <p></p><span id="dclosebtn">&times;</span>  
+  </div>
+
+  <div id='succ' class="alert success" hidden> 
+    <strong>Success!</strong> <p></p><span id="sclosebtn">&times;</span> 
+  </div>
+
+  <div id='inf' class="alert info" hidden>
+    <strong>Info!</strong> <p></p><span id="iclosebtn">&times;</span>  
+  </div>
+
+  <div id='worn' class="alert warning" hidden>
+    <strong>Warning!</strong> <p></p><span id="wclosebtn">&times;</span>  
+  </div>
+</div>
+    <footer>
+        <div class="top-footer">
+            <div class="address data">
+                <div>
+                    <h3>Address</h3>
+                </div>
+                <div class="item-footer"><button class="icon-btn"><i class="fas fa-map-marker-alt"></i></button><span> KIGALI-RWANDA</span></div>
+                <div class="item-footer"><button class="icon-btn"><i class="fas fa-street-view"></i></button><span> KG 368 st 33</span></div>
+            </div>
+            <div class="call data">
+                <h3>Call on </h3>
+                <div class="item-footer"><button class="icon-btn"><i class="far fa-envelope"></i></button><span>+250780781546</span></div>
+                <div class="item-footer"><button class="icon-btn"><i class="fas fa-phone"></i></button><span>nishimwelys@gmail.com</span></div>
+            </div>
+            <div class="available data">
+                <h3>Available</h3>
+                <div class="item-footer"><button class="icon-btn"><i class="fab fa-twitter"></i></button><span>+250780781546</span></div>
+                <div class="item-footer"><button class="icon-btn"><i class="fab fa-facebook"></i></button><span>nishimwelys@gmail.com</span></div>
+                <div class="item-footer"><button class="icon-btn"><i class="fab fa-whatsapp"></i></button><span>+250780781546</span></div>
+            </div>
+        </div>
+        <div class="down-footer">
+            <p>All Right Reserved © Nishimwe ELysee, 2020</p>
+        </div>
+    </footer>
+    <script src="../js/script.js"></script>
+    <script src="../js/blog.js"></script>
+</body>
+
+</html>
