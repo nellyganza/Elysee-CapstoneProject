@@ -8,7 +8,15 @@
     <title>Nishimwe Elysee Website Landing page </title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/fontawesome-free-5.13.0-web/css/all.css">
-    <script src="../js/script.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
+
 </head>
 
 <body>
@@ -30,8 +38,8 @@
                 <img src="https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg" width="40px" height="40px"  id="user-img">
                 <ul>
                     <li><a id="top-username">Username</a></li>
-                    <li><a href="#" role="button">Update Profile</a></li>
-                    <li><a href="signin.html" id="btnlogout" role="button"">Sign out</a></li>
+                    <li><a href="#" role="button" onclick="openForm()">Update Profile</a></li>
+                    <li><a href="../index.html" id="btnlogout" role="button" onclick="logout()">Sign out</a></li>
                 </ul>
                 
             </div>
@@ -52,7 +60,7 @@
                         <i class="fa fa-lock icon-btn"></i>
                         <input id="pwd" class="input100 password cred_into" type="password" placeholder="Password" required>
                     </div>
-                    <button id="signinid" class="sub_btn" type="submit">Login</button>
+                    <button id="signinid" class="sub_btn" type="submit" onclick="signin()">Login</button>
                 </div>
 
                 <p>If you don't have an account ? <b><a href="signup.html" id="label-click">Sign Up</a></b></p>
@@ -66,7 +74,41 @@
         </div>
 
     </section>
-
+    <section>
+        <div class="form-popup" id="myForm">
+            <form  class="form-container" >
+                <img id="edit-img" src="https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg" width="170px" height="200px">
+                <input id="myInput" type="file" style="visibility:hidden" onchange="onFileSelected(event)"/>
+                <span title="attach file" class="attachFileSpan" onclick="document.getElementById('myInput').click()">
+                  Change Image
+                </span>
+                <div>
+                    <input type="text"  id="updname" required>
+                    <input type="email" value="" id="updemail" required>
+                </div>
+                <label>
+                    <button class="btn" onclick="updatefrm()">Save Changes</button><button class="close-btn" onclick="closeForm()">Cancel</button>
+                 </label>    
+            </form>
+            </div>
+      </section>
+      <div class="Messages">
+        <div id='dan' class="alert" hidden>
+        <strong>Error!</strong> <p></p><span id="dclosebtn">&times;</span>  
+      </div>
+    
+      <div id='succ' class="alert success" hidden> 
+        <strong>Success!</strong> <p></p><span id="sclosebtn">&times;</span> 
+      </div>
+    
+      <div id='inf' class="alert info" hidden>
+        <strong>Info!</strong> <p></p><span id="iclosebtn">&times;</span>  
+      </div>
+    
+      <div id='worn' class="alert warning" hidden>
+        <strong>Warning!</strong> <p></p><span id="wclosebtn">&times;</span>  
+      </div>
+    </div>
     <footer>
         <div class="top-footer">
             <div class="address data">
@@ -92,6 +134,8 @@
             <p>All Right Reserved © Nishimwe ELysee, 2020</p>
         </div>
     </footer>
+    <script src="../js/script.js"></script>
+
 </body>
 
 </html>
