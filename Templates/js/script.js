@@ -18,3 +18,8 @@ function showoption(){
         ulElement.style.display = "none";
 }
 
+function singleBlog(event){
+    var cont = event.target;
+    console.log(cont);
+    window.location.href = "sblog.html";
+}
