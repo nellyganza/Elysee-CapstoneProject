@@ -48,7 +48,10 @@
                         <i class="fa fa-user icon-btn"></i>
                         <input id="userid" class="input100 username cred_into" type="text" pattern="[a-z A-Z]*" placeholder="Username" required>
                     </div>
-
+                    <div class="wrap-input100">
+                        <i class="fa fa-envelope icon-btn"></i>
+                        <input  id="useremail" class="input100 email cred_into" type="text" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                    </div>
                     <div class="wrap-input100">
                         <i class="fa fa-lock icon-btn"></i>
                         <input  id="userpass" class="input100 password cred_into" type="password" placeholder="Password" required>
@@ -57,20 +60,8 @@
                         <i class="fa fa-lock icon-btn"></i>
                         <input  id="c-userpass" class="input100 password cred_into" type="password" placeholder="Confirm-Password" required>
                     </div>
-                    <div class="wrap-input100 ">
-                        <i class="fa fa-phone icon-btn"></i>
-                        <input  id="userphone" class="input100 phonenumber cred_into" type="text" pattern="^\+[0-9]{1,3}\.[0-9]{4,14}(?:x.+)?$" placeholder="phonenumber" required>
-                    </div>
 
-                    <div class="wrap-input100">
-                        <i class="fa fa-envelope icon-btn"></i>
-                        <input  id="useremail" class="input100 email cred_into" type="text" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
-                    </div>
-                    <div class="wrap-input100">
-                        <span>Profile Picture</span>
-                        <input type="file" name="upload" accept="image/*" id="uploadpic" class="input100 choose"/>
-                    </div>
-                    <button id="insert" class="sub_btn" type="submit">Sign Up</button>
+                    <button id="insert" class="sub_btn" type="submit" onclick="signUp()">Sign Up</button>
                 </div>
             </div>
         </div>
