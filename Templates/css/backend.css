@@ -160,6 +160,10 @@ button:hover {
 .number-tabs>label:hover {
   background-color: #1356e6;
 }
+.content .port-update >div >button {
+  font-size: small;
+  margin: 1%;
+}
 
 @media screen and (max-width:400px){
   .content{
