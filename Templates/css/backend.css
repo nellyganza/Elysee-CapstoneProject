@@ -1,6 +1,11 @@
 body{
-    background-color: #1356e6;
+    background-color: #002D68;
     font-family: Arial;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #7801ff;
 }
 .content {
   display: grid;
@@ -194,4 +199,16 @@ button:hover {
     background-size: 200px 100%;
     background-repeat: no-repeat;  
     color: white;
+}
+
+/* Map and User Locations */
+#mapholder {
+  display: none;
+  height: 600px; 
+  width: 100%; 
+}
+
+.map {
+  display: flex;
+  flex-direction: column;
 }

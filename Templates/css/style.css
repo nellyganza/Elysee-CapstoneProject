@@ -21,12 +21,16 @@ header{
     display: grid;
     grid-template-columns: 80% 20%;
     background-color: #022655;
+    height: 80px;
 }
 nav>ul {
     list-style-type: none;
     overflow: hidden;
     margin: 0;
     padding: 0;
+}
+.nav-right >div >ul {
+    background-color: #002D68;
 }
 header #left-side-nav {
     display: flex;
@@ -812,3 +816,42 @@ code {
         cursor: pointer;
     }
   
+
+    /* Alert Messages */
+
+    .alert {
+        position: absolute;
+        top: 5%;
+        left: 30%;
+        width: 40%;
+      padding: 20px;
+      background-color: #f44336;
+      color: white;
+      opacity: 1;
+      transition: opacity 0.6s;
+      margin-bottom: 15px;
+    }
+    
+    .alert.success {background-color: #4CAF50;}
+    .alert.info {background-color: #2196F3;}
+    .alert.warning {background-color: #ff9800;}
+    
+    #wclosebtn,#sclosebtn,#iclosebtn,#dclosebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    #wclosebtn:hover,#sclosebtn:hover,#iclosebtn:hover,#dclosebtn:hover {
+      color: black;
+    }
+
+    /* Admin */
+    .adminid {
+        display: none;
+    }

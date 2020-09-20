@@ -17,7 +17,6 @@
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
     
-    <script src="../js/script.js"></script>
 </head>
 
 <body>
@@ -40,7 +39,7 @@
                 <ul>
                     <li><a id="top-username">Username</a></li>
                     <li><a href="#" role="button" onclick="openForm()">Update Profile</a></li>
-                    <li><a href="signin.html" id="btnlogout" role="button">Sign out</a></li>
+                    <li><a href="../index.html" id="btnlogout" role="button" onclick="logout()">Sign out</a></li>
                 </ul>
                 
             </div>
@@ -92,6 +91,23 @@
             </form>
             </div>
       </section>
+      <div class="Messages">
+        <div id='dan' class="alert" hidden>
+        <strong>Error !</strong> <p></p><span id="dclosebtn">&times;</span>  
+      </div>
+    
+      <div id='succ' class="alert success" hidden> 
+        <strong>Success!</strong> <p></p><span id="sclosebtn">&times;</span> 
+      </div>
+    
+      <div id='inf' class="alert info" hidden>
+        <strong>Info!</strong> <p></p><span id="iclosebtn">&times;</span>  
+      </div>
+    
+      <div id='worn' class="alert warning" hidden>
+        <strong>Warning!</strong> <p></p><span id="wclosebtn">&times;</span>  
+      </div>
+    </div>
     <footer>
         <div class="top-footer">
             <div class="address data">
@@ -117,6 +133,7 @@
             <p>All Right Reserved © Nishimwe ELysee, 2020</p>
         </div>
     </footer>
+    <script src="../js/script.js"></script>
 </body>
 
 </html>
