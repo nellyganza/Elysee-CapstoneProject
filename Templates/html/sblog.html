@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Nishimwe Elysee">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nishimwe Elysee Website Landing page </title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/fontawesome-free-5.13.0-web/css/all.css">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul id="topnav" class="topnavclass">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="mblog.html">Blog</a></li>
+                <li><a href="aboutme.html">About Me</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li class="adminid"><a href="Admin.html">Admin</a></li>
+                <a href="javascript:void(0);" id="id-icon" class="icon"><button onclick="myFunction()" class="icon-btn"><i class="fa fa-bars"></i></button></i></a>
+            </ul>
+        </nav>
+        <div class="nav-right">
+            <a href="signin.html" id="signin-top"><button>Sign in</button></a>
+            <div id="user-option" role="button" onclick="showoption()" hidden>
+                <img src="https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg" width="40px" height="40px"  id="user-img">
+                <ul>
+                    <li><a id="top-username">Username</a></li>
+                    <li><a href="#" role="button" onclick="openForm()">Update Profile</a></li>
+                    <li><a href="../index.html" id="btnlogout" role="button" onclick="logout()">Sign out</a></li>
+                </ul>
+                
+            </div>
+        </div>
+    </header>
+    <section id="sb-content">
+
+        <section id="single-blog" class="smain-blog sb-data">
+            <figure >
+                <img src="../assets/Blogs/linked list.png" width="100%" height="300px" alt="THis the main blogs">
+                <figcaption>
+                    <h1>Single Linked List in DataStructure</h1>
+                    <p>Singly linked list is a basic linked list type. Singly linked list is a collection of nodes linked together in a sequential way where each node of singly linked list contains a data field and an address field which contains the reference of the next node. Singly linked list can contain multiple data fields but should contain at least single address field pointing to its connected next node.</p>
+                    <p>
+                        To perform any operation on a linked list we must keep track/reference of the first node which may be referred by head pointer variable. In singly linked list address field of last node must contain a NULL value specifying end of the list.
+                    </p>
+                    <p>
+                        Basic structure of a singly linked list
+                        Each node of a singly linked list follows a common basic structure. In a node we can store more than one data fields but we need at least single address field to store the address of next connected node.
+                        <code>
+                            struct node {<br>
+                                int data;           // Data <br>
+                                struct node * next; // Address <br>
+                            };
+                        </code>
+                    </p>
+                </figcaption>
+            </figure>
+        </section>
+        <section class="search sb-data">
+                <p>Search</p>
+                <div class="example">
+                    <div>
+                        <input type="text" placeholder="Search.." name="search" required>
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+        </section>
+        <section class="recent sb-data">
+            <h2>Recent Blog Post</h2>
+            <ul>
+                <!-- <li>Newest Blog Post</li>
+                <li>Second Newest Blog Post</li>
+                <li>Thirst Newest Blog Post</li>
+                <li>Fourth Newest Blog Post</li> -->
+            </ul>
+        </section>
+        <section class="Subscribe sb-data">
+            <div role="form" action="" method="POST" class="example">
+                <div class="form-data">
+                <input type="email" placeholder="email" required>
+                <button type="submit" >Subscribe</button>
+                </div>
+            </div>
+        </section>
+        <section class="comment sb-data">
+            <div role="form" action="" method="POST" class="example">
+                <section id="comments">
+
+                </section>
+                <h3>Comment</h3>
+                <textarea id="textareacomment" placeholder="Type Your Comment Here" class="textarea" required></textarea>
+                <div>
+                    <button type="submit" onclick="commentBlog()">Save</button> <button type="submit">Cancel</button>
+                </div>
+            </div>
+        </section>
+    </section>
+    <section>
+        <div class="form-popup" id="myForm">
+            <form  class="form-container" >
+                <img id="edit-img" src="https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg" width="170px" height="200px">
+                <input id="myInput" type="file" style="visibility:hidden" onchange="onFileSelected(event)"/>
+                <span title="attach file" class="attachFileSpan" onclick="document.getElementById('myInput').click()">
+                  Change Image
+                </span>
+                <div>
+                    <input type="text"  id="updname" required>
+                    <input type="email" value="" id="updemail" required>
+                </div>
+                <label>
+                    <button class="btn" onclick="updatefrm()">Save Changes</button><button class="close-btn" onclick="closeForm()">Cancel</button>
+                 </label>    
+            </form>
+            </div>
+      </section>
+      <div class="Messages">
+        <div id='dan' class="alert" hidden>
+        <strong>Error!</strong> <p></p><span id="dclosebtn">&times;</span>  
+      </div>
+    
+      <div id='succ' class="alert success" hidden> 
+        <strong>Success!</strong> <p></p><span id="sclosebtn">&times;</span> 
+      </div>
+    
+      <div id='inf' class="alert info" hidden>
+        <strong>Info!</strong> <p></p><span id="iclosebtn">&times;</span>  
+      </div>
+    
+      <div id='worn' class="alert warning" hidden>
+        <strong>Warning!</strong> <p></p><span id="wclosebtn">&times;</span>  
+      </div>
+    </div>
+    <footer>
+        <div class="top-footer">
+            <div class="address data">
+                <div>
+                    <h3>Address</h3>
+                </div>
+                <div class="item-footer"><button class="icon-btn"><i class="fas fa-map-marker-alt"></i></button><span> KIGALI-RWANDA</span></div>
+                <div class="item-footer"><button class="icon-btn"><i class="fas fa-street-view"></i></button><span> KG 368 st 33</span></div>
+            </div>
+            <div class="call data">
+                <h3>Call on </h3>
+                <div class="item-footer"><button class="icon-btn"><i class="far fa-envelope"></i></button><span>+250780781546</span></div>
+                <div class="item-footer"><button class="icon-btn"><i class="fas fa-phone"></i></button><span>nishimwelys@gmail.com</span></div>
+            </div>
+            <div class="available data">
+                <h3>Available</h3>
+                <div class="item-footer"><button class="icon-btn"><i class="fab fa-twitter"></i></button><span>+250780781546</span></div>
+                <div class="item-footer"><button class="icon-btn"><i class="fab fa-facebook"></i></button><span>nishimwelys@gmail.com</span></div>
+                <div class="item-footer"><button class="icon-btn"><i class="fab fa-whatsapp"></i></button><span>+250780781546</span></div>
+            </div>
+        </div>
+        <div class="down-footer">
+            <p>All Right Reserved © Nishimwe ELysee, 2020</p>
+        </div>
+    </footer>
+    <script src="../js/script.js"></script>
+    <script src="../js/singleblog.js"></script>
+</body>
+
+</html>
