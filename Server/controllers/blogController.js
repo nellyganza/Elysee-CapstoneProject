@@ -1,0 +1,50 @@
+import Blog from "../models/Blog";
+import { pick } from 'lodash';
+
+export default new class BlogController {
+    async save(req, res){
+        const data = pick(req.body, ['Title','Description','Introduction','Content','photo'])
+        const blog = new Blog({...data, owner: req.user.id})
+        await blog.save()
+            .then(item => {
+            res.send("item saved to database");
+            })
+            .catch(err => {
+            res.status(400).send({
+                message:err.message,
+                code:err.code,
+                newmessage:"unable to save to database"
+            });
+            });
+
+    }
+    async update(req, res){
+        const blog = await Blog.findById({_id:req.params.id})
+        const AllowedUpdates = ['Title','Description','Introduction','Content','photo']
+        const updates = Object.keys(req.body)
+        const isValidOperation = updates.every((update) => AllowedUpdates.includes(update))
+        if(!isValidOperation){
+            return res.status(404).send({
+                message: 'Invalid Data Fields Present'
+            })
+        }
+        try {
+            updates.forEach((update) => {
+                blog[update] = req.body[update]
+            })
+            await blog.save()
+            if(!blog){
+                return res.status(404).send({message:'An error occured'})
+            }
+            return res.status(200).send({
+                message: 'The blog was modified',
+                data: {
+                    blog
+                }})
+        } catch (error) {
+            return res.status(400).send({
+                message: error.message
+            })
+        }
+    }
+}
