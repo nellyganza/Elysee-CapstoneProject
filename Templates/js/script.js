@@ -61,6 +61,151 @@ function openForm() {
 function closeForm() {
     document.getElementById("myForm").style.display = "none";
 }
-function signUp() {
-    
+// Messages 
+function message(type,message){
+	if(type=='success'){
+      var div = document.getElementById('succ');
+      div.getElementsByTagName('p')[0].innerText = message;
+      div.style.display = "block";
+       	document.getElementById("sclosebtn").onclick = ()=>{
+       	document.getElementById('succ').style.display = 'none';
+       }
+    }
+    else if(type=='danger'){
+      var div =document.getElementById('dan');
+      div.getElementsByTagName('p')[0].innerText = message;
+      div.style.display = "block";
+       	document.getElementById("dclosebtn").onclick = ()=>{
+         document.getElementById('dan').style.display = 'none';
+         }
+    }
+    else if(type=='info'){
+      var div =document.getElementById('inf');
+      div.getElementsByTagName('p')[0].innerText = message;
+      div.style.display = "block";
+       	document.getElementById("iclosebtn").onclick = ()=>{
+         document.getElementById('inf').style.display = 'none';
+         }
+    }
+    else if(type=='worning'){
+      var div = document.getElementById('worn');
+      div.getElementsByTagName('p')[0].innerText = message;
+      div.style.display = "block";
+       	document.getElementById("wclosebtn").onclick = ()=>{
+         document.getElementById('worn').style.display = 'none';
+         }
+    }
 }
+
+// Sign Up Functions
+
+
+var nameV, passV, cpassV, emailV;
+
+function ready() {
+
+    nameV = document.getElementById('userid');
+    passV = document.getElementById('userpass');
+    cpassV = document.getElementById('c-userpass');
+    emailV = document.getElementById('useremail');
+}
+function clear() {
+    document.getElementById('userid').value ="";
+    document.getElementById('userpass').value ="";
+    document.getElementById('useremail').value ="";
+    document.getElementById('c-userpass').value ="";
+}
+
+function checkpass(){
+    if(document.getElementById('userpass').value ==document.getElementById('c-userpass').value){
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+function signUp(){
+    ready();
+    if(checkpass()){
+        if(nameV.checkValidity()){
+            if(passV.checkValidity()){
+                if(emailV.checkValidity()){
+                    firebase.auth().createUserWithEmailAndPassword(emailV.value,passV.value).then(auth=>{
+                        firebase.database().ref('Users/' + auth.user.uid).set({
+                            Username: nameV.value,
+                            Password: passV.value,
+                            Email: emailV.value,
+                        }).catch(e=>{
+         
+                            }
+                        );
+                        message("success","Account created successfully !!!");
+                        clear();
+                    }).catch(e=> {
+                        if(e){
+                            message("danger",e.message);
+                        }
+                    });
+                }
+                else{
+                    message("danger",emailV.validationMessage);
+                }
+
+            }
+            else{
+                message("danger",passV.validationMessage);
+            }
+          
+        }
+        else{
+            message("danger",nameV.validationMessage);
+        }
+    }
+    else{
+        message("worning","Passord Not Match!!");
+    }
+};
+
+
+// Stage stanged
+function putImage(imgUrl,st1,st2){
+    var img = document.getElementById('user-img');
+    var fimg = document.getElementById('edit-img');
+    var signbtn = document.getElementById('signin-top');
+    var photobtn = document.getElementById('user-option');
+    img.src = imgUrl;
+    fimg.src = imgUrl;
+    signbtn.style.display = st1;
+    photobtn.style.display = st2;
+}
+
+firebase.auth().onAuthStateChanged(firebaseUser => {
+	if(firebaseUser){
+        console.log(firebaseUser);  
+	}
+	else{
+
+    }
+});
+
+// Sign in Codes
+
+function signin(){
+	var email = document.getElementById('uname').value;
+    var password = document.getElementById('pwd').value;
+if(document.getElementById('uname').checkValidity()){
+	firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        message("worning",errorMessage);
+      });
+    }
+    else
+    {
+        message("danger",document.getElementById('uname').validationMessage);
+    }
+};
