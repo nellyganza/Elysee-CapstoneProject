@@ -77,11 +77,11 @@ window.onload = function getBlog(){
      }).catch(error=>{
          console.log(error);
      });
-     test();
+     motionPicture();
  }
  var i=0;
  var tid = setInterval(test, 5000);
- function test(){
+ function motionPicture(){
      try{
      var x = document.getElementsByClassName("single-blog");
          if(i==x.length)

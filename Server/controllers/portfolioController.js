@@ -5,10 +5,12 @@ export default new class PortfolioController {
     async save(req, res){
         const data = pick(req.body, ['Title','Description','link','photo'])
         console.log(data);
-        const portfolio = new Portfolio(data)
+        const portfolio = new Portfolio({...data, owner: req.user.id})
         await portfolio.save()
             .then(item => {
-            res.send("Portfolio save to database");
+            res.send({
+                message:"Portfolio save to database",
+                data:item            });
             })
             .catch(err => {
             res.status(400).send({

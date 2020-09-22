@@ -141,28 +141,43 @@ function checkpass(){
     }
 }
 var logger = true;
-function signUp(){
+async function signUp(){
     sready();
     if(checkpass()){
         if(nameV.checkValidity()){
             if(passV.checkValidity()){
                 if(emailV.checkValidity()){
-                    firebase.auth().createUserWithEmailAndPassword(emailV.value,passV.value).then(auth=>{
-                        firebase.database().ref('Users/' + auth.user.uid).set({
+                  try {
+                    const signin = await firebase.auth().createUserWithEmailAndPassword(emailV.value,passV.value);
+                    const auth = firebase.auth(); 
+                    const newdata = await firebase.database().ref('Users/' + auth.currentUser.uid).set({
                             Username: nameV.value,
                             Password: passV.value,
                             Email: emailV.value,
-                        }).catch(e=>{
-         
-                            }
-                        );
-                        message("success","Account created successfully !!!");
-                        clear();
-                    }).catch(e=> {
-                        if(e){
-                            message("danger",e.message);
-                        }
-                    });
+                        })
+                        
+                    if(!signin){
+                      message("info","Account not created !!");
+                    }
+                    else
+                    {
+                      message("success","Account created successfully !!!");
+                      clear();
+                      const imgurl = await firebase.storage().ref('Users/' +auth.currentUser.uid+'/profile.jpg').getDownloadURL();
+                      if(imgurl){
+                        putImage(imgurl,"none","inline");
+                      }
+                      else
+                      {
+                        putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg","none","inline");
+                      }
+                      const usersigned = await firebase.database().ref('Users/' + auth.currentUser.uid).on('value', function(snapshot) {
+                            putUsername(snapshot.val().Username,snapshot.val().Email);
+                        }); 
+                    }
+                  } catch (error) {
+                    message("danger",error.message);
+                  }
                 }
                 else{
                     message("danger",emailV.validationMessage);
@@ -188,48 +203,55 @@ function signUp(){
 
 firebase.auth().onAuthStateChanged(firebaseUser => {
 	if(firebaseUser){
-        if(logger){
         console.log(firebaseUser);  
-        firebase.storage().ref('Users/' +firebaseUser.uid+'/profile.jpg').getDownloadURL().then(imgUrl =>{
-            putImage(imgUrl,"none","inline");
-        }).catch(error=>{
-            if(error){
-                message("danger",error.message);
-            }
-            putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg","none","inline");
-
-        })
-        firebase.database().ref('Users/' + firebaseUser.uid).on('value', function(snapshot) {
-            putUsername(snapshot.val().Username,snapshot.val().Email);
-        });  
-        message("success","Logged in Successfully!!");
-    }
+        console.log('There is a User ');
 	}
 	else{
-        message("info","Logged out Successfully!!");
-        putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg","inline","none");
-        putUsername("","","","");
+        console.log("No user logged in");
     }
 });
 
 // Sign in Codes
 
-function signin(){
+function clearSignIn(){
+   document.getElementById('uname').value = "";
+   document.getElementById('pwd').value = "";
+}
+async function signin(){
 	var email = document.getElementById('uname').value;
     var password = document.getElementById('pwd').value;
-if(document.getElementById('uname').checkValidity()){
-	firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-        message("worning",errorMessage);
-      });
+  if(document.getElementById('uname').checkValidity()){
+    try {
+      const signed = await	firebase.auth().signInWithEmailAndPassword(email, password);
+    if(!signed){
+      message("info"," Not signed in !!");
     }
     else
     {
-        message("danger",document.getElementById('uname').validationMessage);
+      message("success","Your logged in!!!");
+      clearSignIn();
+      const uid = firebase.auth().currentUser.uid;
+      const imgurl = await firebase.storage().ref('Users/' +uid+'/profile.jpg').getDownloadURL();
+      if(imgurl){
+        putImage(imgurl,"none","inline");
+      }
+      else
+      {
+        putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg","none","inline");
+      }
+      const usersigned = await firebase.database().ref('Users/' + uid).on('value', function(snapshot) {
+            putUsername(snapshot.val().Username,snapshot.val().Email);
+        }); 
     }
+    } catch (error) {
+      message('error',error.message);
+    }
+    
+  }
+  else
+  {
+      message("danger",document.getElementById('uname').validationMessage);
+  }
 };
 
 
@@ -286,16 +308,22 @@ function onFileSelected(event) {
 
     // Logout
 
-    function logout(){
-        firebase.auth().signOut().then(function() {
-            // Sign-out successful.
-           
-           document.getElementsByClassName('adminid')[0].style.display = "none";
-           message("info",'Logged Out');
-          }).catch(function(error) {
-            // An error happened.
-           message("worning",error.message);
-          });
+    async function logout(){
+      try {
+        const logout = await firebase.auth().signOut();
+        if(!logout){
+          message('info',"Your are not logged out!!!");
+        }
+        else
+        {
+          document.getElementsByClassName('adminid')[0].style.display = "none";
+          message("info","Logged out !!");
+          putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg","inline","none");
+          putUsername("","","","");
+        }
+      } catch (error) {
+        message("worning",error.message);
+      }       
     };
 
 

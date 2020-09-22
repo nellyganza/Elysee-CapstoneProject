@@ -8,11 +8,11 @@ const commentSchema = new Schema({
         type: String,
         required: true
     }, 
-    // blog: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     required: true,
-    //     ref: 'Blog'
-    // }
+    blog: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Blog'
+    }
 },{timestamps:true})
 
 const Comment = mongoose.model('Comment', commentSchema);

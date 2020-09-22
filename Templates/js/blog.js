@@ -35,25 +35,32 @@ window.onload = function getBlogl(){
  function errorData(error){
      console.log(error.message);
  }
- var j=0;
+ var j=0;var i=1;
  function addblog(k,title,id){
      firebase.storage().ref('BlogImage/' +k+'/blog.jpg').getDownloadURL().then(imgUrl =>{ 
      var blo = document.getElementById('blog-list');
-     console.log(blo);
-     console.log(k+title+id);
+     console.log("Blog-List ==> ",blo);
+     console.log("Item :",k+title+id);
     let dtab;
-    if(id%5==0){
-        j++;
+    console.log("ID =",id);
+    console.log("J =",j);
+    let ch = j%5===0;
+    console.log('Choice = ',ch)
+    if(ch){
         console.log('1');
         dtab = document.createElement('div');
-        dtab.setAttribute('id',`tab${j}`);
+        dtab.setAttribute('id',`tab${i}`);
         dtab.setAttribute('class','tab-list');
         blo.appendChild(dtab);
+        console.log("In CH True :",dtab)
+        i++;
     }
     else
     {
-        dtab = document.getElementById(`tab${j}`);
-        console.log(dtab);
+        console.log("J IN Else ",j);
+        console.log("I IN Else ",i);
+        dtab = document.getElementById(`tab${i-1}`);
+        console.log("Value :",dtab);
     }
     
 
@@ -73,17 +80,17 @@ window.onload = function getBlogl(){
      ldiv.appendChild(lh);
 
      
-
-    if(id%5==0){
+    
+    if(ch){
         var butab = document.getElementsByClassName('number-tabs')[0];
         var label  = document.createElement('label');
-        label.setAttribute("onclick",`nextTab(event, 'tab${j}')`);
+        label.setAttribute("onclick",`nextTab(event, 'tab${i-1}')`);
         label.setAttribute('class','nextlinks');
-        label.innerHTML =  `${j}`;
+        label.innerHTML =  `${i-1}`;
         butab.appendChild(label);
     }
     
-
+    j++;
      }).catch(error=>{
          console.log(error);
      });
@@ -182,24 +189,24 @@ window.onload = function getBlogl(){
 function errorfData(error){
     console.log(error.message);
 }
-var t=0;
+var t=0,m=1;
 function addPort(k,title,id){
     firebase.storage().ref('Portfolio/' +k+'/port.jpg').getDownloadURL().then(imgUrl =>{ 
         var blo = document.getElementById('port-listid');
         console.log(blo);
         console.log(k+title+id);
     let dtab;
-    if(id%5==0){
-        t++;
+    if(t%5===0){
         console.log('1');
         dtab = document.createElement('div');
-        dtab.setAttribute('id',`ftab${t}`);
+        dtab.setAttribute('id',`ftab${m}`);
         dtab.setAttribute('class','ftab-list');
         blo.appendChild(dtab);
+        m++;
     }
     else
     {
-        dtab = document.getElementById(`ftab${t}`);
+        dtab = document.getElementById(`ftab${m-1}`);
         console.log(dtab);
     }
 
@@ -221,16 +228,16 @@ function addPort(k,title,id){
 
 
 
-    if(id%5==0){
+    if(t%5==0){
         var butab = document.getElementById('fnumber-tabs');
         var label  = document.createElement('label');
-        label.setAttribute("onclick",`fnextTab(event, 'ftab${t}')`);
+        label.setAttribute("onclick",`fnextTab(event, 'ftab${m-1}')`);
         label.setAttribute('class','fnextlinks');
-        label.innerHTML =  `${t}`;
+        label.innerHTML =  `${m-1}`;
         butab.appendChild(label);
     }
 
-
+    t++;
 }).catch(error=>{
     console.log(error);
 });

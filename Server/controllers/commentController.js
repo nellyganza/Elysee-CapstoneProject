@@ -5,7 +5,7 @@ export default new class commentController {
     async save(req,res){
         try {
             const data = pick(req.body,['fullName','comment']);
-            const comment  = new Comment(data);
+            const comment  = new Comment({...data,blog:req.params.id});
             await comment.save();
             return res.status(200).send({
                 message: "Comment Sent Succesful",
@@ -21,7 +21,7 @@ export default new class commentController {
 
     async getAll(req,res){
         try {
-            const comments = await Comment.find({});
+            const comments = await Comment.find({blog:req.params.id});
             return res.status(200).send({
                 message: "Comment found !!",
                 data: comments

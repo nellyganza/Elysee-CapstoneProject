@@ -7,7 +7,10 @@ export default new class BlogController {
         const blog = new Blog({...data, owner: req.user.id})
         await blog.save()
             .then(item => {
-            res.send("item saved to database");
+            res.send({
+                message: "Blog saved to database",
+                data:item
+            });
             })
             .catch(err => {
             res.status(400).send({
