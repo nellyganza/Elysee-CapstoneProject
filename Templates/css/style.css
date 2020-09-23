@@ -24,6 +24,9 @@ header{
     min-height: 80px;
     position: relative !important;
 }
+nav{
+    padding: 2%;
+}
 nav>ul {
     list-style-type: none;
     overflow: hidden;
@@ -146,7 +149,7 @@ footer {
 .nav-right {
     display: flex;
     flex-direction: row;
-    padding: 10px;
+    padding: 10%;
     margin-right: 10px;
 }
 .nav-right >div {
@@ -221,13 +224,62 @@ footer {
 /* Landing Page */
 
 .content {
-    padding: 5% 10%;
+    padding: 5%;
 }
 
-.content>h1 {
+.content>div>h1 {
     font-size: 64px;
 }
 
+#land-Info {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+}
+#land-Info .top-Info {
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-row-end: 1;
+    grid-column-end: 1;
+    height: 100px;
+}
+#land-Info .top-Info .nameofme{
+    margin: 0;
+}
+#land-Info .land-img {
+    grid-row-start: 1;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row-end: 3;
+    padding-top: 10%;
+    width: fit-content;
+}
+#land-Info .land-img>img {
+    border: solid 1px white;
+    border-radius: 5px;
+}
+#land-Info .lower_content {
+    margin: 0;
+    grid-row-start: 2;
+    grid-column-start: 1;
+    grid-row-end: 3;
+    grid-column-end: 1;
+}
+#land-Info .contactme_btn {
+    grid-row-start: 4;
+    grid-column-start: 1;
+    grid-row-end: 4;
+    grid-column-end: 1;
+}
+#land-Info >div>button {
+    margin-left: 0 !important;
+}
+
+@media screen and (max-width:800px){
+    #land-Info .top-Info > h1 {
+        font-size: 40px;
+    }
+}
 
 /*Contact CSS*/
 
@@ -405,6 +457,10 @@ input[type=password] {
         display: grid;
         grid-template-columns: repeat(2,50%) !important;
     } 
+    #land-Info {
+        display: flex;
+        flex-direction: column;
+    }
 }
 #b-content {
     display: grid;
@@ -995,3 +1051,129 @@ padding: 0;
     background-color: white;
     margin: 0;
 }
+
+/* Login Form Css */
+
+/* Full-width input fields */
+.modal input[type=text],.modal input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  /* Set a style for all buttons */
+  .modal  button {
+    background-color: #1356e6;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .modal button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Extra styles for the cancel button */
+  .modal .cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #1356e6;
+  }
+  
+  /* Center the image and position the close button */
+  .modal .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+  }
+  
+  .modal img.avatar {
+    width: 10%;
+    border-radius: 50%;
+  }
+  
+  .modal #login {
+    padding: 10%;
+  }
+
+  /* The Modal (background) */
+ .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+  }
+  
+  .modal-content {
+      padding-top: 10px;
+    margin: 5% auto 15% auto; 
+    width: 80%; 
+    background-color: white;
+  }
+  
+  /* The Close Button (x) */
+  .close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #7801ff;
+    cursor: pointer;
+  }
+  
+  /* Add Zoom Animation */
+  .animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+  }
+  
+  @-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+  }
+    
+  @keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+  }
+  
+  /* Change styles for span and cancel button on extra small screens */
+  @media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+  }
+#login.login-frm {
+    margin: 0;
+    padding-left: 10%;
+    padding-right: 10%;
+    background-color: darkblue;
+}
+  #login .content_info .wrap-input100 > input {
+      border: none;
+  }
+
+  /* End of Login from css */

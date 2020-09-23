@@ -24,13 +24,21 @@ function myFunction() {
 }
 
 function showoption(){
-    var op = document.getElementById('user-option');
-    var ulElement = document.querySelector( "#user-option ul" );
-    var style = document.querySelector( "#user-option ul" ).style.display;
-    if(style=="none")
-        ulElement.style.display = "inline";
+    var uuname = document.getElementById('top-username').innerText;
+    console.log(uuname);
+    if(uuname=='Username'){
+      document.getElementById('id01').style.display='block';
+    }
     else
-        ulElement.style.display = "none";
+    {
+      var op = document.getElementById('user-option');
+      var ulElement = document.querySelector( "#user-option ul" );
+      var style = document.querySelector( "#user-option ul" ).style.display;
+      if(style=="none")
+          ulElement.style.display = "inline";
+      else
+          ulElement.style.display = "none";
+    }
 }
 
 function getsblog() {
@@ -163,17 +171,7 @@ async function signUp(){
                     {
                       message("success","Account created successfully !!!");
                       clear();
-                      const imgurl = await firebase.storage().ref('Users/' +auth.currentUser.uid+'/profile.jpg').getDownloadURL();
-                      if(imgurl){
-                        putImage(imgurl,"none","inline");
-                      }
-                      else
-                      {
-                        putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg","none","inline");
-                      }
-                      const usersigned = await firebase.database().ref('Users/' + auth.currentUser.uid).on('value', function(snapshot) {
-                            putUsername(snapshot.val().Username,snapshot.val().Email);
-                        }); 
+                      
                     }
                   } catch (error) {
                     message("danger",error.message);
@@ -198,13 +196,28 @@ async function signUp(){
     }
 };
 
+async function addAll(firebaseUser){
+  console.log('here')
+  const imgurl = await firebase.storage().ref('Users/' +firebaseUser.uid+'/profile.jpg').getDownloadURL();
+  if(imgurl){
+    putImage(imgurl);
+  }
+  else
+  {
+    putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg");
+  }
+  const usersigned = await firebase.database().ref('Users/' +firebaseUser.uid).on('value', function(snapshot) {
+        putUsername(snapshot.val().Username,snapshot.val().Email);
+    });
+}
 
 // Stage stanged
 
-firebase.auth().onAuthStateChanged(firebaseUser => {
+ firebase.auth().onAuthStateChanged(firebaseUser => {
 	if(firebaseUser){
         console.log(firebaseUser);  
         console.log('There is a User ');
+        addAll(firebaseUser)
 	}
 	else{
         console.log("No user logged in");
@@ -230,18 +243,6 @@ async function signin(){
     {
       message("success","Your logged in!!!");
       clearSignIn();
-      const uid = firebase.auth().currentUser.uid;
-      const imgurl = await firebase.storage().ref('Users/' +uid+'/profile.jpg').getDownloadURL();
-      if(imgurl){
-        putImage(imgurl,"none","inline");
-      }
-      else
-      {
-        putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg","none","inline");
-      }
-      const usersigned = await firebase.database().ref('Users/' + uid).on('value', function(snapshot) {
-            putUsername(snapshot.val().Username,snapshot.val().Email);
-        }); 
     }
     } catch (error) {
       message('error',error.message);
@@ -255,34 +256,13 @@ async function signin(){
 };
 
 
-function putImage(imgUrl,st1,st2){
+function putImage(imgUrl){
     var img = document.getElementById('user-img');
     var fimg = document.getElementById('edit-img');
-    var signbtn = document.getElementById('signin-top');
-    var photobtn = document.getElementById('user-option');
     img.src = imgUrl;
     fimg.src = imgUrl;
-    signbtn.style.display = st1;
-    photobtn.style.display = st2;
 }
 function putUsername(username,email){
-    if(email=="nishimwelys@gmail.com"){
-        document.getElementsByClassName('adminid')[0].style.display = "block";
-        var tf =document.getElementById('tabform');
-        if(tf!=null)
-          tf.style.display = "block";
-    }
-    else
-    {
-      document.getElementsByClassName('adminid')[0].style.display = "none";
-      var tf =document.getElementById('tabform');
-      if(tf!=null)
-      {
-        tf.style.display = "none";
-        window.location.href= "signin.html";
-      }
-      
-    }
     console.log(username,email);
     document.getElementById('top-username').textContent = username;
     document.getElementById('updname').value = username;
@@ -318,8 +298,8 @@ function onFileSelected(event) {
         {
           document.getElementsByClassName('adminid')[0].style.display = "none";
           message("info","Logged out !!");
-          putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg","inline","none");
-          putUsername("","","","");
+          putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg");
+          putUsername("","","");
         }
       } catch (error) {
         message("worning",error.message);
@@ -761,9 +741,13 @@ function cclear() {
     document.getElementById('address').value="";
     document.getElementById('comment').value="";
 }
-
+function signedUser(){
+   return document.getElementById('top-username').innerText !== 'Username';
+}
 // This is the Insert Operation
 function sendComment() {
+  console.log(signedUser())
+  if(signedUser()){
     cready();
     if(cnameV.checkValidity() && cemailV.checkValidity() && phoneVar.checkValidity() && caddressV.checkValidity() && commentV.checkValidity()){
     console.log(cnameV.value,cemailV.value,phoneVar.value,caddressV.value,commentV.value);
@@ -782,6 +766,10 @@ function sendComment() {
         message("danger","Invalid Input");
     }
     cclear();
+  }
+  else{
+    document.getElementById('id01').style.display='block';
+  }
 }
 
 // Slection a file 
@@ -828,3 +816,27 @@ function updatefrm(){
 
 
 
+
+//   Login from JS
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+//End of Login Form css
+
+
+
+// Sign up From JS
+// Get the modal
+var modal = document.getElementById('id02');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}

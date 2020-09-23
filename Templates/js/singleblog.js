@@ -27,6 +27,7 @@ console.log(id);
 
 
 function commentBlog() {
+    if(signedUser()){
     var comment = document.getElementById('textareacomment').value;
     if(comment!=""){
         firebase.database().ref('Comment/'+id+`/${new Date()}`).set({
@@ -48,7 +49,11 @@ function commentBlog() {
     {
         console.log("no Comment");
     }
-
+    }
+    else
+    {
+        document.getElementById('id01').style.display= 'block';
+    }
 }
 
 window.onload = function getComments(){

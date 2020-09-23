@@ -80,7 +80,7 @@ window.onload = function getBlog(){
      motionPicture();
  }
  var i=0;
- var tid = setInterval(test, 5000);
+ var tid = setInterval(motionPicture, 5000);
  function motionPicture(){
      try{
      var x = document.getElementsByClassName("single-blog");
