@@ -11,19 +11,27 @@ var getParams = function (url) {
     return params;
 };
 var params =getParams(document.URL);
-var singleblog = document.getElementById('single-blog');
-var img = params["img"];
-singleblog.querySelector('img').src = img;
-var title = params["title"];
-singleblog.querySelector('h1').innerText = title;
-var desc = params["desc"];
-singleblog.querySelectorAll('p')[0].innerText = desc;
-var intro = params["intro"];
-singleblog.querySelectorAll('p')[1].innerText = intro;
-var cont = params["cont"];
-singleblog.querySelectorAll('p')[2].innerText = cont;
 var id = params["id"];
-console.log(id);
+fetch(`http://localhost:3500/blogs/${id}`)
+ .then(res => res.json())
+ .then(res =>{
+   console.log(res);
+     var singleblog = document.getElementById('single-blog');
+     var img = setImg(res.data.blog.photo.data);
+     singleblog.querySelector('img').src = img;
+     var title = res.data.blog.Title;
+     singleblog.querySelector('h1').innerText = title;
+     var desc = res.data.blog.Description;
+     singleblog.querySelectorAll('p')[0].innerText = desc;
+     var intro = res.data.blog.Introduction;
+     singleblog.querySelectorAll('p')[1].innerText = intro;
+     var cont = res.data.blog.Content;
+     singleblog.querySelectorAll('p')[2].innerText = cont;
+ });
+
+
+// var id = params["id"];
+// console.log(id);
 
 
 function commentBlog() {

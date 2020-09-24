@@ -1,7 +1,9 @@
-import multer from 'multer';
+import multer from 'multer'
 
-const Upload = multer({limits:{
-    fileSize: 1000000
-}});
+const Upload = multer({
+	limits: {
+		fileSize: 1000000
+	}
+})
 
-export default Upload;
+export default Upload

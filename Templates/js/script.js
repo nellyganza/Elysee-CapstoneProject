@@ -57,7 +57,8 @@ function singleBlog(event){
     var cont =info.querySelectorAll('p')[1].innerText;
     var id = info.querySelector('h5').innerText;
     console.log(img);
-    window.location.href = "sblog.html?img="+encodeURIComponent(img)+"&title="+title+"&desc="+desc+"&intro="+intro+"&cont="+cont+"&id="+id;
+    window.location.href = "sblog.html?id="+id;
+    // window.location.href = "sblog.html?img="+img+"&title="+title+"&desc="+desc+"&intro="+intro+"&cont="+cont+"&id="+id;
 }
 
 
@@ -840,3 +841,15 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+function setImg(bufferer){
+  var arrayBufferView = new Uint8Array(bufferer);
+      var blob = new Blob( [ arrayBufferView ], { type: "image/jpeg" } );
+      var urlCreator = window.URL || window.webkitURL;
+      var imageUrl = urlCreator.createObjectURL( blob );
+      return imageUrl;
+  }
+ 
+fetch('http://localhost:3500/users')
+.then(res => res.json())
+.then(res => console.log(res));

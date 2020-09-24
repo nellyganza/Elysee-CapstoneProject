@@ -4,36 +4,45 @@
 
 
 
-window.onload = function getBlog(){
-    var ref =  firebase.database().ref('Blog');
-    ref.on('value',getData,errorData);
- }
+// window.onload = function getBlog(){
+//     var ref =  firebase.database().ref('Blog');
+//     ref.on('value',getData,errorData);
+//  }
  
+ fetch('http://localhost:3500/blogs')
+ .then(res => res.json())
+ .then(res =>{
+   console.log(res);
+   res.data.blogs.forEach(element => {
+     console.log(element.photo.data)
+    //  setImg(element.photo.data);
+     getData(element);
+   });
+ });
+
  function getData(data) {
  
-         var blogs = data.val();
+         var blogs = data;
          var keys = Object.keys(blogs);
-         console.log(keys);
-         for(var i=0; i < keys.length;i++){
-             var k = keys[i];
-             var title = blogs[k].Title;
-             var desc = blogs[k].Descripttion;
-             var date = blogs[k].Date;
-             var intro = blogs[k].Introduction;
-             var cont = blogs[k].Content;
-             
-             addblog(k,title,desc,date,intro,cont);
-     
-         }
-     
-    
+         console.log('Keys ==>',keys);
+             var id = blogs._id;
+             var title = blogs.Title;
+             var desc = blogs.Description;
+             var date = blogs.createdAt;
+             var intro = blogs.Introduction;
+             var cont = blogs.Content;
+             var imgurl = blogs.photo.data;
+             console.log(id,title,desc,date,intro,cont,imgurl);
+             addblog(id,title,desc,date,intro,cont,setImg(imgurl));
+       
  }
  function errorData(error){
      console.log(error.message);
  }
  
- function addblog(k,title,desc,date,intro,cont){
-     firebase.storage().ref('BlogImage/' +k+'/blog.jpg').getDownloadURL().then(imgUrl =>{
+ function addblog(id,title,desc,date,intro,cont,imgUrl){
+     console.log("Img URL ==>",imgUrl);
+    //  firebase.storage().ref('BlogImage/' +k+'/blog.jpg').getDownloadURL().then(imgUrl =>{
      var otherblogcontainer = document.getElementById('other-blog');
      console.log(otherblogcontainer);
      var figure = document.createElement('figure');
@@ -72,11 +81,11 @@ window.onload = function getBlog(){
 
      var h5= document.createElement('h5');
      h5.setAttribute('hidden',true);
-     h5.innerText = k;
+     h5.innerText = id;
      figcap.appendChild(h5);
-     }).catch(error=>{
-         console.log(error);
-     });
+    //  }).catch(error=>{
+    //      console.log(error);
+    //  });
      motionPicture();
  }
  var i=0;
