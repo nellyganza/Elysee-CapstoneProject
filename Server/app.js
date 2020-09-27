@@ -1,11 +1,12 @@
 import express from 'express'
+import 'dotenv/config'
 import blogRouter from './routes/blogRouters'
 import userRouter from './routes/userRouters'
 import contactRouter from './routes/contactRouters'
 import portfolioRouter from './routes/portfolioRouters'
 import commentRouter from './routes/commentRouters'
 
-require('./config/mongoose')
+require('./helpers/database')
 
 const app = express()
 

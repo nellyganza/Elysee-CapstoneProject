@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-use-before-define */
 /* eslint-disable func-names */
 /* eslint-disable no-underscore-dangle */

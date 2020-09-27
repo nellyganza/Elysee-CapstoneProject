@@ -7,12 +7,12 @@ import verifyToken from '../middleware/auth'
 const portfolioRouter = express.Router();
 
 
-portfolioRouter.post('/portfolios',verifyToken, upload.single('photo'), ImageProcessor, portfolioController.save)
-portfolioRouter.put('/portfolios/:id',verifyToken,upload.single('photo'), ImageProcessor, portfolioController.update)
-portfolioRouter.delete('/portfolios/:id',verifyToken, portfolioController.delete)
-portfolioRouter.get('/portfolios', portfolioController.getAll);
-portfolioRouter.get('/portfolios/:id/image', portfolioController.getPortfolioImage)
-portfolioRouter.get('/portfolios/:id', portfolioController.getById)
+portfolioRouter.post('/api/v1/portfolios',verifyToken, upload.single('photo'), ImageProcessor, portfolioController.save)
+portfolioRouter.put('/api/v1/portfolios/:id',verifyToken,upload.single('photo'), ImageProcessor, portfolioController.update)
+portfolioRouter.delete('/api/v1/portfolios/:id',verifyToken, portfolioController.delete)
+portfolioRouter.get('/api/v1/portfolios', portfolioController.getAll);
+portfolioRouter.get('/api/v1/portfolios/:id/image', portfolioController.getPortfolioImage)
+portfolioRouter.get('/api/v1/portfolios/:id', portfolioController.getById)
 
 
 

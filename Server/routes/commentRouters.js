@@ -3,8 +3,8 @@ import commentController from '../controllers/commentController';
 import verifyToken from '../middleware/auth'
 const commentRouter = express.Router();
 
-commentRouter.post('/comments/:id',verifyToken,commentController.save);
-commentRouter.get('/comments/:id',commentController.getAll);
+commentRouter.post('/api/v1/comments/:id',verifyToken,commentController.save);
+commentRouter.get('/api/v1/comments/:id',commentController.getAll);
 
 
 export default commentRouter;

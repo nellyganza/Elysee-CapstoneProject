@@ -4,8 +4,8 @@ import verifyToken from '../middleware/auth'
 
 const contactRouter = express.Router();
 
-contactRouter.post('/contacts',verifyToken, contactController.save)
-contactRouter.get('/contacts', contactController.getAll)
+contactRouter.post('/api/v1/contacts',verifyToken, contactController.save)
+contactRouter.get('/api/v1/contacts', contactController.getAll)
 
 
 export default contactRouter;

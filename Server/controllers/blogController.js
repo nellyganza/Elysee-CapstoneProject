@@ -75,7 +75,7 @@ export default new class BlogController {
 	async getAll(req, res) {
 		const blogs = await Blog.find({})
 		return res.status(200).send({
-			message: 'Operation Succesfull',
+			message: "Operation Succesfull",
 			data: {
 				blogs
 			}
