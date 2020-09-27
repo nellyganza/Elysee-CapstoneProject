@@ -13,5 +13,5 @@ cache:
     - node_modules
 script:
   - npm run test
-after_succes: 
+after_success:
   - npm run coveralls
