@@ -36,11 +36,6 @@ export default new class userController {
 	async update(req, res) {
 		if (typeof req.body.fullName === ('string' || undefined) && typeof req.body.username === ('string' || undefined) && typeof req.body.email === ('string' || undefined) && typeof req.body.password === ('string' || undefined)) {
 			const user = await User.findById({ _id: req.params.id })
-			// if (!user) {
-			// 	return res.status(404).send({
-			// 		message: 'User not Found'
-			// 	})
-			// }
 			const AllowedUpdates = ['fullName', 'username', 'password', 'email', 'avatar']
 			const updates = Object.keys(req.body)
 			const isValidOperation = updates.every((update) => AllowedUpdates.includes(update))
