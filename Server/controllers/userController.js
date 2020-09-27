@@ -53,7 +53,7 @@ export default new class userController {
 					return res.status(404).send({ message: 'An error occured' })
 				}
 				return res.status(200).send({
-					message: 'The blog was modified',
+					message: 'User was modified',
 					data: {
 						user
 					}
