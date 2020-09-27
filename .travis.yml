@@ -8,6 +8,8 @@ branches:
 install:
   - npm install
   - npm install -g coveralls
+services:
+  - mongodb
 cache:
   directories:
     - node_modules
