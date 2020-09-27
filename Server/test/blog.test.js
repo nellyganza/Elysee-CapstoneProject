@@ -4,6 +4,8 @@ import app from '../app'
 
 import Blog from '../models/Blog'
 
+process.env.NODE_ENV = 'test'
+
 const supertest = require('supertest')
 
 const request = supertest(app)
