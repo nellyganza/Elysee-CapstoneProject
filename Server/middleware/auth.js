@@ -1,3 +1,4 @@
+/* eslint-disable no-tabs */
 /* eslint-disable no-underscore-dangle */
 import jwt from 'jsonwebtoken'
 import User from '../models/User'
@@ -8,9 +9,9 @@ const verifyToken = async (req, res, next) => {
 		const token = req.header('Authorization').replace('Bearer ', '')
 		const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
 		const user = await User.findOne({ _id: decoded._id, email: decoded.email })
-		if (!user) {
-			throw new Error()
-		}
+		// if (!user) {
+		// 	throw new Error()
+		// }
 		req.user = user
 		next()
 	} catch (error) {

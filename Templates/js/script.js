@@ -850,6 +850,6 @@ function setImg(bufferer){
       return imageUrl;
   }
  
-fetch('http://localhost:3500/users')
+fetch('http://localhost:3500/api/v1/users')
 .then(res => res.json())
 .then(res => console.log(res));

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -94,26 +94,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -125,27 +125,27 @@
 import Contact from '../models/Contact'
 &nbsp;
 export default new class contactController {
-<span class="fstat-no" title="function not covered" >	as</span>ync save(req, res) {
-		const data = <span class="cstat-no" title="statement not covered" >pick(req.body, ['fullName', 'email', 'phone', 'address', 'message'])</span>
-		const contact = <span class="cstat-no" title="statement not covered" >new Contact({ ...data, owner: req.user.id })</span>
-<span class="cstat-no" title="statement not covered" >		await contact.save()</span>
-			.then(<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; {
-<span class="cstat-no" title="statement not covered" >				res.send({</span>
+	async save(req, res) {
+		const data = pick(req.body, ['fullName', 'email', 'phone', 'address', 'message'])
+		const contact = new Contact({ ...data, owner: req.user.id })
+		await contact.save()
+			.then((item) =&gt; {
+				res.send({
 					message: 'Message Sent Successfully!!',
 					data: item
 				})
 			})
-			.catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
-<span class="cstat-no" title="statement not covered" >				res.status(400).send({</span>
+			.catch((err) =&gt; {
+				res.status(400).send({
 					error: err.message,
 					newmessage: 'unable to Send Message'
 				})
 			})
 	}
 &nbsp;
-<span class="fstat-no" title="function not covered" >	as</span>ync getAll(req, res) {
-		const contacts = <span class="cstat-no" title="statement not covered" >await Contact.find({})</span>
-<span class="cstat-no" title="statement not covered" >		return res.status(200).send({</span>
+	async getAll(req, res) {
+		const contacts = await Contact.find({})
+		return res.status(200).send({
 			message: 'Operation Succesfull',
 			data: {
 				contacts
@@ -160,7 +160,7 @@ export default new class contactController {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Sep 27 2020 22:27:58 GMT+0200 (Central Africa Time)
+                at Tue Sep 29 2020 01:51:31 GMT+0200 (Central Africa Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

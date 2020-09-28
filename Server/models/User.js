@@ -24,11 +24,6 @@ const userSchema = new Schema({
 		type: String,
 		required: true,
 		minlength: 6,
-		validate(value) {
-			if (value.includes('password')) {
-				throw new Error('password can not be set to password')
-			}
-		}
 	},
 	email: {
 		type: String,

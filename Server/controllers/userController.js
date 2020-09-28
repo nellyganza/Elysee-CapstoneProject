@@ -34,38 +34,32 @@ export default new class userController {
 	}
 
 	async update(req, res) {
-		if (typeof req.body.fullName === ('string' || undefined) && typeof req.body.username === ('string' || undefined) && typeof req.body.email === ('string' || undefined) && typeof req.body.password === ('string' || undefined)) {
-			const user = await User.findById({ _id: req.params.id })
-			const AllowedUpdates = ['fullName', 'username', 'password', 'email', 'avatar']
-			const updates = Object.keys(req.body)
-			const isValidOperation = updates.every((update) => AllowedUpdates.includes(update))
-			if (!isValidOperation) {
-				return res.status(404).send({
-					message: 'Invalid Data Fields Present'
-				})
-			}
-			try {
-				updates.forEach((update) => {
-					user[update] = req.body[update]
-				})
-				await user.save()
-				if (!user) {
-					return res.status(404).send({ message: 'An error occured' })
+		const user = await User.findById({ _id: req.params.id })
+		const AllowedUpdates = ['fullName', 'username', 'password', 'email', 'avatar']
+		const updates = Object.keys(req.body)
+		const isValidOperation = updates.every((update) => AllowedUpdates.includes(update))
+		if (!isValidOperation) {
+			return res.status(404).send({
+				message: 'Invalid Data Fields Present'
+			})
+		}
+		try {
+			updates.forEach((update) => {
+				if (typeof req.body[update] !== typeof user[update]) {
+					throw new Error('Invalid Data Types')
 				}
-				return res.status(200).send({
-					message: 'User was modified',
-					data: {
-						user
-					}
-				})
-			} catch (error) {
-				return res.status(400).send({
-					message: error.message
-				})
-			}
-		} else {
+				user[update] = req.body[update]
+			})
+			await user.save()
+			return res.status(200).send({
+				message: 'User was modified',
+				data: {
+					user
+				}
+			})
+		} catch (error) {
 			return res.status(400).send({
-				message: 'Invalid Input'
+				message: error.message
 			})
 		}
 	}
@@ -81,37 +75,24 @@ export default new class userController {
 	}
 
 	async getProfilePicture(req, res) {
-		try {
-			const user = await User.findOne({ _id: req.params.id })
-			if (!user) {
-				return res.status(404).send({
-					message: 'User not Found',
-				})
-			}
-			if (!user.avatar) {
-				return res.status(404).send({
-					message: 'Image not Found',
-				})
-			}
-			res.set('Content-Type', 'image/jpeg')
-			res.status(200).send(user.avatar)
-		} catch (e) {
-			return res.status(500).send({
-				message: 'An error occured',
-				error: e.message
+		const user = await User.findOne({ _id: req.params.id })
+		if (!user) {
+			return res.status(404).send({
+				message: 'User not Found',
 			})
 		}
+		if (!user.avatar) {
+			return res.status(404).send({
+				message: 'Image not Found',
+			})
+		}
+		res.set('Content-Type', 'image/jpeg')
+		res.status(200).send(user.avatar)
 	}
 
 	async login(req, res) {
 		try {
 			const data = pick(req.body, ['email', 'password'])
-			const emailExist = await User.findOne({ email: data.email })
-			if (!emailExist) {
-				return res.status(404).send({
-					message: 'User not Found'
-				})
-			}
 			const user = await User.findByCredentials(data.email, data.password)
 			const authToken = await user.generateAuthToken()
 			return res.status(200).send({
@@ -127,6 +108,11 @@ export default new class userController {
 		} catch (error) {
 			if (error.message === 'Username/Password is incorrect') {
 				return res.status(401).send({
+					message: error.message
+				})
+			}
+			if (error.message === 'Unable to login') {
+				return res.status(404).send({
 					message: error.message
 				})
 			}

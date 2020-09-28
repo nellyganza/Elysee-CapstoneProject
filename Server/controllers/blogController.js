@@ -12,10 +12,8 @@ export default new class BlogController {
 					data: item
 				})
 			})
-			.catch((err) => {
+			.catch(() => {
 				res.status(400).send({
-					message: err.message,
-					code: err.code,
 					newmessage: 'unable to save to database'
 				})
 			})
@@ -33,12 +31,12 @@ export default new class BlogController {
 		}
 		try {
 			updates.forEach((update) => {
+				if (typeof req.body[update] !== typeof blog[update]) {
+					throw new Error('Invalid Data Types')
+				}
 				blog[update] = req.body[update]
 			})
 			await blog.save()
-			if (!blog) {
-				return res.status(404).send({ message: 'An error occured' })
-			}
 			return res.status(200).send({
 				message: 'The blog was modified',
 				data: {
@@ -53,29 +51,23 @@ export default new class BlogController {
 	}
 
 	async delete(req, res) {
-		try {
-			const blog = await Blog.findOne({ _id: req.params.id })
-			if (!blog) {
-				return res.status(404).send({
-					message: 'Blog not Found'
-				})
-			}
-
-			await blog.remove()
-			return res.status(200).send({
-				message: 'The blog was removed'
-			})
-		} catch (error) {
-			return res.status(500).send({
-				error: error.message
+		const blog = await Blog.findOne({ _id: req.params.id })
+		if (!blog) {
+			return res.status(404).send({
+				message: 'Blog not Found'
 			})
 		}
+
+		await blog.remove()
+		return res.status(200).send({
+			message: 'The blog was removed'
+		})
 	}
 
 	async getAll(req, res) {
 		const blogs = await Blog.find({})
 		return res.status(200).send({
-			message: "Operation Succesfull",
+			message: 'Operation Succesfull',
 			data: {
 				blogs
 			}
@@ -101,6 +93,7 @@ export default new class BlogController {
 	async getById(req, res) {
 		try {
 			const blog = await Blog.findById({ _id: req.params.id })
+			if (!blog) throw new Error()
 			return res.status(200).send({
 				message: 'Blog was found',
 				data: {
