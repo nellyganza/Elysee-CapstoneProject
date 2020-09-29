@@ -163,18 +163,10 @@ async function signUp(){
                             Password: passV.value,
                             Email: emailV.value,
                         })
-                        
-                    if(!signin){
-                      message("info","Account not created !!");
-                    }
-                    else
-                    {
                       message("success","Account created successfully !!!");
                       clear();
-                      
-                    }
                   } catch (error) {
-                    message("danger",error.message);
+                    message("info","Account not created !!");
                   }
                 }
                 else{
@@ -197,13 +189,11 @@ async function signUp(){
 };
 
 async function addAll(firebaseUser){
-  console.log('here')
-  const imgurl = await firebase.storage().ref('Users/' +firebaseUser.uid+'/profile.jpg').getDownloadURL();
-  if(imgurl){
+  let imgurl;
+  try{
+    imgurl = await firebase.storage().ref('Users/' +firebaseUser.uid+'/profile.jpg').getDownloadURL();
     putImage(imgurl);
-  }
-  else
-  {
+  }catch(error){
     putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg");
   }
   const usersigned = await firebase.database().ref('Users/' +firebaseUser.uid).on('value', function(snapshot) {
@@ -236,16 +226,10 @@ async function signin(){
   if(document.getElementById('uname').checkValidity()){
     try {
       const signed = await	firebase.auth().signInWithEmailAndPassword(email, password);
-    if(!signed){
-      message("info"," Not signed in !!");
-    }
-    else
-    {
       message("success","Your logged in!!!");
       clearSignIn();
-    }
     } catch (error) {
-      message('error',error.message);
+      message("info"," Not signed in !!");
     }
     
   }
@@ -291,18 +275,12 @@ function onFileSelected(event) {
     async function logout(){
       try {
         const logout = await firebase.auth().signOut();
-        if(!logout){
-          message('info',"Your are not logged out!!!");
-        }
-        else
-        {
-          document.getElementsByClassName('adminid')[0].style.display = "none";
-          message("info","Logged out !!");
-          putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg");
-          putUsername("","","");
-        }
+        document.getElementsByClassName('adminid')[0].style.display = "none";
+        message("info","Logged out !!");
+        putImage("https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg");
+        putUsername("","","");
       } catch (error) {
-        message("worning",error.message);
+        message('info',"Your are not logged out!!!");
       }       
     };
 

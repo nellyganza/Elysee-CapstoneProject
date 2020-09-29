@@ -26,6 +26,10 @@ beforeAll(async () => {
 afterAll(async () => {
 	await Portfolio.deleteMany()
 })
+afterEach((done) => {
+	done()
+})
+
 test('should get All Portfolios', async () => {
 	const response = await request.get('/api/v1/portfolios')
 

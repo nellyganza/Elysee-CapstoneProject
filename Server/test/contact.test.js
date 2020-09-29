@@ -25,6 +25,9 @@ beforeAll(async () => {
 afterAll(async () => {
 	await Contact.deleteMany()
 })
+afterEach((done) => {
+	done()
+})
 test('should get All Contacts', async () => {
 	const response = await request.get('/api/v1/contacts')
 

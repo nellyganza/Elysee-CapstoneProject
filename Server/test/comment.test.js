@@ -29,6 +29,10 @@ beforeAll(async () => {
 afterAll(async () => {
 	await Comment.deleteMany()
 })
+afterEach((done) => {
+	done()
+})
+
 test('should get All Comments', async () => {
 	const user = new User({
 		fullName: 'Elysee1',

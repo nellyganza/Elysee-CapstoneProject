@@ -26,6 +26,10 @@ beforeAll(async () => {
 afterAll(async () => {
 	await Blog.deleteMany()
 })
+afterEach((done) => {
+	done()
+})
+
 test('should get All Blogs', async () => {
 	const response = await request.get('/api/v1/blogs')
 

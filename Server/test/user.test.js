@@ -26,6 +26,10 @@ beforeAll(async () => {
 afterAll(async () => {
 	await User.deleteMany()
 })
+afterEach((done) => {
+	done()
+})
+
 test('should get All users', async () => {
 	const response = await request.get('/api/v1/users')
 

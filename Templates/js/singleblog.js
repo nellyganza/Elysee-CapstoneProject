@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 const getParams = function (url) {
 	const params = {}
 	const parser = document.createElement('a')
