@@ -17,3 +17,5 @@ script:
   - npm run test
 after_success:
   - npm run coveralls
+before_install:
+  - npm i -g npm@version-number
