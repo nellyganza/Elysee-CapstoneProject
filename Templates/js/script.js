@@ -48,15 +48,16 @@ function getsblog() {
 
 function singleBlog(event){
   
-    var info = event.currentTarget;
-    console.log(info);  
-    var img= info.querySelector('img').src;
-    var title=info.querySelector(".title").innerText;
-    var desc = info.querySelector('h3').innerText;
-    var intro =info.querySelectorAll('p')[0].innerText;
-    var cont =info.querySelectorAll('p')[1].innerText;
-    var id = info.querySelector('h5').innerText;
-    window.location.href = "sblog.html?img="+img+"&title="+title+"&desc="+desc+"&intro="+intro+"&cont="+cont+"&id="+id;
+  var info = event.currentTarget;
+  console.log(info);  
+  var img= info.querySelector('img').src;
+  var title=info.querySelector(".title").innerText;
+  var desc = info.querySelector('h3').innerText;
+  var intro =info.querySelectorAll('p')[0].innerText;
+  var cont =info.querySelectorAll('p')[1].innerText;
+  var id = info.querySelector('h5').innerText;
+  console.log(img);
+  window.location.href = "sblog.html?img="+encodeURIComponent(img)+"&title="+title+"&desc="+desc+"&intro="+intro+"&cont="+cont+"&id="+id;
 }
 
 
