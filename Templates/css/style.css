@@ -21,12 +21,20 @@ header{
     display: grid;
     grid-template-columns: 80% 20%;
     background-color: #022655;
+    min-height: 80px;
+    position: relative !important;
+}
+nav{
+    padding: 2%;
 }
 nav>ul {
     list-style-type: none;
     overflow: hidden;
     margin: 0;
     padding: 0;
+}
+.nav-right >div >ul {
+    background-color: #002D68;
 }
 header #left-side-nav {
     display: flex;
@@ -141,7 +149,7 @@ footer {
 .nav-right {
     display: flex;
     flex-direction: row;
-    padding: 10px;
+    padding: 10%;
     margin-right: 10px;
 }
 .nav-right >div {
@@ -191,6 +199,9 @@ footer {
     footer{
         font-size: 12px !important;
     }
+    h1{
+        font-size: 48px !important;
+    }
 }
 
 @media screen and (max-width:600px) {
@@ -213,13 +224,62 @@ footer {
 /* Landing Page */
 
 .content {
-    padding: 5% 10%;
+    padding: 5%;
 }
 
-.content>h1 {
+.content>div>h1 {
     font-size: 64px;
 }
 
+#land-Info {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+}
+#land-Info .top-Info {
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-row-end: 1;
+    grid-column-end: 1;
+    height: 100px;
+}
+#land-Info .top-Info .nameofme{
+    margin: 0;
+}
+#land-Info .land-img {
+    grid-row-start: 1;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row-end: 3;
+    padding-top: 10%;
+    width: fit-content;
+}
+#land-Info .land-img>img {
+    border: solid 1px white;
+    border-radius: 5px;
+}
+#land-Info .lower_content {
+    margin: 0;
+    grid-row-start: 2;
+    grid-column-start: 1;
+    grid-row-end: 3;
+    grid-column-end: 1;
+}
+#land-Info .contactme_btn {
+    grid-row-start: 4;
+    grid-column-start: 1;
+    grid-row-end: 4;
+    grid-column-end: 1;
+}
+#land-Info >div>button {
+    margin-left: 0 !important;
+}
+
+@media screen and (max-width:800px){
+    #land-Info .top-Info > h1 {
+        font-size: 40px;
+    }
+}
 
 /*Contact CSS*/
 
@@ -232,7 +292,7 @@ footer {
 .contact-frm {
     position: relative;
     align-self: center;
-    border: solid;
+    border: solid white;
     margin: 0px 30px 30px 30px;
     padding: 8px;
     width: 60%
@@ -397,11 +457,18 @@ input[type=password] {
         display: grid;
         grid-template-columns: repeat(2,50%) !important;
     } 
+    #land-Info {
+        display: flex;
+        flex-direction: column;
+    }
 }
 #b-content {
     display: grid;
     grid-template-columns: 100%;
     justify-content: center;
+}
+#b-content > div {
+    width: 100%;
 }
 #other-blog {
     display: grid;
@@ -418,12 +485,12 @@ input[type=password] {
 }
 #main-blog {
     padding: 5%;
-    margin-top: 2px; 
+    margin: 2px 0 0 0; 
     background-color: #022655;
 }
 #other-blog .single-blog{
     width: 90%;
-    margin: 10px;
+    margin: 5px 0 0 0;
     padding: 8px;
     background-color: #022655;
 }
@@ -488,7 +555,7 @@ form {
 
 
 /* search */
-form.example input[type=text],form.example input[type=email] {
+div.example input[type=text],form.example input[type=email] {
     padding: 10px;
     font-size: 17px;
     border: 1px solid grey;
@@ -496,29 +563,29 @@ form.example input[type=text],form.example input[type=email] {
     background: #f1f1f1;
   }
   
-  form.example button {
+  div.example button {
     border-radius: 0% !important;
     padding: 15px !important;
     height: 100%;
     margin: 0;
   }
   
-  form.example button:hover {
+  div.example button:hover {
     background: #7801ff;
   }
-  section>form>div {
+  .Subscribe div>div {
       display: flex;
       flex-direction: row;
   }
-  section>form>textarea.textarea {
+  section>div>textarea.textarea {
       width: 70%;
       min-height: 60px;
       outline: none;
   }
-  .comment form>div>button {
+  .comment div>div>button {
       margin: 10px;
   }
-  .comment form {
+  .comment div {
       padding: 20px;
   }
 .sb-data {
@@ -844,3 +911,266 @@ code {
     #wclosebtn:hover,#sclosebtn:hover,#iclosebtn:hover,#dclosebtn:hover {
       color: black;
     }
+/* Reminder CSS */
+
+#reminder {
+    background-color: #022655;
+    max-width: 100%;
+    margin-left: 20px;
+}
+#reminder form {
+    display: none;
+    /* display: flex; */
+    flex-direction: column;
+    max-width: 100%;
+    border:1px solid #ecf0f1;
+    background-color: darkblue;
+    padding: 5%;
+    color: white;
+
+}
+#rem h1 {
+    text-align: center;
+}
+
+
+#rem >select::-ms-expand {
+  display: none;
+}
+#rem >select>option {
+    background-color:  darkblue;
+}
+#rem >select {
+    color: white;
+    width: 100%;
+    display: block;
+    outline: none !important;
+    border: none;
+    padding: 10px 0;
+    border-bottom: solid 1px #1356e6;
+    border-top: solid 1px darkblue;
+    border-left: solid 1px darkblue;
+    border-right: solid 1px darkblue;
+    transition: all 0.3s cubic-bezier(.64,.09,.08,1);
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 96%, #1356e6 4%);
+    background-position: -200px 0;
+    background-size: 200px 100%;
+    background-repeat: no-repeat;  
+}
+/* Removes the clear button from date inputs */
+#rem >input[type="date"]::-webkit-clear-button {
+    display: none;
+}
+
+/* Removes the spin button */
+#rem >input[type="date"]::-webkit-inner-spin-button { 
+    display: none;
+}
+
+/* Always display the drop down caret */
+#rem >input[type="date"]::-webkit-calendar-picker-indicator {
+    color: #2c3e50;
+}
+
+/* A few custom styles for date inputs */
+#rem >input[type="date"],textarea,input[type="number"] {
+      width: 100%;
+    outline: none;
+      display: block;
+      border: none;
+      padding: 10px 0;
+      border-bottom: solid 1px #1356e6;
+      transition: all 0.3s cubic-bezier(.64,.09,.08,1);
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 96%, #1356e6 4%);
+      background-position: -200px 0;
+      background-size: 200px 100%;
+      background-repeat: no-repeat;  
+}
+
+/* A few custom styles for date inputs */
+#rem >input[type="number"] {
+    width: 100%;
+  outline: none;
+    display: block;
+    border: none;
+    padding: 10px;
+    border-bottom: solid 1px #1356e6;
+    transition: all 0.3s cubic-bezier(.64,.09,.08,1);
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 96%, #1356e6 4%);
+    background-position: -200px 0;
+    background-size: 200px 100%;
+    background-repeat: no-repeat;  
+}
+
+#rem >input[type="date"], focus {
+    color: #95a5a6;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+
+button {
+    background-color: rgba(57, 57, 221, 0.986); 
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+  }
+
+  .other-rem {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+  }
+  .other-rem >input {
+      display: none;
+  }
+#user-img {
+    border-radius: 50%;
+}
+
+
+/* Singl BLog */
+#comments {
+    display: block !important;
+padding: 0;
+}
+#comment-field{
+    margin-top: 3px;
+    border: white solid;
+}
+#comment-field>legend {
+    width: 100%;
+    background-color: white;
+    margin: 0;
+}
+
+/* Login Form Css */
+
+/* Full-width input fields */
+.modal input[type=text],.modal input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  /* Set a style for all buttons */
+  .modal  button {
+    background-color: #1356e6;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .modal button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Extra styles for the cancel button */
+  .modal .cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #1356e6;
+  }
+  
+  /* Center the image and position the close button */
+  .modal .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+  }
+  
+  .modal img.avatar {
+    width: 10%;
+    border-radius: 50%;
+  }
+  
+  .modal #login {
+    padding: 10%;
+  }
+
+  /* The Modal (background) */
+ .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+  }
+  
+  .modal-content {
+      padding-top: 10px;
+    margin: 5% auto 15% auto; 
+    width: 80%; 
+    background-color: white;
+  }
+  
+  /* The Close Button (x) */
+  .close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #7801ff;
+    cursor: pointer;
+  }
+  
+  /* Add Zoom Animation */
+  .animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+  }
+  
+  @-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+  }
+    
+  @keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+  }
+  
+  /* Change styles for span and cancel button on extra small screens */
+  @media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+  }
+#login.login-frm {
+    margin: 0;
+    padding-left: 10%;
+    padding-right: 10%;
+    background-color: darkblue;
+}
+  #login .content_info .wrap-input100 > input {
+      border: none;
+  }
+
+  /* End of Login from css */

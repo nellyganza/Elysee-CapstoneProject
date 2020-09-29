@@ -1,11 +1,40 @@
 body{
-    background-color: #1356e6;
+    background-color: #002D68;
     font-family: Arial;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: blue !important;
+}
+#tabform {
+  background-color: #002D68;
+}
+#tabform .tab {
+  background-color: white
+}
+
+#tabform .tab> button {
+  margin: 0 !important;
+  border-left: white solid 1px;
+  border-right: white solid 1px;
+  background-color: white;
+  color: black;
+}
+#tabform .tab> button:hover{
+  background-color: blue;
+}
+#tabform #tabs {
+  border-left: white solid 5px;
+  border-bottom: white solid 5px;
+  border-right: white solid 5px;
 }
 .content {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-column-gap: 20px;
+  grid-template-rows: 900px auto;
+  max-width: 100%;
+  left: 0;
 }
 
 .port-update {
@@ -69,32 +98,31 @@ button:hover {
 
 
   #contact {
-    text-align: center;
     display: block;
-  }
-  #contact .message-item {
-    display: grid;
-    grid-template-columns: 100%;
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 5px;
-    background-color: #2580f7;
-    border-radius: 10px;
-    color: rgb(241, 238, 238);
-    margin: 10px;
   }
 
   #contact .message-item > label {
     padding: 5px;
   }
   #contact .message-item > textarea {
-    padding: 5px 30px;
-    margin: 5px 35%;
+    max-width: 100% !important;
+    min-height: 100px !important;
+    font-size: 14px !important;
+    color: white;
+    border: #002D68 solid !important;
+  }
+
+  #contact-list {
+    display: grid;
+    grid-template-columns: repeat(3,30%);
+    text-align: left;
   }
 
   #profile {
     display: grid;
     grid-template-columns: 100%;
     justify-items: center;
+    min-height: 1300px;
   }
   #profile >p{
     color: white;
@@ -130,28 +158,21 @@ button:hover {
   background-color: #022655;
   margin: 10px;
 }
-
 #contact .message-item {
   display: grid;
   grid-template-columns: 100%;
   font-family: Arial, Helvetica, sans-serif;
-  padding: 5px;
+  padding: 10px;
   background-color: #022655;
   border-radius: 10px;
   color: rgb(241, 238, 238);
   margin: 10px;
 }
-#contact .message-item > label {
-  padding: 5px;
-}
 
-#contact >div>textarea {
-  width: 100px;
-}
 .number-tabs {
   display: grid;
   grid-template-columns: repeat(6,50px);
-  justify-content: center;
+  justify-items: center;
   grid-gap: 5px;
   margin: 10px;
 }
@@ -167,17 +188,31 @@ button:hover {
   margin: 1%;
 }
 
-@media screen and (max-width:400px){
+@media screen and (max-width:800px){
   .content{
     display: flex !important;
     flex-direction: column !important;
 
+  }
+  #reminder{
+    margin: 0;
+    margin-top: 20px !important;
+  }
+  .art-item >h1 {
+    font-size: 15px;
+  }
+  
+}
+@media screen and (max-width:600px){
+  .art-item >h1 {
+    font-size: 15px !important;
   }
 }
 .update-profile{
   background-color: #022655 !important;
   justify-self: center;
   padding: 10%;
+  min-height: 1100px;
 }
 
 #profile .content .update-profile input[type="text"],  #profile .content .update-profile textarea[type="text"],#profile .content .update-profile input[type="file"] {
@@ -193,4 +228,16 @@ button:hover {
     background-size: 200px 100%;
     background-repeat: no-repeat;  
     color: white;
+}
+
+/* Map and User Locations */
+#mapholder {
+  display: none;
+  height: 600px; 
+  width: 100%; 
+}
+
+.map {
+  display: flex;
+  flex-direction: column;
 }
