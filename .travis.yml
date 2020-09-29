@@ -9,13 +9,11 @@ cache:
 branches:
   only:
     - CH-Tests
-install:
-  - npm install
-  - npm install -g coveralls
-  - travis_wait 30 npm install
 script:
   - npm run test
 after_success:
   - npm run coveralls
 before_install:
-  - npm i -g npm@version-number
+  - npm install
+  - npm install -g coveralls
+  - travis_wait 30 npm install
