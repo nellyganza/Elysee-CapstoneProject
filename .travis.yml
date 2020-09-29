@@ -2,17 +2,17 @@ sudo: false
 language: node_js
 node_js:
   - "14.10.1"
+services: mongodb
+cache:
+  directories:
+    - "node_modules"
+  yarn: true
 branches:
   only:
-    - CH-SwaggerDocumentation
+    - CH-Tests
 install:
   - npm install
   - npm install -g coveralls
-services:
-  - mongodb
-cache:
-  directories:
-    - node_modules
 script:
   - npm run test
 after_success:
