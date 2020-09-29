@@ -1,3 +1,13 @@
+/* eslint-disable func-names */
+/* eslint-disable for-direction */
+/* eslint-disable no-plusplus */
+/* eslint-disable no-shadow */
+/* eslint-disable eqeqeq */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-console */
+/* eslint-disable no-undef */
 /* eslint-disable no-empty */
 const getParams = function (url) {
 	const params = {}
