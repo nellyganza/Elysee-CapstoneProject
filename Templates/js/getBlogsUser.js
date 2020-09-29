@@ -1,3 +1,10 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable linebreak-style */
+/* eslint-disable no-empty */
+/* eslint-disable no-undef */
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-plusplus */
+/* eslint-disable linebreak-style */
 // Display of Blog
 
 window.onload = function getBlog() {
@@ -77,7 +84,7 @@ const tid = setInterval(test, 5000)
 function test() {
 	try {
 		const x = document.getElementsByClassName('single-blog')
-		if (i == x.length) i = 0
+		if (i === x.length) i = 0
 		const y = x[i].lastChild
 		const blo = document.getElementById('main-blog')
 		blo.firstElementChild.innerHTML = y.firstChild.innerHTML
