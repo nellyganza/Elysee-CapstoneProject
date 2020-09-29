@@ -7,7 +7,7 @@
     "build": "babel Server -s -d dist",
     "start": "node dist/index.js",
     "dev": "nodemon --exec babel-node Server/index.js",
-    "test": "jest --runInBand --detectOpenHandles",
+    "test": "jest --runInBand --detectOpenHandles ",
     "test:watch": "jest --runInBand --detectOpenHandles --watch",
     "coverage": "jest --runInBand --detectOpenHandles --coverage",
     "coveralls": "jest --runInBand --detectOpenHandles --coverage && cat ./coverage/lcov.info | coveralls"
@@ -64,6 +64,12 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
-    ]
+    ],
+    "jest": {
+          "transform": {},
+          "verbose": true,
+          "bail": true,
+          "testMatch": ["Server/test/*.test.js"]
+    }
   }
 }
