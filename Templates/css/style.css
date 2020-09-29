@@ -878,8 +878,6 @@ code {
     .attachFileSpan{
         cursor: pointer;
     }
-  
-
     /* Alert Messages */
 
     .alert {
@@ -913,7 +911,6 @@ code {
     #wclosebtn:hover,#sclosebtn:hover,#iclosebtn:hover,#dclosebtn:hover {
       color: black;
     }
-
 /* Reminder CSS */
 
 #reminder {
