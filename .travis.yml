@@ -1,32 +1,17 @@
-# sudo: false
-# language: node_js
-# node_js:
-#   - "14.10.1"
-# services: mongodb
-# cache:
-#   directories:
-#     - "node_modules"
-# branches:
-#   only:
-#     - CH-Tests
-# script:
-#   - npm run test
-# after_success:
-#   - npm run coveralls
-# before_install:
-#   - npm install
-#   - npm install -g coveralls
-#   - travis_wait 30 npm install
+sudo: false
 language: node_js
 node_js:
   - 14.10.1
+cache:
+  directories:
+    - "node_modules"
+branches:
+  only:
+    - CH-Tests
 install:
   - npm install
   - npm install -g coveralls
 script:
   - npm run test
-branches:
-  only:
-    - CH-Tests
 after_success:
   - npm run coveralls
