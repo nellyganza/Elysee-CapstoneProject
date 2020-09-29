@@ -6,13 +6,13 @@ services: mongodb
 cache:
   directories:
     - "node_modules"
-  yarn: true
 branches:
   only:
     - CH-Tests
 install:
   - npm install
   - npm install -g coveralls
+  - travis_wait 30 mvn install
 script:
   - npm run test
 after_success:
