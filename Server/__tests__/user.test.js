@@ -34,8 +34,6 @@ test('should get user profile image', async () => {
 	})
 
 	await user.save()
-	console.log("image user",user);
-
 	const response = await request.get(`/api/v1/users/${user.id}/image`).send({})
 
 	expect(response.status).toBe(200)
@@ -126,7 +124,6 @@ test('should be able to update user', async () => {
 
 	await user.save()
 	const authToken = await Auth.generateUserAuthToken(user)
-	console.log("updated user",user,authToken)
 	const response = await request.put(`/api/v1/users/${user._id}`)
 		.set('Authorization', `Bearer ${authToken}`)
 		.send({
@@ -228,7 +225,6 @@ it('Should return an auth token for a correct user', async () => {
 	})
 
 	await user.save()
-	console.log("login user",user)
 	const response = await request.post('/api/v1/users/login').send({
 		email: user.email,
 		password: 'elyseee123'

@@ -55,7 +55,6 @@ test('Authorized  User should send a contact', async () => {
 
 	await user.save()
 	const authToken = await user.generateAuthToken()
-	console.log(authToken)
 
 	await request.post('/api/v1/contacts').set('Authorization', `Bearer ${authToken}`).send({
 		fullName: 'Mucyo Jean',
