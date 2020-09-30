@@ -5,6 +5,8 @@ node_js:
 cache:
   directories:
     - node_modules
+services:
+  - mongodb
 env: 
   - DB_URL = mongodb+srv://Elysee:Elysee@123@cluster0.03xpk.mongodb.net/mybrand?retryWrites=true&w=majority
   - DB_TEST_URL = mongodb+srv://user:user@cluster0.p4dy4.mongodb.net/testbrand?retryWrites=true&w=majority
