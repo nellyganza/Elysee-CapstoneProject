@@ -2,16 +2,11 @@ sudo: false
 language: node_js
 node_js:
   - "14.10.1"
-<<<<<<< HEAD
-=======
-cache:
-  directories:
-    - node_modules
 services:
   - mongodb
->>>>>>> a47741d14a9ce897dd62b93e19f3bc70c4508279
 branches:
   only:
+    - Delevop-Branch
     - CH-Tests
 install:
   - npm install
