@@ -28,8 +28,8 @@ Portfolio and Brand is a personal website the help the owner to brand or publish
 
 ## Setup
 
-- clone the repository using `git clone https://github.com/kwizeraelvis/teamwork.git`
-- Move into project directory using `cd teamwork`
+- clone the repository using `git clone https://github.com/nellyganza/Elysee-CapstoneProject.git`
+- Move into project directory using `cd capstoneproject`
 - Install neccesary packages using `npm install`
 - Build the source using `npm run build`
 - Start the server using `npm run start`
@@ -38,44 +38,63 @@ Portfolio and Brand is a personal website the help the owner to brand or publish
 ## Features
 
 - User can create an account
+- User can update profile information
+- User can get all users registred
+- User can get him/her profile information
 - User can login
-- User can post/create an article
-- User can update his/her article
-- User can delete his/her article
-- User can view all available articles on the platform
+- User can create new blog
+- User can update an existing blog
+- User can search any blog 
+- User can View list of all blogs
+- User can Delete an exisiting blog
+- User can create new portfolio
+- User can update an existing portfolio
+- User can search any portfolio 
+- User can View list of all portfolio
+- User can Delete an exisiting portfolio
+- User can make a comment to a specific blog
+- User can view the list of comment to any blog
+- User can send contact message
+- User can view list of all contact messages (either questions or messages)
+
 
 ## Endpoints
 
 | Endpoint                      | Method           |Functionalities                            |
 |-------------------------------|------------------|-------------------------------------------|
-| /auth/signup                  | POST             | Create user account                       |
-| /auth/signin                  | POST             | Sigin into account                        |
-| /articles                     | POST             | Create a new article                      |
-| /article/:article_id          | PUT              | Edit a particular article                 |
-| /articles/:article_id         | DELETE           | Delete an article                         |
-| /feeds                        | GET              | Get all available articles                |
-| /feed/me                      | GET              | Get all the articles for the current user |
-| /articles/:articleId/comments | POST             | Create/Post a comment                     |
-
+| /api/v1/users/signup          | POST             | Create user account                       |
+| /api/v1/users/login           | POST             | Sigin into account                        |
+| /api/v1/users                 | GET              | get all users                             |
+| /api/v1//users/:id            | PUT              | update user profile information           |
+| /api/v1//users/:id/image      | GET              | get user profile picture                  |
+| /api/v1/blogs                 | POST             | create new Blog                           |
+| /api/v1/blogs/:id             | PUT              | update an existing blog                   |
+| /api/v1/blogs/:id             | DELETE           | delete an existing blog                   |
+| /api/v1/blogs                 | GET              | get list of all blogs                     |
+| /api/v1/blogs/:id/image       | GET              | get specific blog image                   |
+| /api/v1/blogs/:id             | GET              | get single blog infomation                |
+| /api/v1/comments/:id          | POST             | create a comment to selected blog         |
+| /api/v1/comments/:id          | GET              | get all comments from selected blog       |
+| /api/v1/contacts              | POST             | send a contact (message or question)      |
+| /api/v1/contacts              | GET              | get all questions                         |
+| /api/v1/portfolios            | POST             | create new portfolio                      |
+| /api/v1/portfolios/:id        | PUT              | update an existing portfolio              |
+| /api/v1/portfolios/:id        | DELETE           | delete an existing portfolio              |
+| /api/v1/portfolios            | GET              | get all portfolios                        |
+| /api/v1/portfolios/:id/image  | GET              | get portfolios image                      |
+| /api/v1/portfolios/:id        | GET              | get single portfolio by id                |
+|                               |                  |                                           |
+------------------------------------------------------------------------------------------------
 ## Documentation
 
 The API documentation can be found at : <https://documenter.getpostman.com/view/12737424/TVKFzFmy>
 
 ## Templates
 
-The UI Templates can be found  at : <https://kwizeraelvis.github.io/teamwork/UI>
+The UI Templates can be found  at : <https://ganzanelly.github.io/capstoneproject/Templates>
 
 ## Status
 
-The project is stalled
+The project is hosted on heroku
 
-## Shoutouts
-
-1. Rukundo Eric
-2. Amily Kasim
-
-## Licence
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-- Copyright (c) Kwizera Aime Elvis
+- Copyright (c) Nishimwe Elysee
