@@ -31,7 +31,7 @@ afterEach((done) => {
 })
 
 test('should get All Blogs', async () => {
-	const response = await request.get('/api/v1/blogs')
+	const response = await request.get('/api/v1/blogs').send()
 
 	expect(response.status).toBe(200)
 })
@@ -201,7 +201,7 @@ test('should Delete a blog', async () => {
 
 	await blog.save()
 
-	await request.delete(`/api/v1/blogs/${blog._id}`).set('Authorization', `Bearer ${authToken}`).expect(200)
+	await request.delete(`/api/v1/blogs/${blog._id}`).set('Authorization', `Bearer ${authToken}`).send({}).expect(200)
 })
 
 test('should not Delete a blog which not exist', async () => {
@@ -223,7 +223,7 @@ test('should not Delete a blog which not exist', async () => {
 
 	await blog.save()
 
-	await request.delete(`/api/v1/blogs/${new ObjectId()}`).set('Authorization', `Bearer ${authToken}`).expect(404)
+	await request.delete(`/api/v1/blogs/${new ObjectId()}`).set('Authorization', `Bearer ${authToken}`).send({}).expect(404)
 })
 
 test('should  get a blog image', async () => {
@@ -246,7 +246,7 @@ test('should  get a blog image', async () => {
 
 	await blog.save()
 
-	await request.get(`/api/v1/blogs/${blog._id}/image`).set('Authorization', `Bearer ${authToken}`).expect(200)
+	await request.get(`/api/v1/blogs/${blog._id}/image`).set('Authorization', `Bearer ${authToken}`).send({}).expect(200)
 })
 
 test('should not  get a blog image with invalid id', async () => {
@@ -269,7 +269,7 @@ test('should not  get a blog image with invalid id', async () => {
 
 	await blog.save()
 
-	await request.get(`/api/v1/blogs/${new ObjectId()}/image`).set('Authorization', `Bearer ${authToken}`).expect(500)
+	await request.get(`/api/v1/blogs/${new ObjectId()}/image`).set('Authorization', `Bearer ${authToken}`).send({}).expect(500)
 })
 
 test('should get a blog by id', async () => {
@@ -292,7 +292,7 @@ test('should get a blog by id', async () => {
 
 	await blog.save()
 
-	await request.get(`/api/v1/blogs/${blog._id}`).set('Authorization', `Bearer ${authToken}`).expect(200)
+	await request.get(`/api/v1/blogs/${blog._id}`).set('Authorization', `Bearer ${authToken}`).send({}).expect(200)
 })
 
 test('should not get a blog with invalid id', async () => {
@@ -315,5 +315,5 @@ test('should not get a blog with invalid id', async () => {
 
 	await blog.save()
 
-	await request.get(`/api/v1/blogs/${new ObjectId()}`).set('Authorization', `Bearer ${authToken}`).expect(400)
+	await request.get(`/api/v1/blogs/${new ObjectId()}`).set('Authorization', `Bearer ${authToken}`).send({}).expect(400)
 })

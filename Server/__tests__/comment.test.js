@@ -49,8 +49,7 @@ test('should get All Comments', async () => {
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',
 		owner: user._id
 	})
-	await blog.save()
-	const response = await request.get(`/api/v1/comments/${blog._id}`)
+	const response = await request.get(`/api/v1/comments/${blog._id}`).send()
 
 	expect(response.status).toBe(200)
 })

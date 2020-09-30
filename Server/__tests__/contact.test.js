@@ -29,8 +29,7 @@ afterEach((done) => {
 	done()
 })
 test('should get All Contacts', async () => {
-	const response = await request.get('/api/v1/contacts')
-
+	const response = await request.get('/api/v1/contacts').send()
 	expect(response.status).toBe(200)
 })
 

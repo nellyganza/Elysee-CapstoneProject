@@ -22,6 +22,7 @@
     "@babel/polyfill": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
     "@babel/runtime": "^7.11.2",
+    "@shelf/jest-mongodb": "^1.2.3",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
@@ -32,7 +33,6 @@
     "express": "^4.17.1",
     "heroku": "^7.43.0",
     "jest": "^26.4.2",
-    "jest-environment-node": "^26.3.0",
     "jest-extended": "^0.11.5",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
@@ -42,7 +42,7 @@
     "mongoose": "^5.10.5",
     "multer": "^1.4.2",
     "sharp": "^0.26.0",
-    "sinon": "^9.0.3",
+    "sinon": "^9.1.0",
     "swagger-jsdoc": "^4.0.0",
     "swagger-ui-express": "^4.1.4",
     "uuid": "^8.3.0",
@@ -62,5 +62,13 @@
     "eslint-plugin-react-hooks": "^4.0.0",
     "prettier": "^2.1.2",
     "supertest": "^4.0.2"
+  },
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "<rootDir>/Server/config/jest.setup.js"
+    ],
+    "testMatch": ["<rootDir>/Server/__tests__/**/*.test.js"]
   }
 }

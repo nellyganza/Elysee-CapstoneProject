@@ -31,7 +31,7 @@ afterEach((done) => {
 })
 
 test('should get All Portfolios', async () => {
-	const response = await request.get('/api/v1/portfolios')
+	const response = await request.get('/api/v1/portfolios').send()
 
 	expect(response.status).toBe(200)
 })
@@ -197,7 +197,7 @@ test('should Delete a portfolio', async () => {
 
 	await portfolio.save()
 
-	await request.delete(`/api/v1/portfolios/${portfolio._id}`).set('Authorization', `Bearer ${authToken}`).expect(200)
+	await request.delete(`/api/v1/portfolios/${portfolio._id}`).set('Authorization', `Bearer ${authToken}`).send({}).expect(200)
 })
 
 test('should not Delete a portfolio which not exist', async () => {
@@ -218,7 +218,7 @@ test('should not Delete a portfolio which not exist', async () => {
 
 	await portfolio.save()
 
-	await request.delete(`/api/v1/portfolios/${new ObjectId()}`).set('Authorization', `Bearer ${authToken}`).expect(404)
+	await request.delete(`/api/v1/portfolios/${new ObjectId()}`).set('Authorization', `Bearer ${authToken}`).send({}).expect(404)
 })
 
 test('should  get a portfolio image', async () => {
@@ -240,7 +240,7 @@ test('should  get a portfolio image', async () => {
 
 	await portfolio.save()
 
-	await request.get(`/api/v1/portfolios/${portfolio._id}/image`).set('Authorization', `Bearer ${authToken}`).expect(200)
+	await request.get(`/api/v1/portfolios/${portfolio._id}/image`).set('Authorization', `Bearer ${authToken}`).send({}).expect(200)
 })
 
 test('should not  get a portfolio image with invalid id', async () => {
@@ -262,7 +262,7 @@ test('should not  get a portfolio image with invalid id', async () => {
 
 	await portfolio.save()
 
-	await request.get(`/api/v1/portfolios/${new ObjectId()}/image`).set('Authorization', `Bearer ${authToken}`).expect(500)
+	await request.get(`/api/v1/portfolios/${new ObjectId()}/image`).set('Authorization', `Bearer ${authToken}`).send({}).expect(500)
 })
 
 test('should get a portfolio by id', async () => {
@@ -284,7 +284,7 @@ test('should get a portfolio by id', async () => {
 
 	await portfolio.save()
 
-	await request.get(`/api/v1/portfolios/${portfolio._id}`).set('Authorization', `Bearer ${authToken}`).expect(200)
+	await request.get(`/api/v1/portfolios/${portfolio._id}`).set('Authorization', `Bearer ${authToken}`).send({}).expect(200)
 })
 
 test('should not get a portfolio with invalid id', async () => {
@@ -306,5 +306,5 @@ test('should not get a portfolio with invalid id', async () => {
 
 	await portfolio.save()
 
-	await request.get(`/api/v1/portfolios/${new ObjectId()}`).set('Authorization', `Bearer ${authToken}`).expect(400)
+	await request.get(`/api/v1/portfolios/${new ObjectId()}`).set('Authorization', `Bearer ${authToken}`).send({}).expect(400)
 })
