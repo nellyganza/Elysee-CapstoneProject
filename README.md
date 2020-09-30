@@ -91,7 +91,7 @@ The API documentation can be found at : <https://documenter.getpostman.com/view/
 
 ## Templates
 
-The UI Templates can be found  at : <https://ganzanelly.github.io/capstoneproject/Templates>
+The UI Templates can be found  at : <https://nellyganza.github.io/Elysee-CapstoneProject/Templates>
 
 ## Status
 
