@@ -6,11 +6,10 @@ cache:
   directories:
     - node_modules
 env: 
-  global:
-    - DB_URL = mongodb+srv://Elysee:Elysee@123@cluster0.03xpk.mongodb.net/mybrand?retryWrites=true&w=majority
-    - DB_TEST_URL = mongodb+srv://user:user@cluster0.p4dy4.mongodb.net/testbrand?retryWrites=true&w=majority
-    - JWT_SECRET_KEY = elysee
-    - ADMIN_EMAIL = [nishimwelys@gmail.com,niyonshuti@gmail.com,elysee12345@gmail.com]
+  - DB_URL = mongodb+srv://Elysee:Elysee@123@cluster0.03xpk.mongodb.net/mybrand?retryWrites=true&w=majority
+  - DB_TEST_URL = mongodb+srv://user:user@cluster0.p4dy4.mongodb.net/testbrand?retryWrites=true&w=majority
+  - JWT_SECRET_KEY = elysee
+  - ADMIN_EMAIL = [nishimwelys@gmail.com,niyonshuti@gmail.com,elysee12345@gmail.com]
 branches:
   only:
     - CH-Tests
