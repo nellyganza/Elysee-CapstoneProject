@@ -12,18 +12,14 @@ const supertest = require('supertest')
 
 const request = supertest(app)
 
-import { DBReset } from '../helpers/Clean'
+
 beforeEach(async () =>{
-	await DBReset()
+	await User.deleteMany()
+	await Contact.deleteMany()
 } )
 afterEach(async () =>{
-	await DBReset()
-} )
-afterAll(async () =>{
-	await DBReset()
-} )
-beforeAll(async () =>{
-	await DBReset()
+	await User.deleteMany()
+	await Contact.deleteMany()
 } )
 test('should get All Contacts', async () => {
 	const response = await request.get('/api/v1/contacts').send()

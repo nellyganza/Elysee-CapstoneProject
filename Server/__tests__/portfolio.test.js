@@ -14,19 +14,15 @@ const supertest = require('supertest')
 
 const request = supertest(app)
 
-import { DBReset } from '../helpers/Clean'
+
 import Auth from '../helpers/authToken'
 beforeEach(async () =>{
-	await DBReset()
+	await User.deleteMany()
+	await Portfolio.deleteMany()
 } )
 afterEach(async () =>{
-	await DBReset()
-} )
-afterAll(async () =>{
-	await DBReset()
-} )
-beforeAll(async () =>{
-	await DBReset()
+	await User.deleteMany()
+	await Portfolio.deleteMany()
 } )
 test('should get All Portfolios', async () => {
 	const response = await request.get('/api/v1/portfolios').send({})

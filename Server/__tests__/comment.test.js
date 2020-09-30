@@ -12,18 +12,14 @@ const supertest = require('supertest')
 
 const request = supertest(app)
 
-import { DBReset } from '../helpers/Clean'
+
 beforeEach(async () =>{
-	await DBReset()
+	await User.deleteMany()
+	await Comment.deleteMany()
 } )
 afterEach(async () =>{
-	await DBReset()
-} )
-afterAll(async () =>{
-	await DBReset()
-} )
-beforeAll(async () =>{
-	await DBReset()
+	await User.deleteMany()
+	await Comment.deleteMany()
 } )
 test('should get All Comments', async () => {
 	const user = new User({
@@ -35,7 +31,7 @@ test('should get All Comments', async () => {
 
 	await user.save()
 	const blog = new Blog({
-		Title: 'Test Blog 1',
+		Title: 'Comment Test Blog 1',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',
@@ -56,7 +52,7 @@ test('Un authorized User should not comment on blog', async () => {
 
 	await user.save()
 	const blog = new Blog({
-		Title: 'Test Blog 1',
+		Title: 'Comment Test Blog 2',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',
@@ -83,7 +79,7 @@ test('Authorized  User should send a contact', async () => {
 	await user.save()
 	const authToken = await user.generateAuthToken()
 	const blog = new Blog({
-		Title: 'Test Blog 1',
+		Title: 'Comment Test Blog 3',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',
@@ -109,7 +105,7 @@ test('should  not send a comment without the blog we are filling all information
 	await user.save()
 	const authToken = await user.generateAuthToken()
 	const blog = new Blog({
-		Title: 'Test Blog 1',
+		Title: 'Comment Test Blog 4',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',

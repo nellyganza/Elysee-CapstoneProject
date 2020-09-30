@@ -11,19 +11,13 @@ const supertest = require('supertest')
 const request = supertest(app)
 import 'dotenv/config'
 
-import { DBReset } from '../helpers/Clean'
+
 import Auth from '../helpers/authToken'
 beforeEach(async () =>{
-	await DBReset()
+	await User.deleteMany()
 } )
 afterEach(async () =>{
-	await DBReset()
-} )
-afterAll(async () =>{
-	await DBReset()
-} )
-beforeAll(async () =>{
-	await DBReset()
+	await User.deleteMany()
 } )
 test('should get All users', async () => {
 	const response =  await request.get('/api/v1/users').send()
