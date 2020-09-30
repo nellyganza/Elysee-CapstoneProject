@@ -11,23 +11,20 @@ import User from '../models/User'
 const supertest = require('supertest')
 
 const request = supertest(app)
-
-afterEach(async () => {
-	await Blog.deleteMany()
-})
-beforeEach(async () => {
-	await User.deleteMany()
-})
-beforeAll(async () => {
-	await Blog.deleteMany()
-})
-afterAll(async () => {
-	await Blog.deleteMany()
-})
-afterEach((done) => {
-	done()
-})
-
+import { DBReset } from '../helpers/Clean'
+import Auth from '../helpers/authToken'
+beforeEach(async () =>{
+	await DBReset()
+} )
+afterEach(async () =>{
+	await DBReset()
+} )
+afterAll(async () =>{
+	await DBReset()
+} )
+beforeAll(async () =>{
+	await DBReset()
+} )
 test('should get All Blogs', async () => {
 	const response = await request.get('/api/v1/blogs').send()
 
@@ -37,9 +34,9 @@ test('should get All Blogs', async () => {
 test('Un authorized User should not Post a blog', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'elysee11@gmail.com',
+		email: 'belysee1b@gmail.com',
 	})
 
 	await user.save()
@@ -55,9 +52,9 @@ test('Un authorized User should not Post a blog', async () => {
 test('If your are not Admin User, you can not Post a blog', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'elysee1231@gmail.com',
+		email: 'blog123@gmail.com',
 	})
 
 	await user.save()
@@ -74,13 +71,13 @@ test('If your are not Admin User, you can not Post a blog', async () => {
 test('Authorized Admin User should Post a blog', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 
 	await user.save()
-	const authToken = await user.generateAuthToken()
+	const authToken = await Auth.generateUserAuthToken(user)
 
 	await request.post('/api/v1/blogs').set('Authorization', `Bearer ${authToken}`).send({
 		Title: 'Test Blog 1',
@@ -93,13 +90,13 @@ test('Authorized Admin User should Post a blog', async () => {
 test('Should not create Post a blog without Title', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 
 	await user.save()
-	const authToken = await user.generateAuthToken()
+	const authToken = await Auth.generateUserAuthToken(user)
 
 	await request.post('/api/v1/blogs').set('Authorization', `Bearer ${authToken}`).send({
 		Description: 'This is the Test Blog',
@@ -111,9 +108,9 @@ test('Should not create Post a blog without Title', async () => {
 test('should Update a blog', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
@@ -135,9 +132,9 @@ test('should Update a blog', async () => {
 test('should not Update a blog with invalid Data Fields', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
@@ -159,9 +156,9 @@ test('should not Update a blog with invalid Data Fields', async () => {
 test('should not Update a blog with invalid Inputs', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
@@ -183,9 +180,9 @@ test('should not Update a blog with invalid Inputs', async () => {
 test('should Delete a blog', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
@@ -205,9 +202,9 @@ test('should Delete a blog', async () => {
 test('should not Delete a blog which not exist', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
@@ -227,9 +224,9 @@ test('should not Delete a blog which not exist', async () => {
 test('should  get a blog image', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
@@ -250,9 +247,9 @@ test('should  get a blog image', async () => {
 test('should not  get a blog image with invalid id', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
@@ -273,9 +270,9 @@ test('should not  get a blog image with invalid id', async () => {
 test('should get a blog by id', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
@@ -296,9 +293,9 @@ test('should get a blog by id', async () => {
 test('should not get a blog with invalid id', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()

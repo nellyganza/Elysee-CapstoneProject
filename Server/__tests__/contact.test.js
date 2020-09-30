@@ -6,26 +6,25 @@ import app from '../app'
 
 import Contact from '../models/Contact'
 import User from '../models/User'
+import Auth from '../helpers/authToken'
 
 const supertest = require('supertest')
 
 const request = supertest(app)
 
-afterEach(async () => {
-	await Contact.deleteMany()
-})
-beforeEach(async () => {
-	await User.deleteMany()
-})
-beforeAll(async () => {
-	await Contact.deleteMany()
-})
-afterAll(async () => {
-	await Contact.deleteMany()
-})
-afterEach((done) => {
-	done()
-})
+import { DBReset } from '../helpers/Clean'
+beforeEach(async () =>{
+	await DBReset()
+} )
+afterEach(async () =>{
+	await DBReset()
+} )
+afterAll(async () =>{
+	await DBReset()
+} )
+beforeAll(async () =>{
+	await DBReset()
+} )
 test('should get All Contacts', async () => {
 	const response = await request.get('/api/v1/contacts').send()
 	expect(response.status).toBe(200)
@@ -34,9 +33,9 @@ test('should get All Contacts', async () => {
 test('Un authorized User should not Send a contact', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'contactUser',
 		password: 'elyseee1231',
-		email: 'elysee11@gmail.com',
+		email: 'celysee1c@gmail.com',
 	})
 
 	await user.save()
@@ -53,13 +52,14 @@ test('Un authorized User should not Send a contact', async () => {
 test('Authorized  User should send a contact', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'contactUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin4@gmail.com',
 	})
 
 	await user.save()
 	const authToken = await user.generateAuthToken()
+	console.log(authToken)
 
 	await request.post('/api/v1/contacts').set('Authorization', `Bearer ${authToken}`).send({
 		fullName: 'Mucyo Jean',
@@ -73,13 +73,13 @@ test('Authorized  User should send a contact', async () => {
 test('should send a contact with invalid Info', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'contactUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin4@gmail.com',
 	})
 
 	await user.save()
-	const authToken = await user.generateAuthToken()
+	const authToken = await Auth.generateUserAuthToken(user)
 
 	await request.post('/api/v1/contacts').set('Authorization', `Bearer ${authToken}`).send({
 		message: 'We have to make sure that the contact have beed saved suvccessfully while we are saving contact into mongodb'
@@ -89,9 +89,9 @@ test('should send a contact with invalid Info', async () => {
 test('should send a contact with invalid Email', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'contactUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin4@gmail.com',
 	})
 
 	await user.save()

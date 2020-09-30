@@ -12,31 +12,25 @@ const supertest = require('supertest')
 
 const request = supertest(app)
 
-afterEach(async () => {
-	await Comment.deleteMany()
-})
-beforeEach(async () => {
-	await User.deleteMany()
-})
-beforeEach(async () => {
-	await Blog.deleteMany()
-})
-beforeAll(async () => {
-	await Comment.deleteMany()
-})
-afterAll(async () => {
-	await Comment.deleteMany()
-})
-afterEach((done) => {
-	done()
-})
-
+import { DBReset } from '../helpers/Clean'
+beforeEach(async () =>{
+	await DBReset()
+} )
+afterEach(async () =>{
+	await DBReset()
+} )
+afterAll(async () =>{
+	await DBReset()
+} )
+beforeAll(async () =>{
+	await DBReset()
+} )
 test('should get All Comments', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'commentUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin5@gmail.com',
 	})
 
 	await user.save()
@@ -55,9 +49,9 @@ test('should get All Comments', async () => {
 test('Un authorized User should not comment on blog', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'commentUser',
 		password: 'elyseee1231',
-		email: 'elysee11@gmail.com',
+		email: 'unelysee12@gmail.com',
 	})
 
 	await user.save()
@@ -81,9 +75,9 @@ test('Un authorized User should not comment on blog', async () => {
 test('Authorized  User should send a contact', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'commentUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin5@gmail.com',
 	})
 
 	await user.save()
@@ -107,9 +101,9 @@ test('Authorized  User should send a contact', async () => {
 test('should  not send a comment without the blog we are filling all information', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'commentUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin5@gmail.com',
 	})
 
 	await user.save()
