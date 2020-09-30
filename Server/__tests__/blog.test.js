@@ -8,30 +8,21 @@ import app from '../app'
 import Blog from '../models/Blog'
 import User from '../models/User'
 
-process.env.NODE_ENV = 'test'
-
 const supertest = require('supertest')
 
 const request = supertest(app)
 
-afterEach(async () => {
-	await Blog.deleteMany()
-})
-beforeEach(async () => {
+import Auth from '../helpers/authToken'
+beforeEach(async () =>{
 	await User.deleteMany()
-})
-beforeAll(async () => {
 	await Blog.deleteMany()
-})
-afterAll(async () => {
+} )
+afterEach(async () =>{
+	await User.deleteMany()
 	await Blog.deleteMany()
-})
-afterEach((done) => {
-	done()
-})
-
+} )
 test('should get All Blogs', async () => {
-	const response = await request.get('/api/v1/blogs')
+	const response = await request.get('/api/v1/blogs').send()
 
 	expect(response.status).toBe(200)
 })
@@ -39,15 +30,15 @@ test('should get All Blogs', async () => {
 test('Un authorized User should not Post a blog', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'elysee11@gmail.com',
+		email: 'belysee1b@gmail.com',
 	})
 
 	await user.save()
 
 	await request.post('/api/v1/blogs').send({
-		Title: 'Test Blog 1',
+		Title: 'Test Blog 15',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb'
@@ -57,16 +48,16 @@ test('Un authorized User should not Post a blog', async () => {
 test('If your are not Admin User, you can not Post a blog', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'elysee1231@gmail.com',
+		email: 'blog123@gmail.com',
 	})
 
 	await user.save()
 	const authToken = await user.generateAuthToken()
 
 	await request.post('/api/v1/blogs').set('Authorization', `Bearer ${authToken}`).send({
-		Title: 'Test Blog 1',
+		Title: 'Test Blog 2',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb'
@@ -76,16 +67,16 @@ test('If your are not Admin User, you can not Post a blog', async () => {
 test('Authorized Admin User should Post a blog', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 
 	await user.save()
-	const authToken = await user.generateAuthToken()
+	const authToken = await Auth.generateUserAuthToken(user)
 
 	await request.post('/api/v1/blogs').set('Authorization', `Bearer ${authToken}`).send({
-		Title: 'Test Blog 1',
+		Title: 'Test Blog 3',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb'
@@ -95,13 +86,13 @@ test('Authorized Admin User should Post a blog', async () => {
 test('Should not create Post a blog without Title', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 
 	await user.save()
-	const authToken = await user.generateAuthToken()
+	const authToken = await Auth.generateUserAuthToken(user)
 
 	await request.post('/api/v1/blogs').set('Authorization', `Bearer ${authToken}`).send({
 		Description: 'This is the Test Blog',
@@ -113,14 +104,14 @@ test('Should not create Post a blog without Title', async () => {
 test('should Update a blog', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
 	const blog = new Blog({
-		Title: 'Test Blog 1',
+		Title: 'Test Blog 4',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',
@@ -130,21 +121,21 @@ test('should Update a blog', async () => {
 	await blog.save()
 
 	await request.put(`/api/v1/blogs/${blog._id}`).set('Authorization', `Bearer ${authToken}`).send({
-		Title: 'Test Blog 1 Update'
+		Title: 'Test Blog 5 Update'
 	}).expect(200)
 })
 
 test('should not Update a blog with invalid Data Fields', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
 	const blog = new Blog({
-		Title: 'Test Blog 1',
+		Title: 'Test Blog 6',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',
@@ -154,21 +145,21 @@ test('should not Update a blog with invalid Data Fields', async () => {
 	await blog.save()
 
 	await request.put(`/api/v1/blogs/${blog._id}`).set('Authorization', `Bearer ${authToken}`).send({
-		Titles: 'Test Blog 1 Update'
+		Titles: 'Test Blog 7 Update'
 	}).expect(404)
 })
 
 test('should not Update a blog with invalid Inputs', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
 	const blog = new Blog({
-		Title: 'Test Blog 1',
+		Title: 'Test Blog 8',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',
@@ -185,14 +176,14 @@ test('should not Update a blog with invalid Inputs', async () => {
 test('should Delete a blog', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
 	const blog = new Blog({
-		Title: 'Test Blog 1',
+		Title: 'Test Blog 9',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',
@@ -201,20 +192,20 @@ test('should Delete a blog', async () => {
 
 	await blog.save()
 
-	await request.delete(`/api/v1/blogs/${blog._id}`).set('Authorization', `Bearer ${authToken}`).expect(200)
+	await request.delete(`/api/v1/blogs/${blog._id}`).set('Authorization', `Bearer ${authToken}`).send({}).expect(200)
 })
 
 test('should not Delete a blog which not exist', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
 	const blog = new Blog({
-		Title: 'Test Blog 1',
+		Title: 'Test Blog 10',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',
@@ -223,20 +214,20 @@ test('should not Delete a blog which not exist', async () => {
 
 	await blog.save()
 
-	await request.delete(`/api/v1/blogs/${new ObjectId()}`).set('Authorization', `Bearer ${authToken}`).expect(404)
+	await request.delete(`/api/v1/blogs/${new ObjectId()}`).set('Authorization', `Bearer ${authToken}`).send({}).expect(404)
 })
 
 test('should  get a blog image', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
 	const blog = new Blog({
-		Title: 'Test Blog 1',
+		Title: 'Test Blog 11',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',
@@ -246,20 +237,20 @@ test('should  get a blog image', async () => {
 
 	await blog.save()
 
-	await request.get(`/api/v1/blogs/${blog._id}/image`).set('Authorization', `Bearer ${authToken}`).expect(200)
+	await request.get(`/api/v1/blogs/${blog._id}/image`).set('Authorization', `Bearer ${authToken}`).send({}).expect(200)
 })
 
 test('should not  get a blog image with invalid id', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
 	const blog = new Blog({
-		Title: 'Test Blog 1',
+		Title: 'Test Blog 12',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',
@@ -269,20 +260,20 @@ test('should not  get a blog image with invalid id', async () => {
 
 	await blog.save()
 
-	await request.get(`/api/v1/blogs/${new ObjectId()}/image`).set('Authorization', `Bearer ${authToken}`).expect(500)
+	await request.get(`/api/v1/blogs/${new ObjectId()}/image`).set('Authorization', `Bearer ${authToken}`).send({}).expect(500)
 })
 
 test('should get a blog by id', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
 	const blog = new Blog({
-		Title: 'Test Blog 1',
+		Title: 'Test Blog 13',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',
@@ -292,20 +283,20 @@ test('should get a blog by id', async () => {
 
 	await blog.save()
 
-	await request.get(`/api/v1/blogs/${blog._id}`).set('Authorization', `Bearer ${authToken}`).expect(200)
+	await request.get(`/api/v1/blogs/${blog._id}`).set('Authorization', `Bearer ${authToken}`).send({}).expect(200)
 })
 
 test('should not get a blog with invalid id', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'userBlog',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin2@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
 	const blog = new Blog({
-		Title: 'Test Blog 1',
+		Title: 'Test Blog 14',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',
@@ -315,5 +306,5 @@ test('should not get a blog with invalid id', async () => {
 
 	await blog.save()
 
-	await request.get(`/api/v1/blogs/${new ObjectId()}`).set('Authorization', `Bearer ${authToken}`).expect(400)
+	await request.get(`/api/v1/blogs/${new ObjectId()}`).set('Authorization', `Bearer ${authToken}`).send({}).expect(400)
 })

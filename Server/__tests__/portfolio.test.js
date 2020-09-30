@@ -14,24 +14,18 @@ const supertest = require('supertest')
 
 const request = supertest(app)
 
-afterEach(async () => {
-	await Portfolio.deleteMany()
-})
-beforeEach(async () => {
-	await User.deleteMany()
-})
-beforeAll(async () => {
-	await Portfolio.deleteMany()
-})
-afterAll(async () => {
-	await Portfolio.deleteMany()
-})
-afterEach((done) => {
-	done()
-})
 
+import Auth from '../helpers/authToken'
+beforeEach(async () =>{
+	await User.deleteMany()
+	await Portfolio.deleteMany()
+} )
+afterEach(async () =>{
+	await User.deleteMany()
+	await Portfolio.deleteMany()
+} )
 test('should get All Portfolios', async () => {
-	const response = await request.get('/api/v1/portfolios')
+	const response = await request.get('/api/v1/portfolios').send({})
 
 	expect(response.status).toBe(200)
 })
@@ -39,9 +33,9 @@ test('should get All Portfolios', async () => {
 test('Un authorized User should not Post a portfolio', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'portfolioUser',
 		password: 'elyseee1231',
-		email: 'elysee11@gmail.com',
+		email: 'pelysee12@gmail.com',
 	})
 
 	await user.save()
@@ -57,13 +51,13 @@ test('Un authorized User should not Post a portfolio', async () => {
 test('If your are not Admin User, you can not Post a portfolio', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'portfolioUser',
 		password: 'elyseee1231',
 		email: 'elysee1231@gmail.com',
 	})
 
 	await user.save()
-	const authToken = await user.generateAuthToken()
+	const authToken = await Auth.generateUserAuthToken(user)
 
 	await request.post('/api/v1/portfolios').set('Authorization', `Bearer ${authToken}`).send({
 		Title: 'Test Portfolio 1',
@@ -76,9 +70,9 @@ test('If your are not Admin User, you can not Post a portfolio', async () => {
 test('Authorized Admin User should Post a portfolio', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'portfolioUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin3@gmail.com',
 	})
 
 	await user.save()
@@ -95,9 +89,9 @@ test('Authorized Admin User should Post a portfolio', async () => {
 test('Should not create Post a portfolio without Title', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'portfolioUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin3@gmail.com',
 	})
 
 	await user.save()
@@ -113,9 +107,9 @@ test('Should not create Post a portfolio without Title', async () => {
 test('should Update a portfolio', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'portfolioUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin3@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
@@ -136,9 +130,9 @@ test('should Update a portfolio', async () => {
 test('should not Update a portfolio with invalid Data Fields', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'portfolioUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin3@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
@@ -159,9 +153,9 @@ test('should not Update a portfolio with invalid Data Fields', async () => {
 test('should not Update a portfolio with invalid Inputs', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'portfolioUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin3@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
@@ -182,12 +176,12 @@ test('should not Update a portfolio with invalid Inputs', async () => {
 test('should Delete a portfolio', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'portfolioUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin3@gmail.com',
 	})
 	await user.save()
-	const authToken = await user.generateAuthToken()
+	const authToken = await Auth.generateUserAuthToken(user)
 	const portfolio = new Portfolio({
 		Title: 'Test Portfolio 1',
 		Description: 'This is the Test Portfolio',
@@ -197,15 +191,15 @@ test('should Delete a portfolio', async () => {
 
 	await portfolio.save()
 
-	await request.delete(`/api/v1/portfolios/${portfolio._id}`).set('Authorization', `Bearer ${authToken}`).expect(200)
+	await request.delete(`/api/v1/portfolios/${portfolio._id}`).set('Authorization', `Bearer ${authToken}`).send({}).expect(200)
 })
 
 test('should not Delete a portfolio which not exist', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'portfolioUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin3@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
@@ -218,18 +212,18 @@ test('should not Delete a portfolio which not exist', async () => {
 
 	await portfolio.save()
 
-	await request.delete(`/api/v1/portfolios/${new ObjectId()}`).set('Authorization', `Bearer ${authToken}`).expect(404)
+	await request.delete(`/api/v1/portfolios/${new ObjectId()}`).set('Authorization', `Bearer ${authToken}`).send({}).expect(404)
 })
 
 test('should  get a portfolio image', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'portfolioUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin3@gmail.com',
 	})
 	await user.save()
-	const authToken = await user.generateAuthToken()
+	const authToken = await Auth.generateUserAuthToken(user)
 	const portfolio = new Portfolio({
 		Title: 'Test Portfolio 1',
 		Description: 'This is the Test Portfolio',
@@ -240,15 +234,15 @@ test('should  get a portfolio image', async () => {
 
 	await portfolio.save()
 
-	await request.get(`/api/v1/portfolios/${portfolio._id}/image`).set('Authorization', `Bearer ${authToken}`).expect(200)
+	await request.get(`/api/v1/portfolios/${portfolio._id}/image`).set('Authorization', `Bearer ${authToken}`).send({}).expect(200)
 })
 
 test('should not  get a portfolio image with invalid id', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'portfolioUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin3@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
@@ -262,18 +256,18 @@ test('should not  get a portfolio image with invalid id', async () => {
 
 	await portfolio.save()
 
-	await request.get(`/api/v1/portfolios/${new ObjectId()}/image`).set('Authorization', `Bearer ${authToken}`).expect(500)
+	await request.get(`/api/v1/portfolios/${new ObjectId()}/image`).set('Authorization', `Bearer ${authToken}`).send({}).expect(500)
 })
 
 test('should get a portfolio by id', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'portfolioUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin3@gmail.com',
 	})
 	await user.save()
-	const authToken = await user.generateAuthToken()
+	const authToken = await Auth.generateUserAuthToken(user)
 	const portfolio = new Portfolio({
 		Title: 'Test Portfolio 1',
 		Description: 'This is the Test Portfolio',
@@ -284,15 +278,15 @@ test('should get a portfolio by id', async () => {
 
 	await portfolio.save()
 
-	await request.get(`/api/v1/portfolios/${portfolio._id}`).set('Authorization', `Bearer ${authToken}`).expect(200)
+	await request.get(`/api/v1/portfolios/${portfolio._id}`).set('Authorization', `Bearer ${authToken}`).send({}).expect(200)
 })
 
 test('should not get a portfolio with invalid id', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'portfolioUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin3@gmail.com',
 	})
 	await user.save()
 	const authToken = await user.generateAuthToken()
@@ -306,5 +300,5 @@ test('should not get a portfolio with invalid id', async () => {
 
 	await portfolio.save()
 
-	await request.get(`/api/v1/portfolios/${new ObjectId()}`).set('Authorization', `Bearer ${authToken}`).expect(400)
+	await request.get(`/api/v1/portfolios/${new ObjectId()}`).set('Authorization', `Bearer ${authToken}`).send({}).expect(400)
 })

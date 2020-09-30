@@ -8,49 +8,36 @@ import Comment from '../models/comment'
 import User from '../models/User'
 import Blog from '../models/Blog'
 
-process.env.NODE_ENV = 'test'
-
 const supertest = require('supertest')
 
 const request = supertest(app)
 
-afterEach(async () => {
-	await Comment.deleteMany()
-})
-beforeEach(async () => {
-	await User.deleteMany()
-})
-beforeEach(async () => {
-	await Blog.deleteMany()
-})
-beforeAll(async () => {
-	await Comment.deleteMany()
-})
-afterAll(async () => {
-	await Comment.deleteMany()
-})
-afterEach((done) => {
-	done()
-})
 
+beforeEach(async () =>{
+	await User.deleteMany()
+	await Comment.deleteMany()
+} )
+afterEach(async () =>{
+	await User.deleteMany()
+	await Comment.deleteMany()
+} )
 test('should get All Comments', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'commentUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin5@gmail.com',
 	})
 
 	await user.save()
 	const blog = new Blog({
-		Title: 'Test Blog 1',
+		Title: 'Comment Test Blog 1',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',
 		owner: user._id
 	})
-	await blog.save()
-	const response = await request.get(`/api/v1/comments/${blog._id}`)
+	const response = await request.get(`/api/v1/comments/${blog._id}`).send()
 
 	expect(response.status).toBe(200)
 })
@@ -58,14 +45,14 @@ test('should get All Comments', async () => {
 test('Un authorized User should not comment on blog', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'commentUser',
 		password: 'elyseee1231',
-		email: 'elysee11@gmail.com',
+		email: 'unelysee12@gmail.com',
 	})
 
 	await user.save()
 	const blog = new Blog({
-		Title: 'Test Blog 1',
+		Title: 'Comment Test Blog 2',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',
@@ -84,15 +71,15 @@ test('Un authorized User should not comment on blog', async () => {
 test('Authorized  User should send a contact', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'commentUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin5@gmail.com',
 	})
 
 	await user.save()
 	const authToken = await user.generateAuthToken()
 	const blog = new Blog({
-		Title: 'Test Blog 1',
+		Title: 'Comment Test Blog 3',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',
@@ -110,15 +97,15 @@ test('Authorized  User should send a contact', async () => {
 test('should  not send a comment without the blog we are filling all information', async () => {
 	const user = new User({
 		fullName: 'Elysee1',
-		username: 'elysee1',
+		username: 'commentUser',
 		password: 'elyseee1231',
-		email: 'nishimwelys@gmail.com',
+		email: 'admin5@gmail.com',
 	})
 
 	await user.save()
 	const authToken = await user.generateAuthToken()
 	const blog = new Blog({
-		Title: 'Test Blog 1',
+		Title: 'Comment Test Blog 4',
 		Description: 'This is the Test Blog',
 		Introduction: 'Test blog is for testing a blog',
 		Content: 'We have to make sure that the blog have beed saved suvccessfully while we are saving blog into mongodb',

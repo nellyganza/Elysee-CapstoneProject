@@ -5,34 +5,22 @@
 import 'jest-extended'
 import { ObjectId } from 'mongodb'
 import app from '../app'
-
 import User from '../models/User'
-
-process.env.NODE_ENV = 'test'
-
 const supertest = require('supertest')
 
 const request = supertest(app)
+import 'dotenv/config'
 
-afterEach(async () => {
-	await User.deleteMany()
-})
-beforeEach(async () => {
-	await User.deleteMany()
-})
-beforeAll(async () => {
-	await User.deleteMany()
-})
-afterAll(async () => {
-	await User.deleteMany()
-})
-afterEach((done) => {
-	done()
-})
 
+import Auth from '../helpers/authToken'
+beforeEach(async () =>{
+	await User.deleteMany()
+} )
+afterEach(async () =>{
+	await User.deleteMany()
+} )
 test('should get All users', async () => {
-	const response = await request.get('/api/v1/users')
-
+	const response =  await request.get('/api/v1/users').send()
 	expect(response.status).toBe(200)
 })
 
@@ -46,8 +34,7 @@ test('should get user profile image', async () => {
 	})
 
 	await user.save()
-
-	const response = await request.get(`/api/v1/users/${user.id}/image`)
+	const response = await request.get(`/api/v1/users/${user.id}/image`).send({})
 
 	expect(response.status).toBe(200)
 })
@@ -62,7 +49,7 @@ test('should not get user profile image that not saved', async () => {
 
 	await user.save()
 
-	const response = await request.get(`/api/v1/users/${user.id}/image`)
+	const response = await request.get(`/api/v1/users/${user.id}/image`).send({})
 
 	expect(response.status).toBe(404)
 })
@@ -78,7 +65,7 @@ test('should not get user profile image for invalid user id', async () => {
 
 	await user.save()
 
-	const response = await request.get(`/api/v1/users/${new ObjectId()}/image`)
+	const response = await request.get(`/api/v1/users/${new ObjectId()}/image`).send({})
 
 	expect(response.status).toBe(404)
 })
@@ -136,7 +123,7 @@ test('should be able to update user', async () => {
 	})
 
 	await user.save()
-	const authToken = await user.generateAuthToken()
+	const authToken = await Auth.generateUserAuthToken(user)
 	const response = await request.put(`/api/v1/users/${user._id}`)
 		.set('Authorization', `Bearer ${authToken}`)
 		.send({
@@ -238,7 +225,6 @@ it('Should return an auth token for a correct user', async () => {
 	})
 
 	await user.save()
-
 	const response = await request.post('/api/v1/users/login').send({
 		email: user.email,
 		password: 'elyseee123'
