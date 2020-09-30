@@ -3,7 +3,7 @@
 
 ## Table of contents
 
-- [Teamwork: Andela Developer Challenge](#teamwork-andela-developer-challenge)
+- [Capstone project: Portfolio+brand website](#Capstone-Project-:-Portfolio+Brand-Website)
   - [Table of contents](#table-of-contents)
   - [General Info](#general-info)
   - [Technologies Used](#technologies-used)
