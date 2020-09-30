@@ -7,8 +7,6 @@ import app from '../app'
 import Contact from '../models/Contact'
 import User from '../models/User'
 
-process.env.NODE_ENV = 'test'
-
 const supertest = require('supertest')
 
 const request = supertest(app)

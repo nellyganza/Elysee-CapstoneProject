@@ -8,8 +8,6 @@ import app from '../app'
 import Portfolio from '../models/Portfolio'
 import User from '../models/User'
 
-process.env.NODE_ENV = 'test'
-
 const supertest = require('supertest')
 
 const request = supertest(app)

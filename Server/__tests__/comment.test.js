@@ -8,8 +8,6 @@ import Comment from '../models/comment'
 import User from '../models/User'
 import Blog from '../models/Blog'
 
-process.env.NODE_ENV = 'test'
-
 const supertest = require('supertest')
 
 const request = supertest(app)

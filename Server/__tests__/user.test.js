@@ -11,8 +11,6 @@ const supertest = require('supertest')
 const request = supertest(app)
 import 'dotenv/config'
 
-process.env.NODE_ENV='test'
-
 beforeEach(async ()=>{
 		await User.deleteMany()
 	}
