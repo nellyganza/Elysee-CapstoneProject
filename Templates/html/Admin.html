@@ -17,7 +17,6 @@
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
-    <script src="../js/rem.js"></script>
 </head>
 
 <body>
@@ -33,7 +32,7 @@
             </ul>
         </nav>
         <div class="nav-right">
-            <div id="user-option" role="button" onclick="showoption()" hidden>
+            <div id="user-option" role="button" onclick="showoption()">
                 <img src="https://as2.ftcdn.net/jpg/01/18/03/33/500_F_118033377_JKQA3UFE4joJ1k67dNoSmmoG4EsQf9Ho.jpg" width="40px" height="40px"  id="user-img">
                 <ul>
                     <li><a id="top-username">Username</a></li>
@@ -45,7 +44,7 @@
         </div>
     </header>
     <h2>Admin </h2>
-<div id="tabform">
+<div id="tabform" hidden>
     <div class="tab" id="tabclass">
         <button class="tablinks" onclick="openTab(event, 'blog')">Blogs</button>
         <button class="tablinks" onclick="openTab(event, 'profile')">Profile</button>
@@ -89,15 +88,15 @@
                 <div class="other-rem">
                     <button onclick="openrem()">set reminder</button>
                     <button onclick="opennum()">get number of entries</button>
-                    <input type="number" value="50">
+                    <input type="number" id="num-of-ent" value="50" style="text-align: center;color: white;">
                 </div>
                     
                 <form id="rem">
                     <h1>Create a reminder</h1>
                     <p>When</p>
-                    <input type="date">
+                    <input type="date" id="select-date">
                     <p>Time</p>
-                    <select name="time" id="times">
+                    <select name="time" id="select-times">
                         <option value="00:00">Midnight</option>
                         <option value="1:00">1:00 A:M</option>
                         <option value="2:00">2:00 A:M</option> 
@@ -124,9 +123,9 @@
                         <option value="23:00">23:00 P:M</option>
                     </select>
                     <p>Description</p>
-                    <textarea></textarea>
+                    <textarea id="type-desc" style="color: white;"></textarea>
                     <div class="button">
-                        <button>Cancel</button><button>Create</button>
+                        <button>Cancel</button><button id="saveRem">Create</button>
                     </div>
                 
                 </form>
@@ -322,6 +321,78 @@
     <strong>Warning!</strong> <p></p><span id="wclosebtn">&times;</span>  
   </div>
 </div>
+<div id="account">
+    <!-- Login from -->
+
+    <div id="id01" class="modal">
+      
+      <div class="modal-content animate">
+        <div class="imgcontainer">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+          <img src="../assets/img_avatar2.png" alt="Avatar" class="avatar">
+        </div>
+
+          <div id="login" class="login-frm" method="POST">
+              <div class="content_info">
+                  <div class="wrap-input100 ">
+                      <i class="fa fa-user icon-btn"></i>
+                      <input id="uname" class="input100 username cred_into" type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Username" required>
+                  </div>
+
+                  <div class="wrap-input100">
+                      <i class="fa fa-lock icon-btn"></i>
+                      <input id="pwd" class="input100 password cred_into" type="password" placeholder="Password" required>
+                  </div>
+                  <button id="signinid" class="sub_btn" type="submit" onclick="signin()">Login</button>
+              </div>
+
+              <p>If you don't have an account ? <b><a role="button" onclick="document.getElementById('id02').style.display='block';document.getElementById('id01').style.display='none'" id="label-click">Sign Up</a></b></p>
+              
+              <div class="other-logger">
+                  <h2>Or</h2>
+
+                 <button id="google-signin">Sign in With Google</button>
+              </div>
+          </div>
+      </div>
+    </div>
+    <!-- End of the Login from -->
+    <div id="id02" class="modal">
+      
+      <div class="modal-content animate">
+        <div class="imgcontainer">
+          <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+          <img src="../assets/img_avatar2.png" alt="Avatar" class="avatar">
+        </div>
+
+        <div id="login" class="login-frm"> 
+          <p> If you have account already ? <b><a role="button" onclick="document.getElementById('id01').style.display='block' ;document.getElementById('id02').style.display='none'" id="label-click"> Sign In</a></b></p>
+          <div class="content_info">
+              <div class="wrap-input100 ">
+                  <i class="fa fa-user icon-btn"></i>
+                  <input id="userid" class="input100 username cred_into" type="text" pattern="[a-z A-Z]*" placeholder="Username" required>
+              </div>
+              <div class="wrap-input100">
+                  <i class="fa fa-envelope icon-btn"></i>
+                  <input  id="useremail" class="input100 email cred_into" type="text" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+              </div>
+              <div class="wrap-input100">
+                  <i class="fa fa-lock icon-btn"></i>
+                  <input  id="userpass" class="input100 password cred_into" type="password" placeholder="Password" required>
+              </div>
+              <div class="wrap-input100">
+                  <i class="fa fa-lock icon-btn"></i>
+                  <input  id="c-userpass" class="input100 password cred_into" type="password" placeholder="Confirm-Password" required>
+              </div>
+              
+
+              <button id="insert" class="sub_btn" type="submit" onclick="signUp()">Sign Up</button>
+          </div>
+      </div>
+      </div>
+    </div>
+
+</div>
     <footer>
         <div class="top-footer">
             <div class="address data">
@@ -348,6 +419,7 @@
         </div>
     </footer>
     <script src="../js/script.js"></script>
+    <script src="../js/rem.js"></script>
     <script src="../js/blog.js"></script>
 </body>
 

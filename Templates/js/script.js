@@ -195,6 +195,7 @@ async function addAll(firebaseUser) {
 	}
 	const usersigned = await firebase.database().ref(`Users/${firebaseUser.uid}`).on('value', (snapshot) => {
 		putUsername(snapshot.val().Username, snapshot.val().Email)
+		checkAdmin(snapshot.val().Email);
 	})
 }
 
@@ -406,7 +407,7 @@ function bready() {
 }
 
 function clearBlog() {
-	document.getElementById('blogid').valu = ''
+	document.getElementById('blogid').value = ''
 	document.getElementById('inpimg').value = ''
 	document.getElementById('titleid').value = ''
 	document.getElementById('descid').value = ''
