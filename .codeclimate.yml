@@ -1,0 +1,4 @@
+exclude_patterns:
+- "Templates/js"
+- "Server/__tests__"
+- "Server/models"
