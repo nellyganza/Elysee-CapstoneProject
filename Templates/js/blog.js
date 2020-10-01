@@ -6,7 +6,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-undef */
 // Display of Blog
-
 window.onload = function getBlogl() {
 	const ref = firebase.database().ref('Blog')
 	ref.on('value', getData, errorData)
@@ -16,13 +15,92 @@ window.onload = function getBlogl() {
 
 	const ref3 = firebase.database().ref('Portfolio')
 	ref3.on('value', getfData, errorfData)
+
+	const ref4 = firebase.database().ref('Reminders')
+	ref4.on('value', getEvent, eventerror)
 }
+setInterval(function() {
+    // catch all the errors.
+    currentTime()
+},1000)
+let events = [];
+function getEvent(data) {
+    evens  = data.val()
+	const keys = Object.keys(evens)
+	console.log(evens)
+	console.log("Remainder",keys)
+	keys.forEach((key)=>{
+        const event = {when:evens[key].When,at:evens[key].At,desc: evens[key].Desc}
+        events.push(event)
+	});
+    console.log("events",events)
+}
+function eventerror(error) {
+	console.log(error.message)
+}
+
+
+
+
+function notifyMe(body) {
+
+    if (!window.Notification) {
+        console.log('Browser does not support notifications.');
+    } else {
+        // check if permission is already granted
+        if (Notification.permission === 'granted') {
+            // show notification here
+            var notify = new Notification('Remainder!', {
+                body: body,
+                icon: 'https://bit.ly/2DYqRrh',
+            });
+        } else {
+            // request permission from user
+            Notification.requestPermission().then(function (p) {
+                if (p === 'granted') {
+                    // show notification here
+                    var notify = new Notification('Remainder!', {
+                        body: body,
+                        icon: 'https://bit.ly/2DYqRrh',
+                    });
+                } else {
+                    console.log('User blocked notifications.');
+                }
+            }).catch(function (err) {
+                console.error(err);
+            });
+        }
+    }
+}
+
+
+
+function currentTime(){
+	var list_events = events;
+	var date = new Date();
+	var year = date.getFullYear();
+	var month = date.getMonth();
+	var day = date.getDay()
+	var hours = date.getHours();
+	var minutes = date.getMinutes();
+	var seconds = date.getSeconds();
+
+	var sdate = year+"-"+month+"-"+day;
+	var stime = hours+":"+minutes;
+	if(list_events.when===sdate && list_events.at === stime){
+		notifyMe(list_events.desc);
+	}
+};
+
+
+
+
+
 
 function getData(data) {
 	const blogs = data.val()
 	const keys = Object.keys(blogs)
-	console.log(keys)
-	const j = 0
+	document.getElementById('num-of-ent').value = keys.length;
 	for (let i = 0; i < keys.length; i++) {
 		const k = keys[i]
 		const title = blogs[k].Title
@@ -60,6 +138,7 @@ function addblog(k, title, id) {
 
 		const ldiv = document.createElement('div')
 		ldiv.classList.add('art-item')
+		ldiv.setAttribute('onclick','setBlogs(event)')
 		dtab.appendChild(ldiv)
 
 		const limg = document.createElement('img')
@@ -188,7 +267,8 @@ function addPort(k, title, id) {
 		}
 
 		const ldiv = document.createElement('div')
-		ldiv.classList.add('art-item')
+		ldiv.classList.add('art-item','port-art-item')
+		ldiv.setAttribute('onclick','setPorts(event)')
 		dtab.appendChild(ldiv)
 
 		const limg = document.createElement('img')
@@ -230,4 +310,49 @@ function fnextTab(event, tannum) {
 	}
 	document.getElementById(tannum).style.display = 'block'
 	event.currentTarget.className += ' active'
+}
+
+
+async function setBlogs(event){
+	const info = event.currentTarget
+	var id = info.querySelector('h1> strong').innerText;
+	id = id.split(":");
+	id = id[1];
+	const imgurl = await firebase.storage().ref(`BlogImage/${id}/blog.jpg`).getDownloadURL()
+		document.getElementById('imageid').src = imgurl
+	await firebase.database().ref(`Blog/${id}`).on('value', (snapshot) => {
+		document.getElementById('blogid').value = snapshot.val().Id
+		document.getElementById('titleid').value = snapshot.val().Title
+		document.getElementById('descid').value = snapshot.val().Descripttion
+		document.getElementById('dateid').value = snapshot.val().Date
+		document.getElementById('introid').value = snapshot.val().Introduction
+		document.getElementById('contid').value = snapshot.val().Content
+	})
+}
+
+
+async function setPorts(event){
+	const info = event.currentTarget
+	var id = info.querySelector('h1> strong').innerText;
+	id = id.split(":");
+	id = id[1];
+	const imgurl = await firebase.storage().ref(`Portfolio/${id}/port.jpg`).getDownloadURL()
+		document.getElementById('pimageid').src = imgurl
+	await firebase.database().ref(`Portfolio/${id}`).on('value', (snapshot) => {
+		document.getElementById('ppotid').value = snapshot.val().Id
+		document.getElementById('ptitle').value = snapshot.val().Title
+		document.getElementById('plink').value = snapshot.val().Link
+		document.getElementById('pexp').value = snapshot.val().Explanation
+	})
+}
+
+const ADMIN_EMAILS = ['nishimwelys@gmail.com','karenzi123@gmail.com']
+function checkAdmin(email) {
+	if(ADMIN_EMAILS.includes(email)){
+		document.getElementById('tabform').style.display = 'block'
+	}
+	else
+	{
+		window.location.href = "../index.html";
+	}
 }

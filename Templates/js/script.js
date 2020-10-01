@@ -63,10 +63,10 @@ function singleBlog(event) {
 	const info = event.currentTarget
 	console.log(info)
 	const img = info.querySelector('img').src
-	const title = info.querySelector('.title').innerText
-	const desc = info.querySelector('h3').innerText
-	const intro = info.querySelectorAll('p')[0].innerText
-	const cont = info.querySelectorAll('p')[1].innerText
+	const title = info.querySelector('.title').innerHTML
+	const desc = info.querySelector('h3').innerHTML
+	const intro = info.querySelectorAll('div')[0].innerHTML
+	const cont = info.querySelectorAll('div')[1].innerHTML
 	const id = info.querySelector('h5').innerText
 	console.log(img)
 	window.location.href = `sblog.html?img=${encodeURIComponent(img)}&title=${title}&desc=${desc}&intro=${intro}&cont=${cont}&id=${id}`
@@ -195,6 +195,7 @@ async function addAll(firebaseUser) {
 	}
 	const usersigned = await firebase.database().ref(`Users/${firebaseUser.uid}`).on('value', (snapshot) => {
 		putUsername(snapshot.val().Username, snapshot.val().Email)
+		checkAdmin(snapshot.val().Email);
 	})
 }
 
@@ -406,7 +407,7 @@ function bready() {
 }
 
 function clearBlog() {
-	document.getElementById('blogid').valu = ''
+	document.getElementById('blogid').value = ''
 	document.getElementById('inpimg').value = ''
 	document.getElementById('titleid').value = ''
 	document.getElementById('descid').value = ''

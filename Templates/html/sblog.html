@@ -49,11 +49,11 @@
                 <img src="../assets/Blogs/linked list.png" width="100%" height="300px" alt="THis the main blogs">
                 <figcaption>
                     <h1>Single Linked List in DataStructure</h1>
-                    <p>Singly linked list is a basic linked list type. Singly linked list is a collection of nodes linked together in a sequential way where each node of singly linked list contains a data field and an address field which contains the reference of the next node. Singly linked list can contain multiple data fields but should contain at least single address field pointing to its connected next node.</p>
-                    <p>
+                    <div>Singly linked list is a basic linked list type. Singly linked list is a collection of nodes linked together in a sequential way where each node of singly linked list contains a data field and an address field which contains the reference of the next node. Singly linked list can contain multiple data fields but should contain at least single address field pointing to its connected next node.</div>
+                    <div>
                         To perform any operation on a linked list we must keep track/reference of the first node which may be referred by head pointer variable. In singly linked list address field of last node must contain a NULL value specifying end of the list.
-                    </p>
-                    <p>
+                    </div>
+                    <div>
                         Basic structure of a singly linked list
                         Each node of a singly linked list follows a common basic structure. In a node we can store more than one data fields but we need at least single address field to store the address of next connected node.
                         <code>
@@ -62,14 +62,14 @@
                                 struct node * next; // Address <br>
                             };
                         </code>
-                    </p>
+                    </div>
                 </figcaption>
             </figure>
         </section>
         <section class="search sb-data">
                 <p>Search</p>
                 <div class="example">
-                    <div>
+                    <div onclick="window.location.href='search.html'">
                         <input type="text" placeholder="Search.." name="search" required>
                         <button type="submit"><i class="fa fa-search"></i></button>
                     </div>
@@ -98,7 +98,7 @@
 
                 </section>
                 <h3>Comment</h3>
-                <textarea id="textareacomment" placeholder="Type Your Comment Here" class="textarea" required></textarea>
+                <textarea id="textareacomment" style="color: white;" placeholder="Type Your Comment Here" class="textarea" required></textarea>
                 <div>
                     <button type="submit" onclick="commentBlog()">Save</button> <button type="submit">Cancel</button>
                 </div>

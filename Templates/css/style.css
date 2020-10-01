@@ -98,6 +98,9 @@ li.dropdown {
 ul a.icon {
     display: none;
 }
+#single-blog >figure {
+    color: white;
+}
 
 .icon-btn,
 button {

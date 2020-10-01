@@ -26,15 +26,17 @@ const singleblog = document.getElementById('single-blog')
 const { img } = params
 singleblog.querySelector('img').src = img
 const { title } = params
-singleblog.querySelector('h1').innerText = title
+singleblog.querySelector('h1').innerHTML = title
 const { desc } = params
-singleblog.querySelectorAll('p')[0].innerText = desc
+console.log("Desc = ",desc);
+singleblog.querySelectorAll('div')[0].innerHTML = desc
 const { intro } = params
-singleblog.querySelectorAll('p')[1].innerText = intro
+console.log("Intro = ",intro);
+singleblog.querySelectorAll('div')[1].innerHTML = intro
 const { cont } = params
-singleblog.querySelectorAll('p')[2].innerText = cont
+console.log("Cont = ",cont);
+singleblog.querySelectorAll('div')[2].innerHTML = cont
 const { id } = params
-console.log(id)
 
 function commentBlog() {
 	if (signedUser()) {

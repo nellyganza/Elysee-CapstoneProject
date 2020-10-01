@@ -12,11 +12,10 @@ window.onload = function getBlog() {
 	const ref = firebase.database().ref('Blog')
 	ref.on('value', getData, errorData)
 }
-
 function getData(data) {
 	const blogs = data.val()
 	const keys = Object.keys(blogs)
-	console.log(keys)
+	console.log("Get Blog Data :",keys,"Blogs",blogs)
 	for (let i = 0; i < keys.length; i++) {
 		const k = keys[i]
 		const title = blogs[k].Title
@@ -33,9 +32,9 @@ function errorData(error) {
 }
 
 function addblog(k, title, desc, date, intro, cont) {
+	console.log(k, title, desc, date, intro, cont)
 	firebase.storage().ref(`BlogImage/${k}/blog.jpg`).getDownloadURL().then((imgUrl) => {
 		const otherblogcontainer = document.getElementById('other-blog')
-		console.log(otherblogcontainer)
 		const figure = document.createElement('figure')
 		figure.classList.add('single-blog')
 		figure.setAttribute('onclick', 'singleBlog(event)')
@@ -50,24 +49,24 @@ function addblog(k, title, desc, date, intro, cont) {
 		figure.appendChild(figcap)
 		const h1 = document.createElement('h1')
 		h1.classList.add('title')
-		h1.innerHTML = title
+		// const p2 = document.createElement('p')
+		// p2.classList.add('date')
+		// p2.value = date
+		h1.innerHTML = title+"<br>"+date
 		figcap.appendChild(h1)
 		const h3 = document.createElement('h3')
+		h3.setAttribute('hidden', true)
+		h3.classList.add('desc')
+		h3.innerHTML = desc
 		figcap.appendChild(h3)
-		const p1 = document.createElement('p')
-		p1.classList.add('desc')
-		p1.value = desc
-		const p2 = document.createElement('p')
-		p2.classList.add('date')
-		p2.value = date
-		h3.append(`${p1.value} , ${p2.value}`)
-		const p = document.createElement('p')
+		const p = document.createElement('div')
+		p.setAttribute('hidden', true)
 		p.width = '100%'
 		figcap.appendChild(p)
-		p.innerText = intro
-		const pp = document.createElement('p')
+		p.innerHTML = intro
+		const pp = document.createElement('div')
 		pp.setAttribute('hidden', true)
-		pp.innerText = cont
+		pp.innerHTML = cont
 		figcap.appendChild(pp)
 
 		const h5 = document.createElement('h5')
@@ -91,9 +90,8 @@ function test() {
 		blo.firstElementChild.innerHTML = y.firstChild.innerHTML
 		blo.getElementsByTagName('img')[0].src = x[i].firstChild.src
 		const into = blo.lastElementChild
-		into.firstElementChild.innerText = y.getElementsByTagName('p')[0].innerText
+		into.firstElementChild.innerText = y.getElementsByTagName('h1')[0].innerText
 		i++
 	} catch (e) {
-
 	}
 }
