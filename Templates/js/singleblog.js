@@ -22,21 +22,21 @@ const getParams = function (url) {
 	return params
 }
 const params = getParams(document.URL)
-const singleblog = document.getElementById('single-blog')
-const { img } = params
-singleblog.querySelector('img').src = img
-const { title } = params
-singleblog.querySelector('h1').innerHTML = title
-const { desc } = params
-console.log("Desc = ",desc);
-singleblog.querySelectorAll('div')[0].innerHTML = desc
-const { intro } = params
-console.log("Intro = ",intro);
-singleblog.querySelectorAll('div')[1].innerHTML = intro
-const { cont } = params
-console.log("Cont = ",cont);
-singleblog.querySelectorAll('div')[2].innerHTML = cont
 const { id } = params
+
+getBlogInfo(id);
+async function getBlogInfo(id){
+	const singleblog = document.getElementById('single-blog')
+	const imgurl = await firebase.storage().ref(`BlogImage/${id}/blog.jpg`).getDownloadURL()
+	singleblog.querySelector('img').src = imgurl
+	await firebase.database().ref(`Blog/${id}`).on('value', (snapshot) => {
+		singleblog.querySelector('h1').innerHTML = snapshot.val().Title+"<br><i> Posted at "+snapshot.val().Date+"</i>"
+		singleblog.querySelectorAll('div')[0].innerHTML = snapshot.val().Descripttion
+		singleblog.querySelectorAll('div')[1].innerHTML = snapshot.val().Introduction
+		singleblog.querySelectorAll('div')[2].innerHTML = snapshot.val().Content
+	})
+
+}
 
 function commentBlog() {
 	if (signedUser()) {
@@ -72,10 +72,8 @@ window.onload = function getComments() {
 function getcommentdata(data) {
 	const comments = data.val()
 	const keys = Object.keys(comments)
-	console.log(keys)
 	for (let i = 0; i < keys.length; i++) {
 		const k = keys[i]
-		console.log(k)
 		const name = comments[k].Username
 		const comment = comments[k].Comment
 		addcomments(comment, name)
@@ -86,7 +84,6 @@ function commenterror(error) {
 }
 const j = 0
 function addcomments(comment, name) {
-	console.log(comment)
 	const com = document.getElementById('comments')
 	const fs = document.createElement('div')
 	fs.setAttribute('id', 'comment-field')
@@ -103,8 +100,6 @@ const lastPlayerRef = firebase.database().ref('Blog/').orderByValue().limitToLas
 lastPlayerRef.on('value', (data) => {
 	const blos = data.val()
 	const keys = Object.keys(blos)
-	console.log(keys)
-	console.log(data.val())
 
 	for (let i = keys.length - 1; i < keys.length; i--) {
 		const k = keys[i]
@@ -113,7 +108,6 @@ lastPlayerRef.on('value', (data) => {
 		const li = document.createElement('li')
 		li.innerText = title
 		ul.appendChild(li)
-		console.log(title)
 	}
 }, (error) => {
 	console.log(`Error: ${error.code}`)

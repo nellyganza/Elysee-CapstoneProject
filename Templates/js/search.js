@@ -12,7 +12,6 @@ async function getData(data) {
         const blog = {Id:k,title:blogs[k].Title,desc:blogs[k].Descripttion,date:blogs[k].Date,intro:blogs[k].Introduction,cont:blogs[k].Content,img:imgurl}
         all_blogs.push(blog)
     } 
-    console.log(all_blogs)
 }
 function errorData(error) {
 	console.log(error.message)
@@ -94,14 +93,12 @@ search_input.addEventListener('input', (e) => {
 
 function sendBlog(event) {
     const info = event.currentTarget
-	console.log(info)
 	const img = info.querySelector('img').src
 	const title = info.querySelector('.blog-title').innerText
 	const desc = info.querySelector('h3').innerText
 	const intro = info.querySelectorAll('p')[0].innerText
 	const cont = info.querySelectorAll('p')[1].innerText
 	const id = info.querySelector('h5').innerText
-	console.log(img)
 	window.location.href = `sblog.html?img=${encodeURIComponent(img)}&title=${title}&desc=${desc}&intro=${intro}&cont=${cont}&id=${id}`
 
 }

@@ -12,6 +12,9 @@ h3,span,i,li,label {
     color: rgb(212, 209, 209);
     overflow-wrap: break-word;
 }
+h1,h2,h3 {
+    font-size: medium !important;
+}
 
 a {
     text-decoration: none;
@@ -203,7 +206,7 @@ footer {
         font-size: 12px !important;
     }
     h1{
-        font-size: 48px !important;
+        font-size: medium !important;
     }
 }
 
@@ -280,7 +283,7 @@ footer {
 
 @media screen and (max-width:800px){
     #land-Info .top-Info > h1 {
-        font-size: 40px;
+        font-size: medium;
     }
 }
 

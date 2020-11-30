@@ -10,7 +10,6 @@ window.onload = function getPortfolio() {
 function getData(data) {
 	const ports = data.val()
 	const keys = Object.keys(ports)
-	console.log(keys)
 	for (let i = 0; i < keys.length; i++) {
 		const k = keys[i]
 		const title = ports[k].Title

@@ -31,7 +31,6 @@ function requi() {
 
 document.getElementById('saveRem').onclick =  async function saveBlog() {
 	requi()
-	console.log(when,at,desc)
 	try{
 		const savedRem = await firebase.database().ref(`Reminders/${new Date()}`).set({
 			When: when,

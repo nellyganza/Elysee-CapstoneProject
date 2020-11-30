@@ -15,7 +15,6 @@ window.onload = function getBlog() {
 function getData(data) {
 	const blogs = data.val()
 	const keys = Object.keys(blogs)
-	console.log("Get Blog Data :",keys,"Blogs",blogs)
 	for (let i = 0; i < keys.length; i++) {
 		const k = keys[i]
 		const title = blogs[k].Title
@@ -32,7 +31,6 @@ function errorData(error) {
 }
 
 function addblog(k, title, desc, date, intro, cont) {
-	console.log(k, title, desc, date, intro, cont)
 	firebase.storage().ref(`BlogImage/${k}/blog.jpg`).getDownloadURL().then((imgUrl) => {
 		const otherblogcontainer = document.getElementById('other-blog')
 		const figure = document.createElement('figure')

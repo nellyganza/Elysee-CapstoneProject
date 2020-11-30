@@ -27,13 +27,10 @@ let events = [];
 function getEvent(data) {
     evens  = data.val()
 	const keys = Object.keys(evens)
-	console.log(evens)
-	console.log("Remainder",keys)
 	keys.forEach((key)=>{
         const event = {when:evens[key].When,at:evens[key].At,desc: evens[key].Desc}
         events.push(event)
 	});
-    console.log("events",events)
 }
 function eventerror(error) {
 	console.log(error.message)
@@ -114,26 +111,16 @@ let j = 0; let i = 1
 function addblog(k, title, id) {
 	firebase.storage().ref(`BlogImage/${k}/blog.jpg`).getDownloadURL().then((imgUrl) => {
 		const blo = document.getElementById('blog-list')
-		console.log('Blog-List ==> ', blo)
-		console.log('Item :', k + title + id)
 		let dtab
-		console.log('ID =', id)
-		console.log('J =', j)
 		const ch = j % 5 === 0
-		console.log('Choice = ', ch)
 		if (ch) {
-			console.log('1')
 			dtab = document.createElement('div')
 			dtab.setAttribute('id', `tab${i}`)
 			dtab.setAttribute('class', 'tab-list')
 			blo.appendChild(dtab)
-			console.log('In CH True :', dtab)
 			i++
 		} else {
-			console.log('J IN Else ', j)
-			console.log('I IN Else ', i)
 			dtab = document.getElementById(`tab${i - 1}`)
-			console.log('Value :', dtab)
 		}
 
 		const ldiv = document.createElement('div')
@@ -187,7 +174,6 @@ function nextTab(event, tannum) {
 function getcData(data) {
 	const conacts = data.val()
 	const keys = Object.keys(conacts)
-	console.log(keys)
 	for (let i = 0; i < keys.length; i++) {
 		const k = keys[i]
 		const { Name } = conacts[k]
@@ -236,7 +222,6 @@ function addComment(Name, email, Phone, address, comment) {
 function getfData(data) {
 	const ports = data.val()
 	const keys = Object.keys(ports)
-	console.log(keys)
 	for (let i = 0; i < keys.length; i++) {
 		const k = keys[i]
 		const title = ports[k].Title
@@ -251,11 +236,8 @@ let t = 0, m = 1
 function addPort(k, title, id) {
 	firebase.storage().ref(`Portfolio/${k}/port.jpg`).getDownloadURL().then((imgUrl) => {
 		const blo = document.getElementById('port-listid')
-		console.log(blo)
-		console.log(k + title + id)
 		let dtab
 		if (t % 5 === 0) {
-			console.log('1')
 			dtab = document.createElement('div')
 			dtab.setAttribute('id', `ftab${m}`)
 			dtab.setAttribute('class', 'ftab-list')
@@ -263,7 +245,6 @@ function addPort(k, title, id) {
 			m++
 		} else {
 			dtab = document.getElementById(`ftab${m - 1}`)
-			console.log(dtab)
 		}
 
 		const ldiv = document.createElement('div')

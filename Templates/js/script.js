@@ -33,7 +33,6 @@ firebase.analytics()
 
 function myFunction() {
 	const x = document.getElementById('topnav')
-	console.log(x)
 	if (x.className === 'topnavclass') {
 		x.className += ' responsive'
 	} else {
@@ -43,7 +42,6 @@ function myFunction() {
 
 function showoption() {
 	const uuname = document.getElementById('top-username').innerText
-	console.log(uuname)
 	if (uuname == 'Username') {
 		document.getElementById('id01').style.display = 'block'
 	} else {
@@ -56,20 +54,12 @@ function showoption() {
 
 function getsblog() {
 	const sb = document.getElementById('single-blog')
-	console.log(sb)
 }
 
 function singleBlog(event) {
 	const info = event.currentTarget
-	console.log(info)
-	const img = info.querySelector('img').src
-	const title = info.querySelector('.title').innerHTML
-	const desc = info.querySelector('h3').innerHTML
-	const intro = info.querySelectorAll('div')[0].innerHTML
-	const cont = info.querySelectorAll('div')[1].innerHTML
 	const id = info.querySelector('h5').innerText
-	console.log(img)
-	window.location.href = `sblog.html?img=${encodeURIComponent(img)}&title=${title}&desc=${desc}&intro=${intro}&cont=${cont}&id=${id}`
+	window.location.href = `sblog.html?id=${id}`
 }
 
 function openTab(evt, tabname) {
@@ -203,8 +193,6 @@ async function addAll(firebaseUser) {
 
 firebase.auth().onAuthStateChanged((firebaseUser) => {
 	if (firebaseUser) {
-		console.log(firebaseUser)
-		console.log('There is a User ')
 		addAll(firebaseUser)
 	} else {
 		console.log('No user logged in')
@@ -240,7 +228,6 @@ function putImage(imgUrl) {
 	fimg.src = imgUrl
 }
 function putUsername(username, email) {
-	console.log(username, email)
 	document.getElementById('top-username').textContent = username
 	document.getElementById('updname').value = username
 	document.getElementById('updemail').value = email
@@ -287,15 +274,11 @@ function getlocaData(data) {
 	const locations = []
 	const locs = data.val()
 	const keys = Object.keys(locs)
-	console.log(`Keys${keys[0]}`)
 	for (var i = 0; i < keys.length; i++) {
 		const k = keys[i]
 		const loca = locs[k].location
 		locations.push(loca)
 	}
-
-	console.log(locations)
-
 	window.map = new google.maps.Map(document.getElementById('mapholder'), {
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	})
@@ -336,7 +319,6 @@ function loadScript() {
 	script.type = 'text/javascript'
 	script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyADX_HVhXMO8IXWJRHzPpiEpNROmZhTBVw&callback=initialize&libraries=&v=weekly'
 	document.body.appendChild(script)
-	console.log(script)
 }
 function showmap() {
 	document.getElementById('mapholder').style.display = 'inline'
@@ -360,7 +342,6 @@ function showPosition(position) {
 	const lname = document.getElementById('top-username').innerText
 	if (lname != '') {
 		const latlon = [lname, position.coords.latitude, position.coords.longitude]
-		console.log(latlon)
 		firebase.database().ref(`Locations/${lname}`).set({
 			location: latlon
 		}).catch((e) => {
@@ -403,7 +384,6 @@ function bready() {
 	bdate = document.getElementById('dateid').value
 	bintro = document.getElementById('introid').value
 	bcont = document.getElementById('contid').value
-	console.log(bid, bimage, btitle, bdesc, bdate, bintro, bcont)
 }
 
 function clearBlog() {
@@ -418,7 +398,6 @@ function clearBlog() {
 
 function saveBlog() {
 	bready()
-	console.log(bid, bimage, btitle, bdesc, bdate, bintro, bcont)
 	firebase.database().ref(`Blog/${bid}`).set({
 		Id: bid,
 		Image: bimage,
@@ -442,7 +421,6 @@ function saveBlog() {
 
 function saveImageBlog() {
 	firebase.storage().ref(`BlogImage/${bid}/blog.jpg`).put(selectedBlog).then(() => {
-		console.log('Successfully uploaded')
 	})
 		.catch((e) => {
 			console.log(e.message)
@@ -577,7 +555,6 @@ function savePortfolio() {
 
 function saveImagePortfolio() {
 	firebase.storage().ref(`Portfolio/${pid}/port.jpg`).put(pselectedFile).then(() => {
-		console.log('Successfully uploaded')
 	})
 		.catch((e) => {
 			console.log(e.message)
@@ -642,7 +619,6 @@ function deletePortfolio() {
 	firebase.database().ref(`Portfolio/${pid}`).remove()
 
 	firebase.storage().ref(`Portfolio/${pid}/port.jpg`).delete().then(() => {
-		console.log('Image Deleted !!')
 	})
 		.catch((error) => {
 			message('danger', error.message)
@@ -674,11 +650,9 @@ function signedUser() {
 }
 // This is the Insert Operation
 function sendComment() {
-	console.log(signedUser())
 	if (signedUser()) {
 		cready()
 		if (cnameV.checkValidity() && cemailV.checkValidity() && phoneVar.checkValidity() && caddressV.checkValidity() && commentV.checkValidity()) {
-			console.log(cnameV.value, cemailV.value, phoneVar.value, caddressV.value, commentV.value)
 			firebase.database().ref(`Contact/${cnameV.value}`).set({
 				Name: cnameV.value,
 				Email: cemailV.value,
@@ -724,7 +698,6 @@ function updatefrm() {
 	}
 	const nname = document.getElementById('updname').value
 	const nmai = document.getElementById('updemail').value
-	console.log(nname, nmai)
 	firebase.database().ref(`Users/${id}`).update({
 		Username: nname,
 		Email: nmai
